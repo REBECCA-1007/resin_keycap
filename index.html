@@ -249,8 +249,90 @@
   </div>
 </section>
 
-<!-- ===== Custom / Contact (anchor only for nav) ===== -->
-<section id="custom" class="section" style="padding-top:0"></section>
+<!-- ===== Custom Order (Netlify Forms) ===== -->
+<section id="custom" class="section" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <h2>Custom Order</h2>
+    <p class="muted">Tell us your idea (profile, colors, legends, special effects). We’ll craft it for you.</p>
+
+    <form name="custom-order" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="customForm"
+          style="margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;max-width:760px">
+      <input type="hidden" name="form-name" value="custom-order" />
+      <p style="display:none">
+        <label>Don’t fill this out: <input name="bot-field" /></label>
+      </p>
+
+      <div style="display:grid;gap:12px;grid-template-columns:1fr 1fr">
+        <label style="display:grid;gap:6px">Full name
+          <input name="name" required placeholder="Nguyen Van A"
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">Email
+          <input name="email" type="email" required placeholder="you@email.com"
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">Phone
+          <input name="phone" placeholder="+84 ..."
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">Key profile
+          <select name="profile" style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+            <option>Cherry</option>
+            <option>OEM</option>
+            <option>SA</option>
+            <option>Others</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="display:grid;gap:12px;margin-top:12px">
+        <label style="display:grid;gap:6px">Colors / Theme
+          <input name="colors" placeholder="e.g. Galaxy purple, koi orange, monochrome..."
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">Legends / Text (optional)
+          <input name="legend" placeholder="Short text / symbol"
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">Special effects (optional)
+          <input name="effects" placeholder="e.g. glitter, swirl, koi, flowers..."
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+
+        <label style="display:grid;gap:6px">More details
+          <textarea name="details" rows="4" placeholder="Describe your idea..."
+                    style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)"></textarea>
+        </label>
+
+        <label style="display:grid;gap:6px">Reference images (URLs)
+          <input name="refs" placeholder="https://... , https://..."
+                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
+        </label>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
+        <button type="submit" class="btn btn--brand">Submit Request</button>
+        <span class="muted" id="customMsg" style="display:none">Sent! We’ll get back within 24–48h.</span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const cf = document.getElementById('customForm');
+  const cm = document.getElementById('customMsg');
+  if (cf) {
+    cf.addEventListener('submit', ()=>{
+      setTimeout(()=>{ if(cm) cm.style.display='inline'; }, 100);
+    });
+  }
+</script>
+
 
 <!-- ===== Footer ===== -->
 <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
