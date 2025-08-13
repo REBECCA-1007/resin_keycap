@@ -138,6 +138,58 @@
   .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
   .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
   .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
+  /* ==== Filters (pills + swatches + range) ==== */
+.filters {
+  margin: 14px 0 18px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr auto;
+}
+@media (max-width: 1080px){ .filters{ grid-template-columns: 1fr 1fr 1fr } }
+@media (max-width: 640px){ .filters{ grid-template-columns: 1fr } }
+
+.input, .select, .chip {
+  height: 48px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--fg);
+  border-radius: 14px;
+  padding: 0 14px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.input input, .select select {
+  width: 100%; height: 100%;
+  border: 0; outline: 0; background: transparent; color: inherit;
+  font: inherit;
+}
+.select { position: relative; padding-right: 36px; }
+.select::after {
+  content: "▾"; position: absolute; right: 12px; top: 50%; translate: 0 -50%;
+  opacity: .75; pointer-events: none;
+}
+
+/* color pill swatches */
+.swatches { display:flex; align-items:center; gap:10px; padding:8px 10px }
+.swatch {
+  width:22px;height:22px;border-radius:50%;
+  border:1px solid var(--line); cursor:pointer; position:relative;
+}
+.swatch.active { outline:2px solid var(--brand); outline-offset:2px }
+
+/* chips for quick picks */
+.chips { display:flex; gap:8px; flex-wrap:wrap }
+.chip {
+  padding: 0 14px; cursor:pointer; user-select:none;
+  transition: .15s;
+}
+.chip.active, .chip:hover { border-color: var(--brand); box-shadow: 0 0 0 2px #0ea5e933 inset }
+
+/* price inputs look consistent */
+.price { text-align:center }
+
+/* tiny toggle */
+.toggle { display:flex; align-items:center; gap:10px; padding:0 14px }
+
 </style>
 </head>
 <body>
