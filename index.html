@@ -1,96 +1,97 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resin Keycap Studio</title>
-  <meta name="description" content="Artisan Resin Keycap – Thủ công & Độc bản. Phù hợp Cherry MX/Gateron, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc." />
-
   <style>
-    :root { --bg:#0b1220; --fg:#e8eef6; --line:#1f2a3a; }
-    *{ box-sizing:border-box }
-    body{ margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial; background:var(--bg); color:var(--fg); }
+    /* Gutter = khoảng cách mép trái thống nhất cho toàn bộ text */
+    :root{
+      --gutter: clamp(18px, 6vw, 120px);
+    }
 
-    /* ===== Header gọn nhẹ (có thể xoá nếu không cần) ===== */
-    .header{ position:sticky; top:0; z-index:10; background:#0e1624; border-bottom:1px solid var(--line); }
-    .nav{ max-width:1200px; margin:auto; padding:12px 16px; display:flex; align-items:center; gap:12px; }
-    .brand{ font-weight:800; letter-spacing:.2px; }
+    body{
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0a0f1a;
+      color: #fff;
+    }
 
-    /* ===== HERO full-bleed ===== */
+    header{
+      background-color: #08101f;
+      padding: 16px var(--gutter);
+      font-weight: bold;
+      font-size: 20px;
+    }
+
     .hero{
       position: relative;
       width: 100%;
-      min-height: 72vh; /* cao linh hoạt */
-      color:#fff;
+      min-height: 72vh;
       background:
         linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.30)),
-        url('/images/title-artisan.jpg') center/cover no-repeat; /* ĐỔI nếu ảnh để nơi khác */
+        url('/images/title-artisan.jpg') center/cover no-repeat;
       overflow:hidden;
     }
 
-    /* Khối tiêu đề + phụ đề ở GIỮA */
-    .hero__left{
+    /* Tiêu đề ở giữa theo chiều dọc, căn trái theo gutter */
+    .hero__center{
       position:absolute;
       top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      text-align:left;
-      padding:0 16px;
-      width:min(1100px, 92vw);
+      transform: translateY(-50%);
+      left: var(--gutter);
+      right: var(--gutter);
+      text-align: left;
+      max-width: min(1100px, 92vw);
     }
+
     .hero__title{
-      margin:0 0 .35rem;
+      margin:0 0 .35rem 0;
       font-weight:900;
       line-height:1.06;
-      font-size: clamp(32px, 6.4vw, 70px); /* to hơn 1 chút */
-      text-shadow:0 10px 30px rgba(0,0,0,.45);
+      font-size: clamp(32px, 6.4vw, 70px);
+      text-shadow: 0 10px 30px rgba(0,0,0,.45);
     }
+
     .hero__subtitle{
       margin:0;
       font-weight:500;
       font-size: clamp(16px, 2.2vw, 26px);
-      text-shadow:0 8px 24px rgba(0,0,0,.40);
+      text-shadow: 0 8px 24px rgba(0,0,0,.40);
     }
 
-    /* Khối mô tả GHIM sát mép dưới ảnh, căn giữa */
+    /* Mô tả sát đáy, cùng mép trái */
     .hero__desc{
       position:absolute;
-      left:50%;
+      left: var(--gutter);
+      right: var(--gutter);
       bottom: clamp(16px, 3.5vw, 40px);
-      transform: translateX(-50%);
-      text-align:left;
-      width:min(1100px, 92vw);
+      text-align: left;
+      max-width: min(1100px, calc(100% - 2*var(--gutter)));
       font-size: clamp(16px, 2.4vw, 26px);
-      line-height:1.55;
-      text-shadow:0 8px 24px rgba(0,0,0,.55);
+      line-height: 1.55;
+      text-shadow: 0 8px 24px rgba(0,0,0,.55);
     }
 
-    @media (max-width:680px){
-      .hero{ min-height:64vh; }
+    @media (max-width: 680px){
+      .hero{ min-height: 64vh; }
     }
   </style>
 </head>
 <body>
-  <!-- Header (tuỳ chọn) -->
-  <header class="header">
-    <nav class="nav">
-      <div class="brand">Resin Keycap Studio</div>
-    </nav>
-  </header>
 
-  <!-- HERO -->
+  <header>Resin Keycap Studio</header>
+
   <section class="hero">
-    <!-- Giữa ảnh -->
-    <div class="hero__left">
+    <div class="hero__center">
       <h1 class="hero__title">Artisan Resin Keycap</h1>
       <h2 class="hero__subtitle">Thủ công – Độc bản</h2>
     </div>
-
-    <!-- Mép dưới ảnh -->
     <div class="hero__desc">
       Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV)<br>
       Ship toàn quốc, nhận custom theo yêu cầu
     </div>
   </section>
+
 </body>
 </html>
