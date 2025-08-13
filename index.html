@@ -442,21 +442,26 @@
   // ===== Render card =====
   const grid = document.getElementById('productGrid');
   function card(p){
-    return `
-      <article class="product" data-id="${p.id}">
+  return `
+    <article class="product" data-id="${p.id}">
+      <a href="product.html?id=${p.id}" style="display:block">
         <img class="product__img" src="${p.img}" alt="${p.name}">
-        <div class="product__body">
-          <h3>${p.name}</h3>
-          <p>${p.desc}</p>
-          <div class="price-row">
-            <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
-          </div>
-          ${p.inStock ? '' : '<div class="muted" style="margin-top:8px">Out of stock</div>'}
+      </a>
+      <div class="product__body">
+        <h3>
+          <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">${p.name}</a>
+        </h3>
+        <p>${p.desc}</p>
+        <div class="price-row">
+          <span class="price">$${p.price.toFixed(2)}</span>
+          <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
         </div>
-      </article>
-    `;
-  }
+        ${p.inStock ? '' : '<div class="muted" style="margin-top:8px">Out of stock</div>'}
+      </div>
+    </article>
+  `;
+}
+
 
   // ===== Filters =====
   const elQ = document.getElementById('f_q');
