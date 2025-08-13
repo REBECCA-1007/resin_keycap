@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Giữ ẩn khi test (khi public nhớ bỏ meta này + sửa robots.txt) -->
+  <!-- ĐANG TEST ẨN: khi công khai, hãy xóa meta này và sửa robots.txt thành Allow -->
   <meta name="robots" content="noindex, nofollow" />
 
   <title>Artisan Resin Keycap – Thủ công & Độc bản</title>
@@ -12,6 +12,7 @@
   <meta name="theme-color" content="#0f172a" />
   <meta property="og:title" content="Artisan Resin Keycap – Thủ công & Độc bản" />
   <meta property="og:description" content="Artisan Resin Keycap thủ công | độc bản | tương thích Cherry MX | đặt hàng nhanh." />
+  <meta property="og:image" content="images/bg-keycap.jpg" />
 
   <style>
     /* ====== Reset & Base ====== */
@@ -32,33 +33,27 @@
     .header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); background: color-mix(in oklab, var(--bg) 92%, transparent); }
     .nav { min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: .2px; }
-    .brand .logo { width: 36px; height: 36px; border-radius: 12px; background: linear-gradient(135deg, #22c55e, #0ea5e9); box-shadow: var(--shadow); display: grid; place-items: center; font-weight: 900; color: #06121b; }
+    .brand-icon { width: 36px; height: 36px; border-radius: 12px; object-fit: cover; box-shadow: var(--shadow); }
     .actions { display: flex; align-items: center; gap: 10px; }
     .btn, .icon-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 12px; border: 1px solid color-mix(in oklab, var(--fg) 16%, transparent); background: transparent; color: inherit; cursor: pointer; }
     .btn--primary { background: var(--brand); color: #06121b; border: none; font-weight: 700; }
     .btn--primary:hover { background: var(--brand-600); color: white; }
-
     .icon-btn { padding: 8px 10px; }
     .badge { font-size: 12px; line-height: 1; background: var(--brand); color: #06121b; padding: 4px 6px; border-radius: 999px; min-width: 18px; text-align: center; }
 
-    /* ====== Hero ====== */
-    .hero { display: grid; gap: 32px; grid-template-columns: 1.05fr .95fr; align-items: center; }
-
-    /* 👉 Thêm nền ngay chỗ tiêu đề */
-    .hero { position: relative; overflow: hidden; }
-    .hero::before {
-      content: "";
-      position: absolute; inset: 0;
-      background: url('images/bg-keycap.jpg') center/cover no-repeat, linear-gradient(135deg, #0b1220, #0b1220);
-      opacity: .28;            /* độ mờ của ảnh nền */
-      pointer-events: none;
+    /* ====== Hero (tiêu đề lớn + nền ảnh) ====== */
+    .hero { position: relative; display: grid; gap: 32px; grid-template-columns: 1.05fr .95fr; align-items: center; }
+    .hero::before{
+      content:""; position:absolute; inset:0;
+      background: url('images/bg-keycap.jpg') center/cover no-repeat;
+      opacity:.28; pointer-events:none;
     }
-    .hero > * { position: relative; z-index: 1; }
-
-    .hero h1 { font-size: clamp(28px, 6vw, 48px); margin: 0 0 8px; }
+    .hero > *{ position:relative; z-index:1; }
+    .hero h1 { font-size: clamp(28px, 6vw, 48px); margin: 0 0 8px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
     .hero p { color: var(--muted); margin: 0 0 16px; }
     .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag { border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; font-size: 13px; }
+    .title-icon { height: 40px; width:auto; border-radius:10px; }
 
     /* ====== Filters ====== */
     .filters { display: grid; gap: 10px; grid-template-columns: 1fr 1fr 1fr auto; align-items: center; margin-top: 18px; }
@@ -82,14 +77,6 @@
     .qty { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 8px; }
     .qty button { border: none; background: transparent; color: inherit; cursor: pointer; }
 
-    /* ====== Checkout Modal ====== */
-    .modal { position: fixed; inset: 0; background: #0006; display: none; place-items: center; z-index: 70; padding: 16px; }
-    .modal.open { display: grid; }
-    .sheet { width: min(560px, 100%); background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); }
-    .form { display: grid; gap: 10px; }
-    label { display: grid; gap: 6px; font-weight: 600; }
-    input, textarea { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
-
     /* ====== Footer ====== */
     footer { border-top: 1px solid var(--line); padding: 20px 0; margin-top: 24px; }
 
@@ -101,9 +88,10 @@
 <body>
   <header class="header">
     <div class="container nav">
+      <!-- Tiêu đề thương hiệu + ảnh kèm -->
       <a class="brand" href="#" aria-label="Trang chủ">
-        <span class="logo">K</span>
-        Resin Keycap Studio
+        <img src="images/brand-logo.png" alt="Artisan Resin Keycap logo" class="brand-icon" />
+        Artisan Resin Keycap
       </a>
       <div class="actions">
         <button id="theme" class="icon-btn" title="Đổi giao diện">🌓</button>
@@ -115,7 +103,11 @@
   <main class="container section">
     <section class="hero">
       <div>
-        <h1>Artisan Resin Keycap — Thủ công & độc bản</h1>
+        <!-- Tiêu đề chính + ảnh kèm -->
+        <h1>
+          <img src="images/hero-badge.png" alt="Artisan Resin Keycap badge" class="title-icon">
+          Artisan Resin Keycap — Thủ công & Độc bản
+        </h1>
         <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
         <div class="tags">
           <span class="tag">Handmade</span>
@@ -144,8 +136,10 @@
           <button id="clear" class="btn">Xoá lọc</button>
         </div>
       </div>
+
+      <!-- Ảnh minh họa bên phải (giữ placeholder, có thể thay ảnh thật) -->
       <div>
-        <img alt="Artisan Resin Keycap" src="data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 420'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#22c55e'/><stop offset='1' stop-color='#0ea5e9'/></linearGradient></defs><rect width='640' height='420' fill='%230b1220'/><g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'><rect x='60' y='110' rx='16' width='240' height='160'/><rect x='340' y='80' rx='16' width='220' height='120'/><rect x='360' y='230' rx='16' width='180' height='100'/></g><text x='60' y='380' fill='%23e5e7eb' font-family='system-ui' font-size='22'>Resin keycap showcase</text></svg>`)}" />
+        <img alt="Artisan Resin Keycap" src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 420'><defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='%2322c55e'/><stop offset='1' stop-color='%230ea5e9'/></linearGradient></defs><rect width='640' height='420' fill='%230b1220'/><g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'><rect x='60' y='110' rx='16' width='240' height='160'/><rect x='340' y='80' rx='16' width='220' height='120'/><rect x='360' y='230' rx='16' width='180' height='100'/></g><text x='60' y='380' fill='%23e5e7eb' font-family='system-ui' font-size='22'>Resin keycap showcase</text></svg>" />
       </div>
     </section>
 
@@ -189,7 +183,7 @@
 
   <footer>
     <div class="container row" style="justify-content: space-between;">
-      <small>© <span id="year"></span> Artisan Resin Keycap Studio</small>
+      <small>© <span id="year"></span> Artisan Resin Keycap</small>
       <div class="row" style="gap:10px">
         <a class="pill" href="#" id="toggleTheme">Giao diện: <span id="themeName">Dark</span></a>
         <a class="pill" href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
@@ -304,7 +298,6 @@
         </div>`).join('');
       const sum = state.cart.reduce((s,i)=>s+i.qty*i.price,0);
       $('#subtotal').textContent = VND.format(sum);
-      // qty handlers
       $$('#cartItems button').forEach(b => b.addEventListener('click', () => {
         const id = b.dataset.id; const act = b.dataset.act; const item = state.cart.find(x=>x.id===id);
         if(!item) return;
