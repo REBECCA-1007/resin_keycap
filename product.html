@@ -88,6 +88,13 @@
     .card .body{padding:12px 14px}
     .card h4{margin:0 0 6px}
     .mini{display:flex;align-items:center;gap:10px}
+
+    /* ===== Contact 2 cột ===== */
+    .contact h3{margin:0 0 8px}
+    .contact .lead{margin:0 0 14px;color:var(--muted)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .contact-grid p{margin:0 0 8px}
+    @media (max-width:800px){ .contact-grid{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -120,15 +127,17 @@
       <!-- gallery -->
       <div class="gallery">
         <button class="g-arrow g-prev" id="prev">‹</button>
-        <img id="main" class="main-img" src="/images/c1.1.jpg" alt="Nebula Echo">
+        <!-- default = c1.jpg -->
+        <img id="main" class="main-img" src="/images/c1.jpg" alt="Nebula Echo">
         <button class="g-arrow g-next" id="next">›</button>
 
         <div class="thumbs" id="thumbs">
-          <img class="thumb active" data-src="/images/c1.1.jpg" src="/images/c1.1.jpg" alt="">
-          <img class="thumb" data-src="/images/c1.2.jpg" src="/images/c1.2.jpg" alt="">
-          <img class="thumb" data-src="/images/c1.3.jpg" src="/images/c1.3.jpg" alt="">
-          <img class="thumb" data-src="/images/c1.4.jpg" src="/images/c1.4.jpg" alt="">
-          <img class="thumb" data-src="/images/c1.5.jpg" src="/images/c1.5.jpg" alt="">
+          <img class="thumb active" data-src="/images/c1.jpg"   src="/images/c1.jpg"   alt="">
+          <img class="thumb"        data-src="/images/c1.1.jpg" src="/images/c1.1.jpg" alt="">
+          <img class="thumb"        data-src="/images/c1.2.jpg" src="/images/c1.2.jpg" alt="">
+          <img class="thumb"        data-src="/images/c1.3.jpg" src="/images/c1.3.jpg" alt="">
+          <img class="thumb"        data-src="/images/c1.4.jpg" src="/images/c1.4.jpg" alt="">
+          <img class="thumb"        data-src="/images/c1.5.jpg" src="/images/c1.5.jpg" alt="">
         </div>
 
         <!-- Highlights ngay dưới ảnh -->
@@ -201,14 +210,27 @@
     </div>
   </section>
 
-  <!-- Contact (giống index: 1 khối, không tách 3 cột) -->
-  <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
+  <!-- Contact (2 cột như yêu cầu) -->
+  <footer id="contact" class="section contact" style="border-top:1px solid var(--line);padding-top:24px">
     <div class="container">
       <h3>Contact — We reply within 24 hours.</h3>
-      <p class="muted">We’ll get back with a quote & lead time.</p>
-      <p>Email: <a class="muted" href="mailto:order@yourshop.vn">order@yourshop.vn</a> &nbsp;·&nbsp; Zalo/Phone: <span class="muted">+84 9xx xxx xxx</span></p>
-      <p>Instagram: <a class="muted" href="#" target="_blank">@resin.keycap.studio</a> &nbsp;·&nbsp; Facebook: <a class="muted" href="#" target="_blank">Resin Keycap Studio</a></p>
-      <p class="muted">Saigon — visit by appointment · Mon–Sat, 9:00–18:00 (GMT+7)</p>
+      <p class="lead">We’ll get back with a quote &amp; lead time.</p>
+
+      <div class="contact-grid">
+        <!-- Cột trái -->
+        <div>
+          <p><b>Email:</b> <a class="muted" href="mailto:order@yourshop.vn">order@yourshop.vn</a></p>
+          <p><b>Instagram:</b> <a class="muted" href="#" target="_blank">@resin.keycap.studio</a></p>
+        </div>
+        <!-- Cột phải -->
+        <div>
+          <p><b>Zalo/Phone:</b> <span class="muted">+84 9xx xxx xxx</span></p>
+          <p><b>Facebook:</b> <a class="muted" href="#" target="_blank">Resin Keycap Studio</a></p>
+        </div>
+      </div>
+
+      <p class="muted" style="margin-top:10px">Saigon — visit by appointment · Mon–Sat, 9:00–18:00 (GMT+7)</p>
+
       <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px">
         <small>© <span id="y"></span> Resin Keycap Studio</small>
         <div class="muted">Terms · Privacy</div>
