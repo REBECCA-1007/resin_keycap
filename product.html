@@ -6,7 +6,6 @@
   <title>Nebula Echo — Resin Keycap Studio</title>
   <meta name="description" content="Nebula Echo artisan resin keycap. Cherry MX compatible. Handmade in Vietnam."/>
   <style>
-    /* ===== Tokens ===== */
     :root{
       --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
       --line:#1b273a; --surface:#101827; --surface-2:#0b1320;
@@ -23,7 +22,7 @@
     .container{width:min(var(--container),92%);margin-inline:auto}
     section[id]{scroll-margin-top:calc(var(--headerH) + 12px)}
 
-    /* ===== Header ===== */
+    /* Header */
     .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.72);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
     .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;padding-inline:var(--gutter);gap:16px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900}
@@ -35,12 +34,13 @@
     .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line)}
     .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
 
-    /* ===== Product hero (gallery + info) ===== */
+    /* Sections */
     .section{padding:40px var(--gutter)}
+
+    /* Product hero */
     .product-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:32px;align-items:start}
     @media (max-width:980px){ .product-wrap{grid-template-columns:1fr} }
 
-    /* gallery */
     .gallery{position:relative}
     .main-img{aspect-ratio:4/3;object-fit:cover;border:1px solid var(--line);border-radius:14px;background:#0c1423}
     .thumbs{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
@@ -50,7 +50,6 @@
     .g-arrow:hover{background:#0c1423}
     .g-prev{left:10px}.g-next{right:10px}
 
-    /* info */
     .title{font-size:clamp(26px,3.2vw,36px);margin:0 0 6px;font-weight:900}
     .muted{color:var(--muted)}
     .price{font-weight:900;font-size:22px;margin:16px 0}
@@ -58,26 +57,26 @@
     .btn--brand{background:var(--brand);color:#06121b;border:none}
     .btn--brand:hover{background:var(--brand-600);color:#fff}
 
-    /* ===== Highlights (2 cột, chữ trên nền đen) ===== */
+    /* Highlights 2 cột (plain) */
     .highlights{padding:10px 0 0}
     .highlights h3{margin:18px 0 10px}
     .hl-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 26px}
     .hl-grid li{list-style:disc;margin-left:18px;color:var(--fg)}
     @media (max-width:800px){ .hl-grid{grid-template-columns:1fr} }
 
-    /* ===== Item detail (plain) ===== */
+    /* Item detail (plain) */
     .detail{padding-top:14px}
     .detail h3{margin:24px 0 10px}
     .detail p{margin:0 0 12px}
     .detail b{color:#dbe9ff}
 
-    /* ===== Shipping (full-width, plain) ===== */
+    /* Shipping (full width) */
     #ship.section{padding-top:22px}
     .ship h3{margin:0 0 10px}
     .ship ul{margin:8px 0 0 18px}
     .ship li{margin:8px 0;color:var(--fg)}
 
-    /* ===== Related ===== */
+    /* Related */
     .related{padding-top:28px}
     .grid{display:grid;gap:18px}
     .grid.products{grid-template-columns:repeat(3,1fr)}
@@ -89,12 +88,28 @@
     .card h4{margin:0 0 6px}
     .mini{display:flex;align-items:center;gap:10px}
 
-    /* ===== Contact 2 cột ===== */
+    /* Contact 2 cột */
     .contact h3{margin:0 0 8px}
     .contact .lead{margin:0 0 14px;color:var(--muted)}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
     .contact-grid p{margin:0 0 8px}
     @media (max-width:800px){ .contact-grid{grid-template-columns:1fr} }
+
+    /* Cart Drawer (giống index) */
+    .drawer{
+      position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
+      transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column
+    }
+    .drawer.open{transform:none}
+    .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+    .cart-item b{display:block}
+    .cart-item small{color:var(--muted)}
+    .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
+    .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
+    .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
   </style>
 </head>
 <body>
@@ -124,10 +139,9 @@
   <!-- Product -->
   <section class="section">
     <div class="container product-wrap">
-      <!-- gallery -->
+      <!-- Gallery -->
       <div class="gallery">
         <button class="g-arrow g-prev" id="prev">‹</button>
-        <!-- default = c1.jpg -->
         <img id="main" class="main-img" src="/images/c1.jpg" alt="Nebula Echo">
         <button class="g-arrow g-next" id="next">›</button>
 
@@ -140,7 +154,7 @@
           <img class="thumb"        data-src="/images/c1.5.jpg" src="/images/c1.5.jpg" alt="">
         </div>
 
-        <!-- Highlights ngay dưới ảnh -->
+        <!-- Highlights -->
         <div class="highlights">
           <h3>Highlights</h3>
           <ul class="hl-grid">
@@ -152,7 +166,7 @@
         </div>
       </div>
 
-      <!-- info -->
+      <!-- Info -->
       <div>
         <h1 class="title">Nebula Echo</h1>
         <p class="muted">Galaxy swirl, subtle sparkles — a calm cosmic whisper. Cherry MX / MX style compatible.</p>
@@ -162,10 +176,9 @@
           <a class="btn" href="index.html#collections">Back to Collections</a>
         </div>
 
-        <!-- Item detail plain -->
         <div class="detail">
           <h3>Item Detail</h3>
-          <p>Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts. This artisan keycap, inspired by beloved monster‑catching adventures, adds a unique and playful touch to your mechanical keyboard. Designed to fit Cherry MX and MX Style switches, it’s the ideal way to showcase your love for classic anime while customizing your gaming setup. 🎮✨</p>
+          <p>Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts. This artisan keycap adds a unique and playful touch to your mechanical keyboard and fits Cherry MX / MX Style switches. 🎮✨</p>
           <p><b>Anime‑Inspired Design:</b> brings a fun and nostalgic vibe to your keyboard.</p>
           <p><b>Handcrafted Quality:</b> high‑quality resin with a glossy, eye‑catching finish.</p>
           <p><b>Perfect for Gamers:</b> comfortable typing & gaming experience.</p>
@@ -176,7 +189,7 @@
     </div>
   </section>
 
-  <!-- Shipping & Return (full-width, plain) -->
+  <!-- Shipping & Return -->
   <section id="ship" class="section ship">
     <div class="container">
       <h3>Shipping & Return</h3>
@@ -210,19 +223,17 @@
     </div>
   </section>
 
-  <!-- Contact (2 cột như yêu cầu) -->
+  <!-- Contact -->
   <footer id="contact" class="section contact" style="border-top:1px solid var(--line);padding-top:24px">
     <div class="container">
       <h3>Contact — We reply within 24 hours.</h3>
       <p class="lead">We’ll get back with a quote &amp; lead time.</p>
 
       <div class="contact-grid">
-        <!-- Cột trái -->
         <div>
           <p><b>Email:</b> <a class="muted" href="mailto:order@yourshop.vn">order@yourshop.vn</a></p>
           <p><b>Instagram:</b> <a class="muted" href="#" target="_blank">@resin.keycap.studio</a></p>
         </div>
-        <!-- Cột phải -->
         <div>
           <p><b>Zalo/Phone:</b> <span class="muted">+84 9xx xxx xxx</span></p>
           <p><b>Facebook:</b> <a class="muted" href="#" target="_blank">Resin Keycap Studio</a></p>
@@ -238,18 +249,92 @@
     </div>
   </footer>
 
+  <!-- Cart Drawer (giống index) -->
+  <aside class="drawer" id="cartDrawer" aria-label="Cart">
+    <div class="drawer__head">
+      <b>Your Cart</b>
+      <button class="btn" id="closeCart">Close</button>
+    </div>
+    <div class="drawer__body" id="cartItems"></div>
+    <div class="drawer__foot">
+      <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="btn btn--brand" style="width:100%">Checkout</button>
+    </div>
+  </aside>
+
   <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
+    // ===== Utilities: localStorage cart (share giữa các trang) =====
+    const CART_KEY = 'rks_cart_v1';
+    const $ = sel => document.querySelector(sel);
+    const countBadge = $('#count');
+    const drawer = $('#cartDrawer');
+    const cartItems = $('#cartItems');
+    const cartTotal = $('#cartTotal');
 
-    // Simple cart badge
-    const count = document.getElementById('count');
-    const add   = document.getElementById('add');
-    let qty = 0;
-    add?.addEventListener('click', ()=>{ qty += 1; count.textContent = qty; });
+    function loadCart(){
+      try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+      catch(e){ return []; }
+    }
+    function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); }
+    function cartCount(c){ return c.reduce((s,x)=>s+x.qty,0); }
+    function cartSum(c){ return c.reduce((s,x)=>s+x.qty*x.price,0); }
 
-    // Gallery thumbs + arrows
-    const main = document.getElementById('main');
+    function renderCart(){
+      const cart = loadCart();
+      countBadge.textContent = cartCount(cart);
+      if(!cart.length){
+        cartItems.innerHTML = '<div class="muted">Your cart is empty.</div>';
+        cartTotal.textContent = '$0.00';
+        return;
+      }
+      cartItems.innerHTML = cart.map(it => `
+        <div class="cart-item">
+          <img src="${it.img}" alt="${it.name}">
+          <div>
+            <b>${it.name}</b>
+            <small>$${it.price.toFixed(2)} × ${it.qty}</small>
+          </div>
+          <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
+        </div>
+      `).join('');
+      cartTotal.textContent = '$' + cartSum(cart).toFixed(2);
+    }
+    function addToCart(item){
+      const cart = loadCart();
+      const ex = cart.find(x=>x.id===item.id);
+      if(ex) ex.qty += item.qty || 1;
+      else cart.push({...item, qty:item.qty||1});
+      saveCart(cart);
+      renderCart();
+      openCart();
+    }
+    function removeFromCart(id){
+      const cart = loadCart().filter(x=>x.id!==id);
+      saveCart(cart);
+      renderCart();
+    }
+    window.removeFromCart = removeFromCart; // for inline onclick
+
+    function openCart(){ drawer.classList.add('open'); }
+    function closeCart(){ drawer.classList.remove('open'); }
+
+    // ===== Page wiring =====
+    $('#openCart').addEventListener('click', openCart);
+    $('#closeCart').addEventListener('click', closeCart);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCart(); });
+
+    // Add to cart button (lấy ảnh main hiện tại)
+    $('#add').addEventListener('click', ()=>{
+      const img = $('#main').getAttribute('src') || '/images/c1.jpg';
+      addToCart({id:'c1', name:'Nebula Echo', price:49, img});
+    });
+
+    // Init render
+    renderCart();
+    $('#y').textContent = new Date().getFullYear();
+
+    // ===== Gallery logic =====
+    const main = $('#main');
     const thumbs = Array.from(document.querySelectorAll('.thumb'));
     let idx = 0;
     function setActive(i){
@@ -258,8 +343,8 @@
       main.src = thumbs[idx].dataset.src;
     }
     thumbs.forEach((t,i)=> t.addEventListener('click', ()=>setActive(i)));
-    document.getElementById('prev').addEventListener('click', ()=>setActive(idx-1));
-    document.getElementById('next').addEventListener('click', ()=>setActive(idx+1));
+    $('#prev').addEventListener('click', ()=>setActive(idx-1));
+    $('#next').addEventListener('click', ()=>setActive(idx+1));
   </script>
 </body>
 </html>
