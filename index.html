@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Resin Keycap Studio — Art You Can Touch</title>
   <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
+
+  <!-- Only the hero caption uses Great Vibes -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
   <style>
     /* ===== Tokens ===== */
     :root{
@@ -19,7 +23,6 @@
     body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
-
     .container{width:min(var(--container),92%);margin-inline:auto}
 
     /* ===== Header ===== */
@@ -38,60 +41,80 @@
     .btn--brand:hover{background:var(--brand-600);color:#fff}
     .btn--ghost{background:transparent;border:1px solid var(--line)}
 
-    /* ===== Hero ===== */
-    .hero{position:relative;isolation:isolate}
-    .hero__wrap{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:36px;align-items:center;
-      padding:clamp(44px,6.4vw,96px) var(--gutter);
+    /* ===== HERO — full-bleed background with overlayed text ===== */
+    .hero{
+      position:relative;
+      isolation:isolate;
+      width:100%;
+      min-height: clamp(520px, 78vh, 880px);
+      display:flex;
+      align-items:center;
+      /* full-bleed background image */
+      background-image: url("/images/title-artisan.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
-    .hero__title{font-size:clamp(34px,6.6vw,66px);line-height:1.06;margin:0 0 10px;font-weight:900}
-    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+    /* dark gradient & brand glow on top of photo for readability */
+    .hero::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(90deg, rgba(6,12,20,.78) 0%, rgba(6,12,20,.55) 38%, rgba(6,12,20,.20) 65%, rgba(6,12,20,.00) 100%),
+        radial-gradient(900px 320px at 8% 12%, #0ea5e91c, transparent 60%),
+        radial-gradient(700px 300px at 110% 110%, #22c55e1c, transparent 55%);
+      pointer-events:none;
+      z-index:0;
+    }
+    .hero .container{
+      position:relative;
+      z-index:1;              /* put text above image/overlay */
+      padding: clamp(44px,6.4vw,96px) var(--gutter);
+    }
+    .hero__title{
+      font-size: clamp(38px, 7.2vw, 84px);
+      line-height: 1.06;
+      margin: 0 0 10px;
+      font-weight: 900;
+      max-width: 16ch;
+      text-wrap: balance;
+    }
+    .hero__subtitle{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: clamp(16px,2.2vw,20px);
+      font-style: italic;  /* as requested earlier */
+    }
     .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* —— khung media tràn viền sang mép phải —— */
-    .hero__media{
-      position:relative;
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      overflow:hidden;background:#0f1623;
-      box-shadow:0 20px 60px rgba(0,0,0,.45);
-
-      /* phần “tràn viền” */
-      margin-right: calc(-1 * var(--gutter));
-      width: calc(100% + var(--gutter));
-      border-radius: var(--radius) 0 0 var(--radius);
-    }
-    .hero__media::before{
-      content:"";position:absolute;inset:0;
-      background:
-        radial-gradient(800px 320px at 20% -10%, #0ea5e933, transparent 60%),
-        radial-gradient(700px 300px at 120% 120%, #22c55e22, transparent 55%);
-      pointer-events:none;
-    }
-    .hero__img{
-      aspect-ratio:16/10;
-      width:100%;
-      height:auto;
-      object-fit:cover;
-    }
-    .hero__cap{position:absolute;left:18px;bottom:14px;font-size:12px;color:#c6d3e7cc}
-
-    /* Trên mobile: cho ảnh tràn cả hai mép, đứng trên */
-    @media (max-width:980px){
-      .hero__wrap{grid-template-columns:1fr;padding-bottom:0}
-      .hero__media{
-        order:-1;
-        margin-inline: calc(-1 * var(--gutter));
-        width: calc(100% + 2 * var(--gutter));
-        border-radius:0;
-      }
+    /* caption in Great Vibes at bottom-right of hero */
+    .hero__cap{
+      position:absolute;
+      right: clamp(18px, 4vw, 44px);
+      bottom: clamp(12px, 2.8vw, 22px);
+      font-family: 'Great Vibes', cursive;
+      font-weight: normal;
+      letter-spacing: .3px;
+      color: #fdf6e3;
+      font-size: clamp(18px, 2.6vw, 28px);
+      text-shadow: 2px 2px 4px rgba(0,0,0,.55);
+      z-index: 1;
+      opacity: .95;
     }
 
     /* ===== Marquee ===== */
-    .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b1320;padding:12px 0;overflow:hidden}
-    .marquee__track{display:flex;gap:60px;white-space:nowrap;will-change:transform;animation:scroll 24s linear infinite}
+    .marquee{
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:#0b1320;
+      padding:12px 0;
+      overflow:hidden;
+    }
+    .marquee__track{
+      display:flex; gap:60px; white-space:nowrap;
+      will-change:transform;
+      animation:scroll 24s linear infinite;
+    }
     .marquee__item{color:#eaf2ff;opacity:.95;font-weight:700;letter-spacing:.2px;padding-inline:6px}
     .marquee__bullet{opacity:.35;margin:0 12px}
     @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -139,23 +162,17 @@
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero__wrap">
-      <div>
-        <h1 class="hero__title">Every Key Tells a Story</h1>
-        <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
-        <div class="hero__actions">
-          <a class="btn btn--brand" href="#collections">Browse Collections</a>
-          <a class="btn btn--ghost" href="#contact">Custom Order</a>
-        </div>
-      </div>
-
-      <div class="hero__media">
-        <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Resin Hero" />
-        <div class="hero__cap">Art you can touch.</div>
+  <!-- HERO (full-bleed) -->
+  <section class="hero" aria-label="Hero">
+    <div class="container">
+      <h1 class="hero__title">Every Key Tells a Story</h1>
+      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
+      <div class="hero__actions">
+        <a class="btn btn--brand" href="#collections">Browse Collections</a>
+        <a class="btn btn--ghost" href="#contact">Custom Order</a>
       </div>
     </div>
+    <div class="hero__cap">Art you can touch.</div>
   </section>
 
   <!-- Philosophy marquee -->
@@ -163,29 +180,19 @@
     <div class="container" style="overflow:hidden">
       <div class="marquee__track" id="mqTrack">
         <div>
-          <span class="marquee__item">Handcrafted is Quality</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span>
-          <span class="marquee__bullet">•</span>
+          <span class="marquee__item">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Design Speaks</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Details Make the Difference</span><span class="marquee__bullet">•</span>
           <span class="marquee__item">Made to Be Yours</span>
         </div>
         <div aria-hidden="true">
-          <span class="marquee__item">Handcrafted is Quality</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span>
-          <span class="marquee__bullet">•</span>
+          <span class="marquee__item">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Design Speaks</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item">Details Make the Difference</span><span class="marquee__bullet">•</span>
           <span class="marquee__item">Made to Be Yours</span>
         </div>
       </div>
@@ -198,22 +205,10 @@
       <h2>Value at a Glance</h2>
       <p class="muted">Những điều người chơi bàn phím quan tâm — hiển thị rõ, gọn, dễ hiểu.</p>
       <div class="stats">
-        <div class="stat">
-          <div class="num">100% Handmade</div>
-          <div class="lbl">Không sản xuất hàng loạt</div>
-        </div>
-        <div class="stat">
-          <div class="num">50+ Designs</div>
-          <div class="lbl">Bộ sưu tập đang mở rộng</div>
-        </div>
-        <div class="stat">
-          <div class="num">UV Coated</div>
-          <div class="lbl">Bóng, bền, khó ố vàng</div>
-        </div>
-        <div class="stat">
-          <div class="num">Global Shipping</div>
-          <div class="lbl">Ship toàn quốc & quốc tế</div>
-        </div>
+        <div class="stat"><div class="num">100% Handmade</div><div class="lbl">Không sản xuất hàng loạt</div></div>
+        <div class="stat"><div class="num">50+ Designs</div><div class="lbl">Bộ sưu tập đang mở rộng</div></div>
+        <div class="stat"><div class="num">UV Coated</div><div class="lbl">Bóng, bền, khó ố vàng</div></div>
+        <div class="stat"><div class="num">Global Shipping</div><div class="lbl">Ship toàn quốc & quốc tế</div></div>
       </div>
     </div>
   </section>
@@ -228,44 +223,32 @@
         <article class="card">
           <b>Galaxy Series</b>
           <p>Swirl & nebula cho ESC / Enter — mỗi chiếc kể một câu chuyện vũ trụ.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#">Explore</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
         </article>
         <article class="card">
           <b>Nature Series</b>
           <p>Rừng, suối, koi — resin trong suốt, màu sắc tĩnh mà động.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#">Explore</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
         </article>
         <article class="card">
           <b>Monochrome</b>
           <p>Đen–trắng–bạc, phong cách tối giản và sang trọng.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#">Explore</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
         </article>
         <article class="card">
           <b>Custom Lab</b>
           <p>Đặt mẫu theo ý: phối màu, profile, kí tự, hiệu ứng đặc biệt.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#contact">Request</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#contact">Request</a></div>
         </article>
         <article class="card">
           <b>Workshop</b>
           <p>Học đổ resin cho người mới — trải nghiệm craft tại studio.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#">Join</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#">Join</a></div>
         </article>
         <article class="card">
           <b>Community</b>
           <p>Tips bảo quản, case study, hậu trường chế tác.</p>
-          <div class="cta">
-            <a class="btn btn--ghost" href="#">Enter</a>
-          </div>
+          <div class="cta"><a class="btn btn--ghost" href="#">Enter</a></div>
         </article>
       </div>
     </div>
