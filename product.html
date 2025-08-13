@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Product • Resin Keycap Studio</title>
-<meta name="description" content="Artisan resin keycap — product detail, gallery, cart, shipping & return, and related items."/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
-
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Product — Resin Keycap Studio</title>
+<meta name="description" content="Artisan Resin Keycap — product details, gallery, shipping & returns." />
 <style>
-  /* ===== Tokens ===== */
+  /* ===== Design tokens ===== */
   :root{
     --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-    --line:#1b273a; --surface:#101827; --surface-2:#0b1320;
+    --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
     --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
-    --radius:18px; --container:1200px; --gutter: clamp(18px,6vw,120px);
-    --shadow:0 22px 60px rgba(0,0,0,.45);
+    --radius:18px; --container:1200px; --gutter: clamp(18px, 6vw, 120px);
+    --shadow: 0 20px 60px rgba(0,0,0,.45);
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
@@ -25,78 +22,81 @@
   .container{width:min(var(--container),92%);margin-inline:auto}
 
   /* ===== Header ===== */
-  .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
+  .header{position:sticky;top:0;z-index:40;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
   .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
   .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
-  .navlinks{display:flex;align-items:center;gap:22px}
+  .navlinks{display:flex;align-items:center;gap:24px}
   .navlinks a{padding:8px 10px;border-radius:10px;opacity:.92}
   .navlinks a:hover{background:#0f1726}
   .right{display:flex;align-items:center;gap:10px}
   .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
   .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
 
-  /* ===== Page head ===== */
-  .page-head{padding:28px var(--gutter) 0}
-  .breadcrumbs{color:var(--muted);font-size:14px}
-  .breadcrumbs a{color:#b9c4d6}
+  .section{padding:40px var(--gutter)}
+  .muted{color:var(--muted)}
 
   /* ===== Product layout ===== */
-  .product{padding:28px var(--gutter) 36px}
-  .product-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:start}
+  .product-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:start}
   @media (max-width:980px){ .product-wrap{grid-template-columns:1fr} }
 
   /* Gallery */
-  .gallery{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:var(--shadow)}
-  .gallery-main{position:relative}
-  .g-image{aspect-ratio:4/3;object-fit:cover;width:100%;height:auto}
-  .g-arrow{
-    position:absolute;top:50%;transform:translateY(-50%);
-    width:44px;height:44px;border-radius:12px;border:1px solid var(--line);
-    background:rgba(12,20,35,.75);backdrop-filter:blur(4px);
-    display:grid;place-items:center;cursor:pointer;user-select:none
+  .gallery{position:relative}
+  .hero-img{aspect-ratio:4/3;object-fit:cover;width:100%;border:1px solid var(--line);border-radius:16px;background:#0c1626}
+  .thumbs{margin-top:10px;display:flex;gap:10px;flex-wrap:wrap}
+  .thumbs img{width:86px;height:64px;object-fit:cover;border:1px solid var(--line);border-radius:10px;opacity:.85;cursor:pointer;transition:.2s}
+  .thumbs img.active,.thumbs img:hover{opacity:1;border-color:#3b82f6}
+  .arrow{
+    position:absolute;top:48%;translate:0 -50%;
+    width:44px;height:44px;border-radius:999px;border:1px solid var(--line);
+    background:#0c1423aa;display:grid;place-items:center;cursor:pointer;
   }
-  .g-arrow:hover{background:rgba(20,30,48,.9)}
-  .g-prev{left:10px} .g-next{right:10px}
-  .thumbs{display:flex;gap:8px;padding:10px;border-top:1px solid var(--line);background:#0e1728}
-  .thumbs img{
-    width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid var(--line);cursor:pointer;opacity:.8
-  }
-  .thumbs img.active{outline:2px solid var(--brand);opacity:1}
+  .arrow:hover{background:#0f1726}
+  .arrow.left{left:10px}
+  .arrow.right{right:10px}
+
+  /* Highlights (ngay dưới thumbnails) */
+  .highlights{margin-top:16px}
+  .highlights h4{margin:0 0 8px}
+  .pill{display:inline-block;background:#0f172a;border:1px solid var(--line);padding:8px 12px;border-radius:12px;margin:6px 6px 0 0}
 
   /* Info */
-  .info h1{margin:0 0 6px;font-size:clamp(22px,3.4vw,34px)}
-  .price{font-weight:900;font-size:22px;margin:8px 0 14px}
-  .muted{color:var(--muted)}
+  .title{margin:0 0 6px;font-size:clamp(22px,3.6vw,40px)}
+  .price{font-weight:900;font-size:clamp(18px,3vw,24px)}
+  .sku{margin-top:6px}
   .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
   .btn--brand{background:var(--brand);color:#06121b;border:none}
   .btn--brand:hover{background:var(--brand-600);color:#fff}
-  .btn-row{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 18px}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 
-  /* ===== Panels without borders/background (as requested) ===== */
-  .panel{border:none;background:transparent;border-radius:0;padding:0;margin:18px 0 0}
-  .panel h3{margin:0 0 8px}
-  .panel ul{margin:8px 0 0 18px}
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:16px}
 
-  /* Related */
-  .section{padding:18px var(--gutter) 36px}
-  .grid{display:grid;gap:18px}
-  .grid.products{grid-template-columns:repeat(4,1fr)}
-  @media (max-width:1100px){.grid.products{grid-template-columns:repeat(3,1fr)}}
-  @media (max-width:760px){.grid.products{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:520px){.grid.products{grid-template-columns:1fr}}
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-  .card img{aspect-ratio:4/3;object-fit:cover}
-  .card-b{padding:12px;display:flex;flex-direction:column;gap:6px}
-  .card .price{margin:2px 0 8px}
+  /* Full-bleed section (Shipping & Return) */
+  .section-full{
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 34px clamp(18px,6vw,120px);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background: transparent; /* cùng nền */
+  }
+  .section-full h3{margin:0 0 10px}
+  .section-full ul{margin:0;padding-left:20px}
+  .section-full li{margin:8px 0}
 
-  /* Contact block — plain on black */
-  .contact{border-top:1px solid var(--line);padding:32px var(--gutter)}
-  .contact .wrap{max-width:980px;margin:0 auto}
-  .contact .title{font-size:clamp(20px,3vw,26px);margin:0 0 6px}
-  .cap{font-family:"Dancing Script",cursive;font-size:22px;color:#f6e7d5;margin-top:8px}
+  /* You may also like */
+  .grid{display:grid;gap:16px}
+  .grid.reco{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:1024px){ .grid.reco{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .grid.reco{grid-template-columns:1fr} }
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .card img{aspect-ratio:4/3;object-fit:cover;width:100%}
+  .card .body{padding:12px}
+  .card .body h4{margin:0 0 4px;font-size:18px}
+  .card .body .muted{font-size:14px}
 
-  footer{border-top:1px solid var(--line);padding:18px var(--gutter);color:var(--muted);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  /* Contact */
+  .contact .item{margin:6px 0}
 </style>
 </head>
 <body>
@@ -104,18 +104,17 @@
 <!-- ===== Header ===== -->
 <header class="header">
   <div class="nav">
-    <a href="index.html#home" class="brand">
+    <a class="brand" href="index.html">
       <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
       <span>Resin Keycap Studio</span>
     </a>
     <nav class="navlinks">
       <a href="index.html#home">Home</a>
       <a href="index.html#collections">Collections</a>
-      <a href="#shipping">Shipping and Return</a>
+      <a href="#shipping">Shipping & Return</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="right">
-      <button class="icon-btn" title="Account">👤</button>
       <div style="position:relative">
         <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
         <span class="cart-count" id="cartCount">0</span>
@@ -124,231 +123,170 @@
   </div>
 </header>
 
-<!-- ===== Breadcrumbs ===== -->
-<div class="page-head">
-  <div class="container">
-    <div class="breadcrumbs">
-      <a href="index.html#home">Home</a> ·
-      <a href="index.html#collections">Collections</a> ·
-      <span id="bcName">Product</span>
-    </div>
-  </div>
-</div>
-
-<!-- ===== Product main ===== -->
-<section class="product">
-  <div class="product-wrap container" id="productWrap">
-    <!-- Gallery (left) -->
-    <div class="gallery">
-      <div class="gallery-main">
-        <img id="gMain" class="g-image" src="" alt="Product image">
-        <button class="g-arrow g-prev" id="prevBtn">‹</button>
-        <button class="g-arrow g-next" id="nextBtn">›</button>
-      </div>
-      <div class="thumbs" id="thumbs"></div>
-    </div>
-
-    <!-- Info (right) -->
-    <div class="info">
-      <h1 id="pName">Product Name</h1>
-      <div class="price" id="pPrice">$0.00</div>
-
-      <div class="btn-row">
-        <button class="btn btn--brand" id="addCartBtn">Add to Cart</button>
-        <a class="btn" href="index.html#collections">Back to Collections</a>
-      </div>
-
-      <!-- Item Detail: plain on black -->
-      <div class="panel" id="pDesc"></div>
-
-      <!-- Shipping & Return: plain on black -->
-      <div class="panel" id="shipping">
-        <h3>Shipping & Return</h3>
-        <ul>
-          <li>Processing time: 3–5 business days for in‑stock; 7–14 days for made‑to‑order.</li>
-          <li>Worldwide shipping with tracking. ETA 5–14 business days depending on destination.</li>
-          <li>Return/Exchange within 7 days for manufacturing defects (photo required).</li>
-          <li>Handcrafted nature: each cap is unique — minor variations are part of the craft.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Related ===== -->
+<!-- ===== Product ===== -->
 <section class="section">
   <div class="container">
-    <h2>You may also like</h2>
-    <div class="grid products" id="relatedGrid"></div>
-  </div>
-</section>
+    <div class="product-wrap">
+      <!-- Left: gallery -->
+      <div class="gallery">
+        <img id="heroImg" class="hero-img" src="/images/c1.jpg" alt="Product hero">
+        <button class="arrow left" aria-label="Prev" id="prevBtn">‹</button>
+        <button class="arrow right" aria-label="Next" id="nextBtn">›</button>
 
-<!-- ===== Contact (giống index, 1 khối, không card) ===== -->
-<section id="contact" class="contact">
-  <div class="container">
-    <div class="wrap">
-      <h3 class="title">Contact — We reply within 24 hours</h3>
-      <p class="muted">We’ll get back with a quote & lead time.</p>
-      <p><b>Email:</b> <a href="mailto:order@yourshop.vn">order@yourshop.vn</a> ·
-         <b>Phone/Zalo:</b> <a href="tel:+84901234567">+84 90 123 4567</a></p>
-      <p><b>Instagram:</b> <a href="https://instagram.com" target="_blank" rel="noopener">instagram.com/yourshop</a> ·
-         <b>Facebook:</b> <a href="https://facebook.com" target="_blank" rel="noopener">facebook.com/yourshop</a></p>
-      <p><b>Studio:</b> Saigon — visit by appointment · <b>Hours:</b> Mon–Sat 09:00–18:00 (GMT+7)</p>
-      <div class="cap">Art you can touch.</div>
+        <div class="thumbs" id="thumbs"></div>
+
+        <!-- Highlights ngay dưới thumbnails -->
+        <div class="highlights">
+          <h4>Highlights</h4>
+          <span class="pill">Made by Công Chúa BECCA</span>
+          <span class="pill">Supplies for making crafts</span>
+          <span class="pill">Ships from a small business in Vietnam</span>
+          <span class="pill">Materials: Resin, Epoxy</span>
+        </div>
+      </div>
+
+      <!-- Right: info -->
+      <div>
+        <h1 id="pName" class="title">Nebula Echo</h1>
+        <div class="price">Price: <span id="pPrice">$49.00</span></div>
+        <div class="muted sku">ID: <span id="pId">c1</span></div>
+
+        <div class="btn-row">
+          <button class="btn btn--brand" id="addToCart">Add to Cart</button>
+          <a class="btn" href="index.html#custom">Custom Order</a>
+        </div>
+
+        <div class="panel" style="margin-top:16px">
+          <h3 style="margin:0 0 6px">Item Detail</h3>
+          <div class="muted">
+            Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime-inspired, handmade accessory 
+            perfect for gaming enthusiasts. This artisan keycap, inspired by beloved monster-catching adventures, 
+            adds a unique and playful touch to your mechanical keyboard. Designed to fit Cherry MX and MX Style switches, 
+            it’s the ideal way to showcase your love for classic anime while customizing your gaming setup. 
+            <br><br>
+            <b>Anime-Inspired Design:</b> brings a fun and nostalgic vibe to your keyboard. <br>
+            <b>Handcrafted Quality:</b> high-quality resin with a glossy, eye‑catching finish. <br>
+            <b>Perfect for Gamers:</b> comfortable typing & gaming experience. <br>
+            <b>Compatible & Easy to Install:</b> Cherry MX / MX Style. <br>
+            <b>Great Gift:</b> for gamers, anime lovers & keyboard enthusiasts. 
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <small>© <span id="y"></span> Resin Keycap Studio</small>
-  <div class="muted">Terms · Privacy · <a href="#contact" class="muted">Contact</a></div>
-</footer>
+<!-- ===== Shipping & Return (full width) ===== -->
+<section id="shipping" class="section-full">
+  <h3>Shipping & Return</h3>
+  <ul class="muted">
+    <li>Processing time: 3–5 business days for in‑stock items; 7–14 days for made‑to‑order.</li>
+    <li>Worldwide shipping with tracking. Delivery estimate 5–14 business days (destination dependent).</li>
+    <li>Return/Exchange within 7 days on arrival for manufacturing defects (photos required).</li>
+    <li>Handcrafted nature: each cap is unique — minor variations are part of the craft.</li>
+  </ul>
+</section>
+
+<!-- ===== You may also like ===== -->
+<section class="section">
+  <div class="container">
+    <h3>You may also like</h3>
+    <div class="grid reco" id="recoGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Contact (giống index: 1 block) ===== -->
+<section id="contact" class="section contact" style="border-top:1px solid var(--line)">
+  <div class="container">
+    <h3>Contact — We reply within 24 hours.</h3>
+    <div class="muted">
+      <div class="item">Email: <a href="mailto:order@yourshop.vn">order@yourshop.vn</a></div>
+      <div class="item">Phone/Zalo: <a href="tel:+84901234567">+84 90 123 4567</a></div>
+      <div class="item">Instagram: <a href="https://instagram.com/" target="_blank" rel="noopener">instagram.com/yourshop</a></div>
+      <div class="item">Facebook: <a href="https://facebook.com/" target="_blank" rel="noopener">facebook.com/yourshop</a></div>
+      <div class="item">Saigon — visit by appointment • Mon–Sat, 9:00–18:00 (GMT+7)</div>
+      <div class="item">We’ll get back with a quote & lead time.</div>
+    </div>
+  </div>
+</section>
 
 <script>
-  // ===== Helpers =====
+  // --- Helpers
   const $ = s => document.querySelector(s);
-  const $$ = s => document.querySelectorAll(s);
-  const fmt = n => `$${(+n).toFixed(2)}`;
-
-  // Year
-  $('#y').textContent = new Date().getFullYear();
-
-  // ===== Catalog =====
-  const catalog = [
-    {id:'c1', name:'Nebula Echo',  price:49, 
-      images:['/images/c1.jpg','/images/c1.1.jpg','/images/c1.2.jpg','/images/c1.3.jpg','/images/c1.4.jpg','/images/c1.5.jpg'],
-      descHTML: `
-        <h3>Item Detail</h3>
-        <p>Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts. This artisan keycap, inspired by beloved monster‑catching adventures, adds a unique and playful touch to your mechanical keyboard. Designed to fit Cherry MX and MX Style switches, it’s the ideal way to showcase your love for classic anime while customizing your gaming setup. </p>
-        <ul>
-          <li><b>Anime‑Inspired Design:</b> captures the essence of your favorite monster adventures — fun & nostalgic. </li>
-          <li><b>Handcrafted Quality:</b> high‑quality resin, durable, glossy, eye‑catching finish. </li>
-          <li><b>Perfect for Gamers:</b> functional & stylish, comfortable for typing and gaming. </li>
-          <li><b>Compatible:</b> Cherry MX & MX‑style switches, easy to install. </li>
-          <li><b>Great Gift:</b> for gamers, anime lovers & keyboard enthusiasts. </li>
-        </ul>
-        <p>Add a touch of your favorite anime‑inspired adventure to your keyboard with the Poke Monster Resin Keycap — the perfect blend of functionality and fandom. </p>
-      `
-    },
-    {id:'c2', name:'Forest Mist',      price:45, images:['/images/c2.jpg']},
-    {id:'c3', name:'Monochrome Peak',  price:47, images:['/images/c3.jpg']},
-    {id:'c4', name:'Ocean Drift',      price:46, images:['/images/c4.jpg']},
-    {id:'c5', name:'Aurora Bloom',     price:48, images:['/images/c5.jpg']},
-    {id:'c6', name:'Koi Garden',       price:52, images:['/images/c6.jpg']},
-    {id:'c7', name:'Stellar Dust',     price:44, images:['/images/c7.jpg']},
-    {id:'c8', name:'Canyon Amber',     price:45, images:['/images/c8.jpg']},
-    {id:'c9', name:'Glacier Fade',     price:50, images:['/images/c9.jpg']},
-    {id:'c10',name:'Retro Vapor',      price:43, images:['/images/c10.jpg']},
-  ];
-
-  // ===== Query param id =====
   const params = new URLSearchParams(location.search);
-  const pid = params.get('id') || 'c1';
-  const product = catalog.find(p=>p.id===pid) || catalog[0];
+  const product = {
+    id: params.get('id') || 'c1',
+    name: params.get('name') || 'Nebula Echo',
+    price: parseFloat(params.get('price') || '49'),
+    img: params.get('img') || '/images/c1.jpg'
+  };
 
-  // ===== Cart helpers (localStorage) =====
-  function loadCart(){
-    try{ return JSON.parse(localStorage.getItem('cart')||'[]'); }
-    catch(e){ return []; }
+  // --- Populate main info
+  $('#pId').textContent = product.id;
+  $('#pName').textContent = product.name;
+  $('#pPrice').textContent = `$${product.price.toFixed(2)}`;
+
+  // --- Build gallery list (c1.1..c1.5 if available)
+  const baseId = product.id.split('.')[0]; // 'c1'
+  const altImgs = [1,2,3,4,5].map(i => `/images/${baseId}.${i}.jpg`);
+  const galleryImgs = [product.img, ...altImgs];
+  const hero = $('#heroImg');
+  const thumbs = $('#thumbs');
+
+  let current = 0;
+  function show(i){
+    current = (i + galleryImgs.length) % galleryImgs.length;
+    hero.src = galleryImgs[current];
+    const all = [...thumbs.querySelectorAll('img')];
+    all.forEach((t,idx)=> t.classList.toggle('active', idx===current));
   }
-  function saveCart(c){ localStorage.setItem('cart', JSON.stringify(c)); }
-  function updateCartCount(){
-    const c = loadCart();
-    const count = c.reduce((s,i)=>s+i.qty,0);
-    $('#cartCount').textContent = count;
-  }
-
-  // ===== Render product =====
-  let curIndex = 0;
-
-  function renderProduct(){
-    $('#bcName').textContent = product.name;
-    $('#pName').textContent = product.name;
-    $('#pPrice').textContent = fmt(product.price);
-    $('#gMain').src = product.images[0];
-    $('#gMain').alt = product.name;
-
-    // Thumbs
-    $('#thumbs').innerHTML = product.images.map((src,i)=>(
-      `<img src="${src}" data-i="${i}" class="${i===0?'active':''}" alt="thumb ${i+1}">`
-    )).join('');
-
-    // Item Detail (plain)
-    $('#pDesc').innerHTML = product.descHTML
-      ? product.descHTML
-      : `<h3>Item Detail</h3><p class="muted">Handcrafted resin keycap. Compatible with Cherry MX & MX‑style switches.</p>`;
-
-    // Events
-    $$('#thumbs img').forEach(img=>{
-      img.addEventListener('click', ()=>{
-        curIndex = +img.dataset.i;
-        updateMain();
-      });
-    });
-  }
-
-  function updateMain(){
-    $('#gMain').src = product.images[curIndex];
-    $$('#thumbs img').forEach((t,i)=>t.classList.toggle('active', i===curIndex));
-  }
-
-  $('#prevBtn').addEventListener('click', ()=>{
-    curIndex = (curIndex - 1 + product.images.length) % product.images.length;
-    updateMain();
+  thumbs.innerHTML = galleryImgs.map((src,idx)=>`<img src="${src}" alt="thumb ${idx+1}" data-i="${idx}">`).join('');
+  thumbs.addEventListener('click', e=>{
+    if(e.target.tagName==='IMG') show(parseInt(e.target.dataset.i,10));
   });
-  $('#nextBtn').addEventListener('click', ()=>{
-    curIndex = (curIndex + 1) % product.images.length;
-    updateMain();
+  $('#prevBtn').addEventListener('click', ()=> show(current-1));
+  $('#nextBtn').addEventListener('click', ()=> show(current+1));
+  show(0);
+
+  // --- Cart (very light)
+  const cart = JSON.parse(localStorage.getItem('cart')||'[]');
+  const cartCount = $('#cartCount');
+  function renderCartCount(){
+    const count = cart.reduce((a,b)=>a+b.qty,0);
+    cartCount.textContent = count;
+  }
+  renderCartCount();
+  $('#addToCart').addEventListener('click', ()=>{
+    const ex = cart.find(x=>x.id===product.id);
+    if(ex){ ex.qty += 1; } else { cart.push({id:product.id, name:product.name, price:product.price, img:hero.src, qty:1}); }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCartCount();
+    // quick feedback
+    $('#addToCart').textContent = 'Added ✓'; setTimeout(()=>$('#addToCart').textContent='Add to Cart',1200);
   });
 
-  // Add to cart
-  $('#addCartBtn').addEventListener('click', ()=>{
-    const cart = loadCart();
-    const ex = cart.find(i=>i.id===product.id);
-    if(ex) ex.qty += 1;
-    else cart.push({id:product.id, name:product.name, price:product.price, img:product.images[0], qty:1});
-    saveCart(cart);
-    updateCartCount();
-    $('#addCartBtn').textContent = 'Added ✓';
-    setTimeout(()=>$('#addCartBtn').textContent='Add to Cart', 1200);
-  });
-
-  // ===== Related products =====
-  function renderRelated(){
-    const pool = catalog.filter(p=>p.id!==product.id);
-    const pick = pool.slice(0,4);
-    const html = pick.map(p=>`
-      <article class="card">
-        <a href="product.html?id=${p.id}">
-          <img src="${p.images[0]}" alt="${p.name}">
-        </a>
-        <div class="card-b">
-          <b>${p.name}</b>
-          <div class="price">${fmt(p.price)}</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a class="btn btn--brand" href="product.html?id=${p.id}">View</a>
-            <button class="btn" onclick="quickAdd('${p.id}')">Add</button>
-          </div>
-        </div>
-      </article>
-    `).join('');
-    $('#relatedGrid').innerHTML = html;
-  }
-
-  window.quickAdd = function(id){
-    const p = catalog.find(x=>x.id===id); if(!p) return;
-    const cart = loadCart(); const ex = cart.find(i=>i.id===id);
-    if(ex) ex.qty += 1; else cart.push({id:p.id,name:p.name,price:p.price,img:p.images[0],qty:1});
-    saveCart(cart); updateCartCount();
-  }
-
-  // Init
-  renderProduct(); renderRelated(); updateCartCount();
-
-  // Cart button: quay về index (nếu cần xem drawer)
-  document.getElementById('btnCart').addEventListener('click', ()=>{
-    location.href = 'index.html#collections';
-  });
+  // --- You may also like
+  const catalog = [
+    {id:'c2', name:'Forest Mist', price:45, img:'/images/c2.jpg'},
+    {id:'c3', name:'Monochrome Peak', price:47, img:'/images/c3.jpg'},
+    {id:'c4', name:'Ocean Drift', price:46, img:'/images/c4.jpg'},
+    {id:'c5', name:'Aurora Bloom', price:48, img:'/images/c5.jpg'},
+    {id:'c6', name:'Koi Garden', price:52, img:'/images/c6.jpg'},
+    {id:'c7', name:'Stellar Dust', price:44, img:'/images/c7.jpg'},
+    {id:'c8', name:'Canyon Amber', price:45, img:'/images/c8.jpg'},
+    {id:'c9', name:'Glacier Fade', price:50, img:'/images/c9.jpg'},
+    {id:'c10', name:'Retro Vapor', price:43, img:'/images/c10.jpg'},
+  ];
+  const reco = catalog.filter(p=>p.id!==product.id).slice(0,4);
+  $('#recoGrid').innerHTML = reco.map(p=>`
+    <a class="card" href="product.html?id=${encodeURIComponent(p.id)}&name=${encodeURIComponent(p.name)}&price=${p.price}&img=${encodeURIComponent(p.img)}">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="body">
+        <h4>${p.name}</h4>
+        <div class="muted">$${p.price.toFixed(2)}</div>
+      </div>
+    </a>
+  `).join('');
 </script>
 </body>
 </html>
