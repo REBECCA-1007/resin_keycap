@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Product — Resin Keycap Studio</title>
+<meta name="description" content="Artisan Resin Keycap — product detail">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
+    --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
+    --brand:#0ea5e9; --brand-600:#0284c7;
+    --radius:18px; --container:1200px; --gutter: clamp(18px, 6vw, 120px);
+    --headerH:72px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .container{width:min(var(--container),92%);margin-inline:auto}
+  header{position:sticky;top:0;z-index:10;background:rgba(10,15,24,.65);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;padding-inline:var(--gutter)}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:900}
+  .brand img{width:44px;height:44px;border-radius:12px;object-fit:contain}
+  main{padding:32px var(--gutter)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+  @media (max-width:900px){ .grid{grid-template-columns:1fr; } }
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+  h1{margin:0 0 10px;font-size:clamp(26px,4.2vw,40px);line-height:1.1}
+  .muted{color:var(--muted)}
+  .price{font-weight:900;font-size:22px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
+  .btn--brand{background:var(--brand);border:none;color:#041019}
+  .btn--brand:hover{background:#0284c7;color:#fff}
+  .crumbs{margin-bottom:14px;color:var(--muted)}
+  .crumbs a{color:var(--fg);opacity:.9}
+  .specs{margin:12px 0;display:grid;gap:8px}
+  footer{border-top:1px solid var(--line);padding:20px var(--gutter);color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html#home">
+      <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio"><span>Resin Keycap Studio</span>
+    </a>
+    <nav style="display:flex;gap:18px">
+      <a href="index.html#collections">Collections</a>
+      <a href="index.html#custom">Custom Order</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <div class="crumbs"><a href="index.html#collections">← Back to Collections</a></div>
+
+  <div id="wrap" class="grid" hidden>
+    <div class="card">
+      <img id="pImg" src="" alt="">
+    </div>
+    <div>
+      <h1 id="pName">Name</h1>
+      <div class="muted" id="pMeta"></div>
+      <p id="pDesc" style="margin:12px 0 16px">Description…</p>
+      <div class="price" id="pPrice">$0.00</div>
+      <div style="display:flex;gap:10px;margin-top:14px">
+        <button class="btn btn--brand" id="add">Add to Cart</button>
+        <a class="btn" href="index.html#cart" id="viewCart">View Cart</a>
+      </div>
+      <div class="specs">
+        <div class="muted">Profile: <span id="pProfile"></span></div>
+        <div class="muted">Collection: <span id="pCollection"></span></div>
+        <div class="muted">Color: <span id="pColor"></span></div>
+        <div class="muted" id="pStock"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notFound" class="card" style="text-align:center">
+    Product not found. <a href="index.html#collections">Back to Collections</a>
+  </div>
+</main>
+
+<footer>
+  © <span id="y"></span> Resin Keycap Studio · <a href="index.html#contact">Contact</a>
+</footer>
+
+<script>
+// Year
+document.getElementById('y').textContent = new Date().getFullYear();
+
+// Lấy id từ query (?id=c1)
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+
+// DỮ LIỆU SẢN PHẨM — copy cùng cấu trúc như ở index.html
+const products = [
+  {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, profile:'Cherry',  color:'Pink',  collection:'Galaxy',     stock:true,  desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
+  {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, profile:'Cherry',  color:'Green', collection:'Nature',     stock:true,  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
+  {id:'c3',  name:'Monochrome Peak', img:'/images/c3.jpg',  price:47, profile:'OEM',     color:'Gray',  collection:'Monochrome', stock:true,  desc:'Black–white–silver minimalism — clean and classy.'},
+  {id:'c4',  name:'Ocean Drift',     img:'/images/c4.jpg',  price:46, profile:'SA',      color:'Blue',  collection:'Ocean',      stock:true,  desc:'Sea blues fading to dusk — smooth gradient flow.'},
+  {id:'c5',  name:'Aurora Bloom',    img:'/images/c5.jpg',  price:48, profile:'OEM',     color:'Pink',  collection:'Galaxy',     stock:false, desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
+  {id:'c6',  name:'Koi Garden',      img:'/images/c6.jpg',  price:52, profile:'Cherry',  color:'Amber', collection:'Nature',     stock:true,  desc:'Transparent pond tones with koi‑like swirls and gold.'},
+  {id:'c7',  name:'Stellar Dust',    img:'/images/c7.jpg',  price:44, profile:'DSA',     color:'Black', collection:'Galaxy',     stock:true,  desc:'Deep night resin with micro‑glitter — stardust finish.'},
+  {id:'c8',  name:'Canyon Amber',    img:'/images/c8.jpg',  price:45, profile:'Cherry',  color:'Amber', collection:'Nature',     stock:true,  desc:'Warm amber & sand hues — canyon breeze captured.'},
+  {id:'c9',  name:'Glacier Fade',    img:'/images/c9.jpg',  price:50, profile:'SA',      color:'Blue',  collection:'Monochrome', stock:false, desc:'Icy clear to slate gradient — crisp, modern chill.'},
+  {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, profile:'OEM',     color:'Pink',  collection:'Retro',      stock:true,  desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
+];
+
+const p = products.find(x=>x.id===id);
+const wrap = document.getElementById('wrap');
+const nf = document.getElementById('notFound');
+
+if(!p){
+  nf.hidden = false;
+} else {
+  nf.hidden = true; wrap.hidden = false;
+  document.title = `${p.name} — Resin Keycap Studio`;
+  document.getElementById('pImg').src = p.img;
+  document.getElementById('pImg').alt = p.name;
+  document.getElementById('pName').textContent = p.name;
+  document.getElementById('pDesc').textContent = p.desc;
+  document.getElementById('pPrice').textContent = `$${p.price.toFixed(2)}`;
+  document.getElementById('pProfile').textContent = p.profile;
+  document.getElementById('pCollection').textContent = p.collection;
+  document.getElementById('pColor').textContent = p.color;
+  document.getElementById('pStock').textContent = p.stock ? 'In stock' : 'Out of stock';
+}
+
+// (Tuỳ chọn) Giỏ hàng đơn giản dùng localStorage để giữ giữa các trang
+const LS_KEY = 'rk_cart';
+const addBtn = document.getElementById('add');
+
+function load(){ try{return JSON.parse(localStorage.getItem(LS_KEY))||[]}catch{return[]} }
+function save(v){ localStorage.setItem(LS_KEY, JSON.stringify(v)); }
+
+addBtn?.addEventListener('click', ()=>{
+  if(!p) return;
+  const cart = load();
+  const ex = cart.find(x=>x.id===p.id);
+  if(ex){ ex.qty+=1 } else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1}); }
+  save(cart);
+  addBtn.textContent = 'Added ✓';
+  setTimeout(()=> addBtn.textContent='Add to Cart', 1000);
+});
+</script>
+</body>
+</html>
