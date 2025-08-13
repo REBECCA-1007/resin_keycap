@@ -308,52 +308,6 @@
       <button id="f_clear" class="btn btn--ghost">Clear</button>
       <span id="f_count" class="muted">Showing all</span>
     </div>
-<!-- Filter bar -->
-<div class="filters" id="filters">
-  <!-- Search -->
-  <label class="input" title="Search">
-    🔎 <input id="fSearch" placeholder="Search name or description">
-  </label>
-
-  <!-- Profile -->
-  <label class="select" title="Profile">
-    <select id="fProfile">
-      <option value="">Profile (All)</option>
-      <option>Cherry</option><option>OEM</option>
-      <option>SA</option><option>DSA</option>
-    </select>
-  </label>
-
-  <!-- Collection -->
-  <label class="select" title="Collection">
-    <select id="fCollection">
-      <option value="">Collection (All)</option>
-      <option>Galaxy</option><option>Nature</option>
-      <option>Monochrome</option><option>Ocean</option>
-      <option>Retro</option>
-    </select>
-  </label>
-
-  <!-- Colors (swatches) -->
-  <div class="swatches" id="fColors" title="Color tone">
-    <div class="swatch" data-color="blue"   style="background:#60a5fa"></div>
-    <div class="swatch" data-color="green"  style="background:#34d399"></div>
-    <div class="swatch" data-color="pink"   style="background:#f472b6"></div>
-    <div class="swatch" data-color="amber"  style="background:#f59e0b"></div>
-    <div class="swatch" data-color="gray"   style="background:#94a3b8"></div>
-    <div class="swatch" data-color="mono"   style="background:linear-gradient(45deg,#fff,#000)"></div>
-  </div>
-
-  <!-- Price range (min / max) -->
-  <label class="input price"><input id="fMin" type="number" inputmode="numeric" placeholder="Min $" min="0"></label>
-  <label class="input price"><input id="fMax" type="number" inputmode="numeric" placeholder="Max $" min="0"></label>
-
-  <!-- Stock toggle -->
-  <label class="toggle">
-    <input id="fStock" type="checkbox"> In stock
-  </label>
-</div>
-
     <!-- GRID -->
     <div class="grid products" id="productGrid"></div>
   </div>
