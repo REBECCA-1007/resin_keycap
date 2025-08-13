@@ -1,152 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Product — Resin Keycap Studio</title>
-<meta name="description" content="Artisan Resin Keycap — product detail">
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Product — Resin Keycap Studio</title>
+  <meta name="description" content="Artisan keycap detail page — gallery, specs, shipping & returns."/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* ===== Design tokens ===== */
+    :root{
+      --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
+      --line:#1b273a; --surface:#101827; --surface-2:#0b1320;
+      --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
+      --radius:20px; --container:1200px;
+      --gutter: clamp(18px, 6vw, 120px);
+      --shadow: 0 22px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(var(--container),92%);margin-inline:auto}
 
-<style>
-  :root{
-    --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-    --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
-    --brand:#0ea5e9; --brand-600:#0284c7;
-    --radius:18px; --container:1200px; --gutter: clamp(18px, 6vw, 120px);
-    --headerH:72px;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%}
-  .container{width:min(var(--container),92%);margin-inline:auto}
-  header{position:sticky;top:0;z-index:10;background:rgba(10,15,24,.65);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;padding-inline:var(--gutter)}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:900}
-  .brand img{width:44px;height:44px;border-radius:12px;object-fit:contain}
-  main{padding:32px var(--gutter)}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
-  @media (max-width:900px){ .grid{grid-template-columns:1fr; } }
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
-  h1{margin:0 0 10px;font-size:clamp(26px,4.2vw,40px);line-height:1.1}
-  .muted{color:var(--muted)}
-  .price{font-weight:900;font-size:22px}
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
-  .btn--brand{background:var(--brand);border:none;color:#041019}
-  .btn--brand:hover{background:#0284c7;color:#fff}
-  .crumbs{margin-bottom:14px;color:var(--muted)}
-  .crumbs a{color:var(--fg);opacity:.9}
-  .specs{margin:12px 0;display:grid;gap:8px}
-  footer{border-top:1px solid var(--line);padding:20px var(--gutter);color:var(--muted)}
-</style>
+    /* Header */
+    .header{position:sticky;top:0;z-index:40;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900}
+    .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
+    .navlinks{display:flex;align-items:center;gap:22px}
+    .navlinks a{padding:8px 10px;border-radius:12px;opacity:.92}
+    .navlinks a:hover{background:#0f1726}
+    .right{display:flex;align-items:center;gap:10px}
+    .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
+    .cart-wrap{position:relative}
+    .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
+
+    /* Page head */
+    .page-head{padding:30px var(--gutter) 0}
+    .breadcrumb{opacity:.7}
+    .breadcrumb a{color:var(--muted)}
+    .breadcrumb a:hover{color:#cfe3ff}
+    .h1{margin:10px 0 0;font-size:clamp(26px,4vw,38px);font-weight:900}
+
+    /* Product layout */
+    .product-wrap{padding:20px var(--gutter) 40px}
+    .grid{display:grid;gap:22px}
+    .grid.product{grid-template-columns:1.15fr .85fr}
+    @media (max-width:1000px){ .grid.product{grid-template-columns:1fr} }
+
+    .gallery{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+    .main-img{aspect-ratio:4/3;object-fit:cover;width:100%;border-radius:12px}
+    .thumbs{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+    .thumbs img{
+      width:94px;height:94px;object-fit:cover;border-radius:10px;
+      border:2px solid transparent;cursor:pointer;opacity:.9
+    }
+    .thumbs img.active{border-color:var(--brand)}
+
+    .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+    .price{font-weight:900;font-size:22px}
+    .muted{color:var(--muted)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
+    .btn--brand{background:var(--brand);color:#06121b;border:none}
+    .btn--brand:hover{background:var(--brand-600);color:#fff}
+    .qty{display:flex;align-items:center;gap:8px;margin:12px 0}
+    .qty input{width:74px;padding:10px;border:1px solid var(--line);background:#0d1524;color:var(--fg);border-radius:10px}
+
+    .divider{height:1px;background:var(--line);margin:16px 0}
+    .detail-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .detail-list div{display:flex;gap:8px}
+    @media (max-width:720px){ .detail-list{grid-template-columns:1fr} }
+
+    /* Policies */
+    .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    @media (max-width:900px){ .cards{grid-template-columns:1fr} }
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+
+    /* Suggest */
+    .section{padding:30px var(--gutter)}
+    .grid.suggest{grid-template-columns:repeat(3,1fr)}
+    @media (max-width:1024px){ .grid.suggest{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .grid.suggest{grid-template-columns:1fr} }
+    .item{
+      background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+    }
+    .item img{aspect-ratio:4/3;object-fit:cover;width:100%}
+    .item .body{padding:12px}
+    .item .body b{display:block;margin-bottom:6px}
+
+    /* Drawer Cart */
+    .drawer{
+      position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
+      transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column
+    }
+    .drawer.open{transform:none}
+    .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+    .cart-item b{display:block}
+    .cart-item small{color:var(--muted)}
+    .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
+    .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
+    .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
+
+    /* Contact footer */
+    footer{border-top:1px solid var(--line);padding:26px var(--gutter)}
+    .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+    @media (max-width:900px){ .foot-grid{grid-template-columns:1fr} }
+    .foot-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px}
+    .foot-card h4{margin:0 0 8px}
+    .soft{opacity:.85}
+  </style>
 </head>
 <body>
-<header>
-  <div class="nav">
-    <a class="brand" href="index.html#home">
-      <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio"><span>Resin Keycap Studio</span>
-    </a>
-    <nav style="display:flex;gap:18px">
-      <a href="index.html#collections">Collections</a>
-      <a href="index.html#custom">Custom Order</a>
-      <a href="index.html#contact">Contact</a>
-    </nav>
-  </div>
-</header>
 
-<main class="container">
-  <div class="crumbs"><a href="index.html#collections">← Back to Collections</a></div>
+  <!-- Header -->
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="index.html#home">
+        <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
+        <span>Resin Keycap Studio</span>
+      </a>
 
-  <div id="wrap" class="grid" hidden>
-    <div class="card">
-      <img id="pImg" src="" alt="">
-    </div>
-    <div>
-      <h1 id="pName">Name</h1>
-      <div class="muted" id="pMeta"></div>
-      <p id="pDesc" style="margin:12px 0 16px">Description…</p>
-      <div class="price" id="pPrice">$0.00</div>
-      <div style="display:flex;gap:10px;margin-top:14px">
-        <button class="btn btn--brand" id="add">Add to Cart</button>
-        <a class="btn" href="index.html#cart" id="viewCart">View Cart</a>
-      </div>
-      <div class="specs">
-        <div class="muted">Profile: <span id="pProfile"></span></div>
-        <div class="muted">Collection: <span id="pCollection"></span></div>
-        <div class="muted">Color: <span id="pColor"></span></div>
-        <div class="muted" id="pStock"></div>
+      <nav class="navlinks">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#collections">Collections</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <div class="right">
+        <button class="icon-btn" title="Account">👤</button>
+        <div class="cart-wrap">
+          <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
       </div>
     </div>
-  </div>
+  </header>
 
-  <div id="notFound" class="card" style="text-align:center">
-    Product not found. <a href="index.html#collections">Back to Collections</a>
-  </div>
-</main>
+  <!-- Head -->
+  <section class="page-head container">
+    <div class="breadcrumb">
+      <a href="index.html#home">Home</a> · <a href="index.html#collections">Collections</a> · <span id="bcName">Product</span>
+    </div>
+    <h1 class="h1" id="pName">Product</h1>
+  </section>
 
-<footer>
-  © <span id="y"></span> Resin Keycap Studio · <a href="index.html#contact">Contact</a>
-</footer>
+  <!-- Product -->
+  <section class="product-wrap">
+    <div class="container grid product">
+      <!-- Gallery -->
+      <div class="gallery">
+        <img id="mainImg" class="main-img" src="" alt="">
+        <div class="thumbs" id="thumbs"></div>
+      </div>
 
-<script>
-// Year
-document.getElementById('y').textContent = new Date().getFullYear();
+      <!-- Info -->
+      <div class="panel">
+        <div class="price-row" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div class="price" id="pPrice">$0.00</div>
+          <div class="muted" id="sku"></div>
+        </div>
+        <p class="muted" id="pDesc" style="margin-top:8px"></p>
 
-// Lấy id từ query (?id=c1)
-const params = new URLSearchParams(location.search);
-const id = params.get('id');
+        <div class="qty">
+          <label>Qty</label>
+          <input id="qty" type="number" min="1" value="1"/>
+        </div>
 
-// DỮ LIỆU SẢN PHẨM — copy cùng cấu trúc như ở index.html
-const products = [
-  {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, profile:'Cherry',  color:'Pink',  collection:'Galaxy',     stock:true,  desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
-  {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, profile:'Cherry',  color:'Green', collection:'Nature',     stock:true,  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
-  {id:'c3',  name:'Monochrome Peak', img:'/images/c3.jpg',  price:47, profile:'OEM',     color:'Gray',  collection:'Monochrome', stock:true,  desc:'Black–white–silver minimalism — clean and classy.'},
-  {id:'c4',  name:'Ocean Drift',     img:'/images/c4.jpg',  price:46, profile:'SA',      color:'Blue',  collection:'Ocean',      stock:true,  desc:'Sea blues fading to dusk — smooth gradient flow.'},
-  {id:'c5',  name:'Aurora Bloom',    img:'/images/c5.jpg',  price:48, profile:'OEM',     color:'Pink',  collection:'Galaxy',     stock:false, desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
-  {id:'c6',  name:'Koi Garden',      img:'/images/c6.jpg',  price:52, profile:'Cherry',  color:'Amber', collection:'Nature',     stock:true,  desc:'Transparent pond tones with koi‑like swirls and gold.'},
-  {id:'c7',  name:'Stellar Dust',    img:'/images/c7.jpg',  price:44, profile:'DSA',     color:'Black', collection:'Galaxy',     stock:true,  desc:'Deep night resin with micro‑glitter — stardust finish.'},
-  {id:'c8',  name:'Canyon Amber',    img:'/images/c8.jpg',  price:45, profile:'Cherry',  color:'Amber', collection:'Nature',     stock:true,  desc:'Warm amber & sand hues — canyon breeze captured.'},
-  {id:'c9',  name:'Glacier Fade',    img:'/images/c9.jpg',  price:50, profile:'SA',      color:'Blue',  collection:'Monochrome', stock:false, desc:'Icy clear to slate gradient — crisp, modern chill.'},
-  {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, profile:'OEM',     color:'Pink',  collection:'Retro',      stock:true,  desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
-];
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+          <button class="btn btn--brand" id="btnAdd">Add to Cart</button>
+          <a class="btn" href="index.html#collections">← Back to Collections</a>
+        </div>
 
-const p = products.find(x=>x.id===id);
-const wrap = document.getElementById('wrap');
-const nf = document.getElementById('notFound');
+        <div class="divider"></div>
+        <div class="detail-list" id="detailList">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
 
-if(!p){
-  nf.hidden = false;
-} else {
-  nf.hidden = true; wrap.hidden = false;
-  document.title = `${p.name} — Resin Keycap Studio`;
-  document.getElementById('pImg').src = p.img;
-  document.getElementById('pImg').alt = p.name;
-  document.getElementById('pName').textContent = p.name;
-  document.getElementById('pDesc').textContent = p.desc;
-  document.getElementById('pPrice').textContent = `$${p.price.toFixed(2)}`;
-  document.getElementById('pProfile').textContent = p.profile;
-  document.getElementById('pCollection').textContent = p.collection;
-  document.getElementById('pColor').textContent = p.color;
-  document.getElementById('pStock').textContent = p.stock ? 'In stock' : 'Out of stock';
-}
+  <!-- Policies -->
+  <section class="section">
+    <div class="container cards">
+      <article class="card">
+        <h3>Shipping</h3>
+        <p class="muted">All items ship from Saigon, Vietnam. Domestic 1–3 days, international 7–14 days depending on region. Tracking provided.</p>
+      </article>
+      <article class="card">
+        <h3>Returns</h3>
+        <p class="muted">We accept returns within 7 days of delivery for manufacturing defects. Because each keycap is handcrafted, minor variations are normal.</p>
+      </article>
+    </div>
+  </section>
 
-// (Tuỳ chọn) Giỏ hàng đơn giản dùng localStorage để giữ giữa các trang
-const LS_KEY = 'rk_cart';
-const addBtn = document.getElementById('add');
+  <!-- Suggest -->
+  <section class="section">
+    <div class="container">
+      <h2 style="margin:0 0 10px">You may also like</h2>
+      <div class="grid suggest" id="suggestGrid"></div>
+    </div>
+  </section>
 
-function load(){ try{return JSON.parse(localStorage.getItem(LS_KEY))||[]}catch{return[]} }
-function save(v){ localStorage.setItem(LS_KEY, JSON.stringify(v)); }
+  <!-- Contact (same spirit as index) -->
+  <footer id="contact">
+    <div class="container foot-grid">
+      <div class="foot-card">
+        <h4>Contact — We reply within 24 hours.</h4>
+        <div class="soft">We’ll get back with a quote & lead time.</div>
+        <div style="margin-top:8px">
+          Email: <a class="muted" href="mailto:order@yourshop.vn">order@yourshop.vn</a><br/>
+          Zalo/Phone: <span class="muted">(+84) 09xx xxx xxx</span><br/>
+          Instagram: <a class="muted" href="#" target="_blank">@resin.keycap.studio</a>
+        </div>
+      </div>
+      <div class="foot-card">
+        <h4>Studio</h4>
+        <div class="soft">Saigon — visit by appointment.</div>
+        <div class="soft">Mon–Sat, 9:00–18:00 (GMT+7)</div>
+      </div>
+      <div class="foot-card">
+        <h4>Legal</h4>
+        <div class="soft">Terms · Privacy</div>
+        <div class="soft">© <span id="y"></span> Resin Keycap Studio</div>
+      </div>
+    </div>
+  </footer>
 
-addBtn?.addEventListener('click', ()=>{
-  if(!p) return;
-  const cart = load();
-  const ex = cart.find(x=>x.id===p.id);
-  if(ex){ ex.qty+=1 } else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1}); }
-  save(cart);
-  addBtn.textContent = 'Added ✓';
-  setTimeout(()=> addBtn.textContent='Add to Cart', 1000);
-});
-</script>
+  <!-- Cart Drawer -->
+  <aside class="drawer" id="cartDrawer" aria-label="Cart">
+    <div class="drawer__head">
+      <b>Your Cart</b>
+      <button class="btn" id="closeCart">Close</button>
+    </div>
+    <div class="drawer__body" id="cartItems"></div>
+    <div class="drawer__foot">
+      <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="btn btn--brand" style="width:100%">Checkout</button>
+    </div>
+  </aside>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Parse id from query
+    const params = new URLSearchParams(location.search);
+    const currentId = params.get('id') || 'c1';
+
+    // Catalog (same ids as index + extra fields)
+    const products = [
+      {id:'c1',  name:'Nebula Echo',        img:'/images/c1.jpg',  price:49, profile:'SA',  collection:'Galaxy',   color:'Blue',   desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.',  gallery:['/images/c1.jpg','/images/c1.1.jpg','/images/c1.2.jpg','/images/c1.3.jpg','/images/c1.4.jpg','/images/c1.5.jpg']},
+      {id:'c2',  name:'Forest Mist',        img:'/images/c2.jpg',  price:45, profile:'Cherry',collection:'Nature',  color:'Green',  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
+      {id:'c3',  name:'Monochrome Peak',    img:'/images/c3.jpg',  price:47, profile:'Cherry',collection:'Mono',    color:'Black',  desc:'Black–white–silver minimalism — clean and classy.'},
+      {id:'c4',  name:'Ocean Drift',        img:'/images/c4.jpg',  price:46, profile:'SA',  collection:'Ocean',    color:'Blue',   desc:'Sea blues fading to dusk — smooth gradient flow.'},
+      {id:'c5',  name:'Aurora Bloom',       img:'/images/c5.jpg',  price:48, profile:'ASA', collection:'Aurora',   color:'Pink',   desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
+      {id:'c6',  name:'Koi Garden',         img:'/images/c6.jpg',  price:52, profile:'Cherry',collection:'Nature', color:'Orange', desc:'Transparent pond tones with koi‑like swirls and gold.'},
+      {id:'c7',  name:'Stellar Dust',       img:'/images/c7.jpg',  price:44, profile:'SA',  collection:'Galaxy',   color:'Purple', desc:'Deep night resin with micro‑glitter — stardust finish.'},
+      {id:'c8',  name:'Canyon Amber',       img:'/images/c8.jpg',  price:45, profile:'Cherry',collection:'Desert', color:'Amber',  desc:'Warm amber & sand hues — canyon breeze captured.'},
+      {id:'c9',  name:'Glacier Fade',       img:'/images/c9.jpg',  price:50, profile:'Cherry',collection:'Ice',    color:'Blue',   desc:'Icy clear to slate gradient — crisp, modern chill.'},
+      {id:'c10', name:'Retro Vapor',        img:'/images/c10.jpg', price:43, profile:'XDA', collection:'Retro',   color:'Teal',   desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
+    ];
+
+    const product = products.find(p=>p.id===currentId) || products[0];
+
+    // Fill head
+    const pName = document.getElementById('pName');
+    const bcName = document.getElementById('bcName');
+    const pPrice = document.getElementById('pPrice');
+    const pDesc  = document.getElementById('pDesc');
+    const sku    = document.getElementById('sku');
+
+    pName.textContent = bcName.textContent = product.name;
+    pPrice.textContent = `$${product.price.toFixed(2)}`;
+    pDesc.textContent  = product.desc;
+    sku.textContent = `ID: ${product.id.toUpperCase()}`;
+
+    // Render details
+    const detailList = document.getElementById('detailList');
+    const details = [
+      ['Material', 'UV‑coated epoxy resin'],
+      ['Stem', 'MX (Cherry/Gateron compatible)'],
+      ['Profile', product.profile],
+      ['Finish', 'Glossy, UV coated (no yellowing)'],
+      ['Collection', product.collection],
+      ['Colorway', product.color],
+    ];
+    detailList.innerHTML = details.map(([k,v])=>`<div><strong>${k}:</strong><span class="muted">${v}</span></div>`).join('');
+
+    // Gallery
+    const mainImg = document.getElementById('mainImg');
+    const thumbs  = document.getElementById('thumbs');
+    const gallery = product.gallery || [product.img];
+
+    mainImg.src = gallery[0];
+    mainImg.alt = product.name;
+
+    thumbs.innerHTML = gallery.map((src,i)=>`
+      <img src="${src}" data-src="${src}" class="${i===0?'active':''}" alt="thumb ${i+1}">
+    `).join('');
+    thumbs.addEventListener('click', e=>{
+      const t = e.target.closest('img[data-src]');
+      if(!t) return;
+      mainImg.src = t.dataset.src;
+      thumbs.querySelectorAll('img').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+    });
+
+    // Suggest: pick 3 from same collection/profile (exclude self)
+    const cousins = products.filter(p => p.id!==product.id && (p.collection===product.collection || p.profile===product.profile)).slice(0,3);
+    const pool = cousins.length ? cousins : products.filter(p=>p.id!==product.id).slice(0,3);
+    const suggestGrid = document.getElementById('suggestGrid');
+    suggestGrid.innerHTML = pool.map(p=>`
+      <a class="item" href="product.html?id=${p.id}">
+        <img src="${p.img}" alt="${p.name}">
+        <div class="body">
+          <b>${p.name}</b>
+          <div class="muted">$${p.price.toFixed(2)}</div>
+        </div>
+      </a>
+    `).join('');
+
+    // ===== Cart (same logic as index) =====
+    const cart = JSON.parse(localStorage.getItem('cart')||'[]');
+    const cartBtn = document.getElementById('btnCart');
+    const drawer = document.getElementById('cartDrawer');
+    const closeCart = document.getElementById('closeCart');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+
+    function saveCart(){ localStorage.setItem('cart', JSON.stringify(cart)); }
+    function renderCart(){
+      let total=0, count=0;
+      cartItems.innerHTML = cart.length
+        ? cart.map(it=>{
+            const sub = it.price*it.qty; total+=sub; count+=it.qty;
+            return `
+              <div class="cart-item">
+                <img src="${it.img}" alt="${it.name}">
+                <div>
+                  <b>${it.name}</b>
+                  <small>$${it.price.toFixed(2)} × ${it.qty}</small>
+                </div>
+                <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
+              </div>`;
+          }).join('')
+        : '<div class="muted">Your cart is empty.</div>';
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+      cartCount.textContent = count;
+    }
+    function addToCart(id, qty){
+      const p = products.find(x=>x.id===id);
+      const ex = cart.find(x=>x.id===id);
+      if(ex){ ex.qty += qty; }
+      else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty}); }
+      saveCart(); renderCart(); openCart();
+    }
+    function removeFromCart(id){
+      const idx = cart.findIndex(x=>x.id===id);
+      if(idx>-1){ cart.splice(idx,1); saveCart(); renderCart(); }
+    }
+    function openCart(){ drawer.classList.add('open'); }
+    function closeCartFn(){ drawer.classList.remove('open'); }
+
+    window.removeFromCart = removeFromCart; // expose
+
+    cartBtn.addEventListener('click', openCart);
+    closeCart.addEventListener('click', closeCartFn);
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
+
+    // Add button
+    document.getElementById('btnAdd').addEventListener('click', ()=>{
+      const qty = Math.max(1, parseInt(document.getElementById('qty').value||'1',10));
+      addToCart(product.id, qty);
+    });
+
+    // Init
+    renderCart();
+  </script>
 </body>
 </html>
