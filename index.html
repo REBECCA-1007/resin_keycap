@@ -17,6 +17,17 @@
     --gutter: clamp(18px, 6vw, 120px);
     --shadow: 0 22px 60px rgba(0,0,0,.45);
   }
+  /* ===== Anchor offset cho header sticky ===== */
+:root{ --headerH: 72px; } /* đúng với .nav{min-height:72px} của bạn */
+
+html{ scroll-behavior:smooth; } /* cuộn mượt (tùy thích) */
+
+/* Mọi section có id khi cuộn tới sẽ chừa chỗ bằng chiều cao header */
+section[id]{ scroll-margin-top: calc(var(--headerH) + 12px); }
+
+/* Riêng #contact cũng áp dụng (vì bạn đặt trong <footer id="contact">) */
+#contact{ scroll-margin-top: calc(var(--headerH) + 12px); }
+
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
   body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
