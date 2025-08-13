@@ -3,12 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  \1
-  <meta name=\"robots\" content=\"noindex, nofollow\">
+
+  <!-- Giữ ẩn khi test (khi public nhớ bỏ meta này + sửa robots.txt) -->
+  <meta name="robots" content="noindex, nofollow" />
+
+  <title>Artisan Resin Keycap – Thủ công & Độc bản</title>
   <meta name="description" content="Cửa hàng keycap resin thủ công: độc bản, đổ khuôn chuẩn, hoàn thiện bóng, tương thích Cherry MX & Gateron. Mua ngay với giỏ hàng không cần backend." />
   <meta name="theme-color" content="#0f172a" />
   <meta property="og:title" content="Artisan Resin Keycap – Thủ công & Độc bản" />
   <meta property="og:description" content="Artisan Resin Keycap thủ công | độc bản | tương thích Cherry MX | đặt hàng nhanh." />
+
   <style>
     /* ====== Reset & Base ====== */
     *, *::before, *::after { box-sizing: border-box; }
@@ -39,6 +43,18 @@
 
     /* ====== Hero ====== */
     .hero { display: grid; gap: 32px; grid-template-columns: 1.05fr .95fr; align-items: center; }
+
+    /* 👉 Thêm nền ngay chỗ tiêu đề */
+    .hero { position: relative; overflow: hidden; }
+    .hero::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: url('images/bg-keycap.jpg') center/cover no-repeat, linear-gradient(135deg, #0b1220, #0b1220);
+      opacity: .28;            /* độ mờ của ảnh nền */
+      pointer-events: none;
+    }
+    .hero > * { position: relative; z-index: 1; }
+
     .hero h1 { font-size: clamp(28px, 6vw, 48px); margin: 0 0 8px; }
     .hero p { color: var(--muted); margin: 0 0 16px; }
     .hero .tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -99,7 +115,7 @@
   <main class="container section">
     <section class="hero">
       <div>
-        <h1>Artisan Resin Keycap thủ công — độc bản, đổ khuôn chuẩn</h1>
+        <h1>Artisan Resin Keycap — Thủ công & độc bản</h1>
         <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
         <div class="tags">
           <span class="tag">Handmade</span>
