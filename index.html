@@ -5,126 +5,113 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Resin Keycap Studio — Art You Can Touch</title>
   <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
-  <link rel="preload" as="image" href="/images/title-artisan.jpg">
+
   <style>
-    /* ========== Tokens ========== */
+    /* ====== Design Tokens ====== */
     :root{
-      --bg:#0a0f18; --fg:#e6edf6; --muted:#9db0c9;
-      --line:#172238; --card:#0f1623;
-      --brand:#0ea5e9; --brand-600:#0284c7; --accent:#22c55e;
-      --danger:#ef4444; --warning:#f59e0b;
-      --container:1200px; --radius:16px; --shadow:0 20px 60px rgba(0,0,0,.45);
-      --gutter: clamp(18px, 6vw, 120px);
+      --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
+      --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
+      --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
+      --radius:18px; --container:1200px; --gutter: clamp(18px, 6vw, 120px);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
     .container{width:min(var(--container),92%);margin-inline:auto}
 
-    /* ========== Header ========== */
+    /* ====== Header ====== */
     .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{width:44px;height:44px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
-    .navlinks{display:flex;align-items:center;gap:18px}
-    .navlinks a{padding:8px 10px;border-radius:10px}
+    .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
+    .navlinks{display:flex;align-items:center;gap:22px}
+    .navlinks a{padding:8px 10px;border-radius:10px;opacity:.92}
     .navlinks a:hover{background:#0f1726}
-    .nav-ctas{display:flex;align-items:center;gap:10px}
-    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:10px 12px;border-radius:12px;background:#0f1626}
-    .chip--ghost{background:transparent}
-    .badge{display:inline-flex;min-width:20px;min-height:20px;padding:0 6px;border-radius:999px;align-items:center;justify-content:center;background:var(--accent);color:#052011;font-size:12px;font-weight:800}
-    .lang{border-radius:12px;border:1px solid var(--line);padding:10px 14px;background:#0f1626}
-    .menu{display:none}
-    @media (max-width:1000px){
-      .navlinks{display:none}
-      .menu{display:inline-flex;border:1px solid var(--line);background:#0f1626;border-radius:12px;padding:10px 12px}
-    }
+    .right{display:flex;align-items:center;gap:10px}
 
-    /* ========== Hero (full-bleed) ========== */
-    .hero{
-      position:relative;isolation:isolate;border-bottom:1px solid var(--line);
-      background: #0b1320;
-    }
-    .hero__bg{
-      position:absolute;inset:0;
-      background:
-        radial-gradient(1200px 500px at 20% -20%, rgba(14,165,233,.35), transparent 60%),
-        radial-gradient(800px 400px at 120% 120%, rgba(34,197,94,.20), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.55)),
-        url("/images/title-artisan.jpg") center/cover no-repeat;
-      filter:saturate(.85) contrast(.98);
-      z-index:-2;
-    }
-    .hero__shade{
-      position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,10,20,.35) 0 40%, rgba(3,10,20,.65) 100%);
-      z-index:-1;
-    }
-    .hero__wrap{
-      padding:clamp(38px,6.4vw,80px) var(--gutter) clamp(36px,6vw,64px);
-      width:min(var(--container),92%);margin-inline:auto;
-    }
-    .hero__title{font-size:clamp(34px,7.2vw,88px);line-height:1.03;margin:0 0 10px;font-weight:900}
-    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
-    .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:700;cursor:pointer}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
     .btn--brand{background:var(--brand);color:#06121b;border:none}
     .btn--brand:hover{background:var(--brand-600);color:#fff}
     .btn--ghost{background:transparent;border:1px solid var(--line)}
+    .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
 
-    /* ========== Marquee ========== */
-    .marquee{
-      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-      background:#0b1320;overflow:hidden;padding:12px 0;
+    /* Cart bubble */
+    .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
+
+    /* ====== Hero (bản chuẩn bạn chọn) ====== */
+    .hero{padding:40px var(--gutter) 30px}
+    .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+    .hero__title{font-size:clamp(42px,7.4vw,88px);line-height:1.04;margin:0 0 10px;font-weight:900}
+    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,22px)}
+    .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+    .hero__media{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:var(--shadow)}
+    .hero__media::before{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:
+        radial-gradient(900px 360px at 10% -10%, #0ea5e91f, transparent 60%),
+        radial-gradient(800px 300px at 120% 120%, #22c55e17, transparent 55%);
     }
-    .marquee__track{display:flex;gap:60px;white-space:nowrap;animation:scroll 26s linear infinite}
-    .marquee__item{font-weight:800;opacity:.96}
-    .marquee__bullet{opacity:.35;margin:0 12px}
-    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+    .hero__img{aspect-ratio:16/10;object-fit:cover;width:100%}
+    .hero__cap{position:absolute;left:18px;bottom:14px;font-size:14px;color:#dfe9fbcc}
 
-    /* ========== Sections ========== */
-    .section{padding:clamp(40px,6vw,72px) var(--gutter)}
-    .section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,34px)}
+    @media (max-width:980px){ .hero-wrap{grid-template-columns:1fr} .hero__media{order:2} }
+
+    /* ====== Marquee (triết lý) ====== */
+    .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);padding:12px 0;overflow:hidden}
+    .marquee .container{overflow:hidden}
+    .mq-track{display:flex;gap:60px;white-space:nowrap;animation:mq 24s linear infinite}
+    .mq-item{font-weight:700;opacity:.95}
+    .dot{opacity:.35;margin:0 12px}
+    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* ====== Sections ====== */
+    .section{padding:40px var(--gutter)}
+    .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
     .muted{color:var(--muted)}
 
-    /* Stats row */
-    .stats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
-    .stat{grid-column:span 3;border:1px solid var(--line);border-radius:14px;padding:18px;background:#0c1728}
-    .stat .num{font-size:clamp(22px,3.4vw,36px);font-weight:900}
-    .stat .lbl{color:var(--muted)}
-    @media (max-width:980px){.stat{grid-column:span 6}}
-    @media (max-width:680px){.stat{grid-column:span 12}}
+    /* ====== Products grid: 3 per row ====== */
+    .grid{display:grid;gap:18px}
+    /* 3 cards on desktop */
+    .grid.products{grid-template-columns:repeat(3,1fr)}
+    /* 2 on tablet */
+    @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
+    /* 1 on mobile */
+    @media (max-width:640px){ .grid.products{grid-template-columns:1fr} }
 
-    /* Products */
-    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:20px}
-    .product{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-    .product__img{aspect-ratio:1/1;object-fit:cover;width:100%}
-    .product__body{padding:16px;display:grid;gap:8px}
-    .product__name{font-size:18px;font-weight:800}
-    .price{font-weight:900}
-    .product__footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
-    .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-    .qty button{background:#0f1726;border:none;color:var(--fg);width:34px;height:34px;font-weight:900;cursor:pointer}
-    .qty input{width:42px;background:transparent;border:none;color:var(--fg);text-align:center}
-    @media (max-width:980px){.product{grid-column:span 6}}
-    @media (max-width:680px){.product{grid-column:span 12}}
+    .product{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:hidden;display:flex;flex-direction:column;
+      box-shadow:0 8px 30px rgba(0,0,0,.25);
+    }
+    .product__img{aspect-ratio:4/3;object-fit:cover;width:100%}
+    .product__body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .product h3{margin:0 0 2px;font-size:20px}
+    .product p{margin:0;color:var(--muted)}
+    .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+    .price{font-weight:900;font-size:20px}
+    .product .btn{padding:10px 14px;border-radius:10px}
 
-    /* Cart Drawer */
-    .drawer{position:fixed;top:0;right:-420px;width:min(420px,92%);height:100dvh;background:#0b1320;border-left:1px solid var(--line);box-shadow:var(--shadow);z-index:60;display:flex;flex-direction:column;transition:right .28s ease}
-    .drawer.open{right:0}
-    .drawer__head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid var(--line)}
-    .drawer__list{flex:1;overflow:auto;padding:12px 16px;display:grid;gap:10px}
-    .cart-item{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0f1626}
-    .cart-item img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+    /* ====== Cart Drawer ====== */
+    .drawer{
+      position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
+      transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column
+    }
+    .drawer.open{transform:none}
+    .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
+    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
     .cart-item b{display:block}
     .cart-item small{color:var(--muted)}
-    .cart-item .actions{display:flex;align-items:center;gap:8px}
-    .drawer__foot{border-top:1px solid var(--line);padding:16px;display:grid;gap:10px}
-    .total{display:flex;align-items:center;justify-content:space-between;font-weight:900}
-
-    /* Footer */
-    footer{border-top:1px solid var(--line);padding:22px var(--gutter);color:var(--muted);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+    .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
+    .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
+    .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
   </style>
 </head>
 <body>
@@ -132,7 +119,7 @@
   <!-- ===== Header ===== -->
   <header class="header">
     <div class="nav">
-      <a class="brand" href="#home">
+      <a class="brand" href="#">
         <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
         <span>Resin Keycap Studio</span>
       </a>
@@ -141,141 +128,92 @@
         <a href="#home">Home</a>
         <a href="#philosophy">Philosophy</a>
         <a href="#collections">Collections</a>
-        <a href="#custom">Custom Order</a>
         <a href="#contact">Contact</a>
       </nav>
 
-      <div class="nav-ctas">
-        <button class="chip chip--ghost" id="accountBtn" title="Account">👤</button>
-        <button class="chip" id="cartBtn" title="Cart">
-          🧺 <span class="badge" id="cartCount">0</span>
-        </button>
-        <button class="lang" id="langBtn" title="Language">EN</button>
-        <button class="menu" id="menuBtn">☰</button>
+      <div class="right">
+        <button class="icon-btn" id="btnAccount" title="Account">👤</button>
+        <div style="position:relative">
+          <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
+          <span class="cart-count" id="cartCount">0</span>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- ===== Hero (full-bleed) ===== -->
+  <!-- ===== Hero ===== -->
   <section id="home" class="hero">
-    <div class="hero__bg"></div>
-    <div class="hero__shade"></div>
+    <div class="hero-wrap container">
+      <div>
+        <h1 class="hero__title">Every Key Tells a Story</h1>
+        <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
+        <div class="hero__actions">
+          <a class="btn btn--brand" href="#collections">Browse Collections</a>
+          <a class="btn btn--ghost" href="#contact">Custom Order</a>
+        </div>
+      </div>
 
-    <div class="hero__wrap">
-      <h1 class="hero__title">Every Key Tells a Story</h1>
-      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
-      <div class="hero__actions">
-        <a class="btn btn--brand" href="#collections">Browse Collections</a>
-        <a class="btn btn--ghost" href="#custom">Custom Order</a>
+      <div class="hero__media">
+        <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero" />
+        <div class="hero__cap">Art you can touch.</div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Philosophy Marquee ===== -->
+  <!-- ===== Marquee / Philosophy ===== -->
   <section id="philosophy" class="marquee" aria-label="Philosophy">
-    <div class="container" style="overflow:hidden">
-      <div class="marquee__track">
+    <div class="container">
+      <div class="mq-track">
         <div>
-          <span class="marquee__item">Handcrafted is Quality</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Made to Be Yours</span>
+          <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
+          <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
+          <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
+          <span class="mq-item">Design Speaks</span><span class="dot">•</span>
+          <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
+          <span class="mq-item">Made to Be Yours</span>
         </div>
         <div aria-hidden="true">
-          <span class="marquee__item">Handcrafted is Quality</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span>
-          <span class="marquee__bullet">•</span>
-          <span class="marquee__item">Made to Be Yours</span>
+          <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
+          <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
+          <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
+          <span class="mq-item">Design Speaks</span><span class="dot">•</span>
+          <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
+          <span class="mq-item">Made to Be Yours</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== Stats ===== -->
-  <section id="stats" class="section">
-    <div class="container">
-      <h2>Value at a Glance</h2>
-      <p class="muted">What keyboard enthusiasts care about — clear, concise, and honest.</p>
-      <div class="stats">
-        <div class="stat">
-          <div class="num">100% Handmade</div>
-          <div class="lbl">No mass production</div>
-        </div>
-        <div class="stat">
-          <div class="num">50+ Designs</div>
-          <div class="lbl">Growing collections</div>
-        </div>
-        <div class="stat">
-          <div class="num">UV Coated</div>
-          <div class="lbl">Glossy, durable, anti-yellowing</div>
-        </div>
-        <div class="stat">
-          <div class="num">Global Shipping</div>
-          <div class="lbl">Domestic & international</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Collections / Products ===== -->
+  <!-- ===== Collections (3 per row) ===== -->
   <section id="collections" class="section">
     <div class="container">
       <h2>Collections</h2>
-      <p class="muted">Signature product lines — minimal, message‑forward.</p>
+      <p class="muted">Signature artisan keycaps — minimal, message‑forward.</p>
 
-      <div class="grid" id="productGrid">
-        <!-- Products will be rendered by JS based on the list below -->
+      <div class="grid products" id="productGrid">
+        <!-- Products will be injected by JS (using images c1..c10.jpg) -->
       </div>
-    </div>
-  </section>
-
-  <!-- ===== Custom / CTA ===== -->
-  <section id="custom" class="section">
-    <div class="container">
-      <h2>Custom Order</h2>
-      <p class="muted">Your spec: colors, profile, lettering, special effects. We’ll craft it—slowly, carefully.</p>
-      <a class="btn btn--brand" href="#contact">Request via Email</a>
     </div>
   </section>
 
   <!-- ===== Footer ===== -->
-  <footer id="contact">
-    <small>© <span id="y"></span> Resin Keycap Studio</small>
-    <div>
-      <a href="#" class="muted">Terms</a> ·
-      <a href="#" class="muted">Privacy</a> ·
-      <a href="mailto:order@yourshop.vn" class="muted">Contact</a>
+  <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
+    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <small>© <span id="y"></span> Resin Keycap Studio</small>
+      <div class="muted">Terms · Privacy · <a href="mailto:order@yourshop.vn" class="muted">Contact</a></div>
     </div>
   </footer>
 
   <!-- ===== Cart Drawer ===== -->
-  <aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+  <aside class="drawer" id="cartDrawer" aria-label="Cart">
     <div class="drawer__head">
-      <b>Cart</b>
-      <button class="btn btn--ghost" id="closeCart">✕</button>
+      <b>Your Cart</b>
+      <button class="btn btn--ghost" id="closeCart">Close</button>
     </div>
-    <div class="drawer__list" id="cartList"></div>
+    <div class="drawer__body" id="cartItems"></div>
     <div class="drawer__foot">
-      <div class="total">
-        <span>Subtotal</span>
-        <span id="cartTotal">$0.00</span>
-      </div>
-      <button class="btn btn--brand" id="checkoutBtn">Checkout</button>
-      <small class="muted">Taxes & shipping calculated at checkout.</small>
+      <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+      <button class="btn btn--brand" style="width:100%">Checkout</button>
     </div>
   </aside>
 
@@ -283,208 +221,82 @@
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ===== Products data =====
-    const PRODUCTS = [
-      {
-        id:'c1', name:'Nebula ESC', price:49,
-        desc:'Swirl galaxy resin for the Escape key — each piece is unique.',
-        img:'/images/c1.jpg'
-      },
-      {
-        id:'c2', name:'Glacier Enter', price:45,
-        desc:'Frosted blue transparency with subtle depth and calm.',
-        img:'/images/c2.jpg'
-      },
-      {
-        id:'c3', name:'Sakura Petal', price:55,
-        desc:'Soft pink bloom gradient — delicate yet vibrant.',
-        img:'/images/c3.jpg'
-      },
-      {
-        id:'c4', name:'Deep Forest', price:52,
-        desc:'Emerald swirls with moss flecks; vivid and organic.',
-        img:'/images/c4.jpg'
-      },
-      {
-        id:'c5', name:'Koi Pond', price:59,
-        desc:'Crystal teal with orange/white marbling — motion in stillness.',
-        img:'/images/c5.jpg'
-      },
-      {
-        id:'c6', name:'Night Runner', price:47,
-        desc:'Smoke black base with a razor neon accent line.',
-        img:'/images/c6.jpg'
-      },
-      {
-        id:'c7', name:'Lunar Silver', price:44,
-        desc:'Pearl‑metallic monochrome for a clean, modern board.',
-        img:'/images/c7.jpg'
-      },
-      {
-        id:'c8', name:'Desert Dune', price:46,
-        desc:'Warm sand gradient, translucent and soft‑toned.',
-        img:'/images/c8.jpg'
-      },
-      {
-        id:'c9', name:'Ocean Ripple', price:49,
-        desc:'Wave‑blue ripple pattern with crisp transparency.',
-        img:'/images/c9.jpg'
-      },
-      {
-        id:'c10', name:'Noir Minimal', price:39,
-        desc:'Matte black and silver — quiet, disciplined, timeless.',
-        img:'/images/c10.jpg'
-      }
+    // ====== Catalog data (images c1..c10.jpg) ======
+    const products = [
+      {id:'c1',  name:'Nebula Echo',        img:'/images/c1.jpg',  price:49, desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
+      {id:'c2',  name:'Forest Mist',        img:'/images/c2.jpg',  price:45, desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
+      {id:'c3',  name:'Monochrome Peak',    img:'/images/c3.jpg',  price:47, desc:'Black–white–silver minimalism — clean and classy.'},
+      {id:'c4',  name:'Ocean Drift',        img:'/images/c4.jpg',  price:46, desc:'Sea blues fading to dusk — smooth gradient flow.'},
+      {id:'c5',  name:'Aurora Bloom',       img:'/images/c5.jpg',  price:48, desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
+      {id:'c6',  name:'Koi Garden',         img:'/images/c6.jpg',  price:52, desc:'Transparent pond tones with koi‑like swirls and gold.'},
+      {id:'c7',  name:'Stellar Dust',       img:'/images/c7.jpg',  price:44, desc:'Deep night resin with micro‑glitter — stardust finish.'},
+      {id:'c8',  name:'Canyon Amber',       img:'/images/c8.jpg',  price:45, desc:'Warm amber & sand hues — canyon breeze captured.'},
+      {id:'c9',  name:'Glacier Fade',       img:'/images/c9.jpg',  price:50, desc:'Icy clear to slate gradient — crisp, modern chill.'},
+      {id:'c10', name:'Retro Vapor',        img:'/images/c10.jpg', price:43, desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
     ];
 
-    // ===== Render products =====
+    // ====== Render products ======
     const grid = document.getElementById('productGrid');
-    grid.innerHTML = PRODUCTS.map(p => `
-      <article class="product">
+    grid.innerHTML = products.map(p => `
+      <article class="product" data-id="${p.id}">
         <img class="product__img" src="${p.img}" alt="${p.name}">
         <div class="product__body">
-          <div class="product__name">${p.name}</div>
-          <small class="muted">${p.desc}</small>
-          <div class="product__footer">
+          <h3>${p.name}</h3>
+          <p>${p.desc}</p>
+          <div class="price-row">
             <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn--brand" data-add="${p.id}">Add to Cart</button>
+            <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
           </div>
         </div>
       </article>
     `).join('');
 
-    // ===== Simple Cart =====
-    const cartBtn     = document.getElementById('cartBtn');
-    const cartDrawer  = document.getElementById('cartDrawer');
-    const closeCart   = document.getElementById('closeCart');
-    const cartList    = document.getElementById('cartList');
-    const cartTotalEl = document.getElementById('cartTotal');
-    const cartCountEl = document.getElementById('cartCount');
+    // ====== Simple Cart ======
+    const cart = [];
+    const cartBtn = document.getElementById('btnCart');
+    const drawer = document.getElementById('cartDrawer');
+    const closeCart = document.getElementById('closeCart');
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
 
-    const CART_KEY = 'rks_cart_v1';
-    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
-
-    const fmt = n => '$' + n.toFixed(2);
-
-    function saveCart(){
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-      renderCart();
+    function addToCart(id){
+      const p = products.find(x=>x.id===id);
+      const ex = cart.find(x=>x.id===id);
+      if(ex){ ex.qty += 1; }
+      else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1}); }
+      renderCart(); openCart();
     }
-
-    function addToCart(id, qty=1){
-      const found = cart.find(i => i.id === id);
-      if(found) found.qty += qty;
-      else{
-        const p = PRODUCTS.find(p => p.id === id);
-        if(!p) return;
-        cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty});
-      }
-      saveCart();
-      openCart();
+    function removeFromCart(id){
+      const idx = cart.findIndex(x=>x.id===id);
+      if(idx>-1){ cart.splice(idx,1); renderCart(); }
     }
-
-    function updateQty(id, delta){
-      const item = cart.find(i => i.id === id);
-      if(!item) return;
-      item.qty += delta;
-      if(item.qty <= 0) cart = cart.filter(i => i.id !== id);
-      saveCart();
-    }
-
-    function removeItem(id){
-      cart = cart.filter(i => i.id !== id);
-      saveCart();
-    }
-
     function renderCart(){
-      if(cart.length === 0){
-        cartList.innerHTML = `<div class="muted">Your cart is empty.</div>`;
-        cartTotalEl.textContent = fmt(0);
-        cartCountEl.textContent = '0';
-        return;
-      }
-      cartList.innerHTML = cart.map(i => `
-        <div class="cart-item">
-          <img src="${i.img}" alt="${i.name}">
-          <div>
-            <b>${i.name}</b>
-            <small class="muted">${fmt(i.price)} each</small>
-            <div class="actions" style="margin-top:6px">
-              <button class="btn btn--ghost" data-dec="${i.id}">−</button>
-              <span>${i.qty}</span>
-              <button class="btn btn--ghost" data-inc="${i.id}">+</button>
-              <button class="btn btn--ghost" data-del="${i.id}" title="Remove">🗑</button>
-            </div>
-          </div>
-          <div style="font-weight:900">${fmt(i.price * i.qty)}</div>
-        </div>
-      `).join('');
-
-      const total = cart.reduce((s,i)=> s + i.price*i.qty, 0);
-      cartTotalEl.textContent = fmt(total);
-      cartCountEl.textContent = String(cart.reduce((s,i)=> s + i.qty, 0));
+      let total = 0, count = 0;
+      cartItems.innerHTML = cart.length
+        ? cart.map(it=>{
+            const sub = it.price*it.qty; total += sub; count += it.qty;
+            return `
+              <div class="cart-item">
+                <img src="${it.img}" alt="${it.name}">
+                <div>
+                  <b>${it.name}</b>
+                  <small>$${it.price.toFixed(2)} × ${it.qty}</small>
+                </div>
+                <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
+              </div>`;
+          }).join('')
+        : '<div class="muted">Your cart is empty.</div>';
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+      cartCount.textContent = count;
     }
-
-    function openCart(){
-      cartDrawer.classList.add('open');
-      cartDrawer.setAttribute('aria-hidden','false');
-    }
-    function closeCartDrawer(){
-      cartDrawer.classList.remove('open');
-      cartDrawer.setAttribute('aria-hidden','true');
-    }
-
-    // Listeners
-    document.body.addEventListener('click', (e)=>{
-      const add = e.target.closest('[data-add]');
-      if(add){
-        addToCart(add.dataset.add);
-      }
-      const inc = e.target.closest('[data-inc]');
-      if(inc) updateQty(inc.dataset.inc, +1);
-
-      const dec = e.target.closest('[data-dec]');
-      if(dec) updateQty(dec.dataset.dec, -1);
-
-      const del = e.target.closest('[data-del]');
-      if(del) removeItem(del.dataset.del);
-    });
-
+    function openCart(){ drawer.classList.add('open'); }
+    function closeCartFn(){ drawer.classList.remove('open'); }
     cartBtn.addEventListener('click', openCart);
-    closeCart.addEventListener('click', closeCartDrawer);
+    closeCart.addEventListener('click', closeCartFn);
 
-    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
-      if(cart.length === 0) return alert('Your cart is empty.');
-      alert('Thanks! This is a demo checkout.\nYou can wire this button to Stripe/PayPal later.');
-    });
-
-    // simple menu (mobile demo)
-    document.getElementById('menuBtn')?.addEventListener('click', ()=>{
-      const links = document.querySelector('.navlinks');
-      if(!links) return;
-      if(getComputedStyle(links).display==='none'){
-        links.style.display='flex';
-        links.style.flexDirection='column';
-        links.style.position='absolute';
-        links.style.top='68px';
-        links.style.right='4%';
-        links.style.background='#0f1626';
-        links.style.padding='10px';
-        links.style.border='1px solid var(--line)';
-        links.style.borderRadius='12px';
-        links.style.boxShadow='var(--shadow)';
-      }else{
-        links.removeAttribute('style');
-      }
-    });
-
-    // init
-    renderCart();
-
-    // Language toggle placeholder
-    document.getElementById('langBtn')?.addEventListener('click', ()=>{
-      alert('EN/VI toggle placeholder. We will add bilingual strings later.');
-    });
+    // Close on backdrop click (optional UX)
+    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
   </script>
 </body>
 </html>
