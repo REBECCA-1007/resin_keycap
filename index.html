@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Resin Keycap Studio — Art You Can Touch</title>
   <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
 
-  <!-- Only the hero caption uses Great Vibes -->
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-
   <style>
-    /* ===== Tokens ===== */
+    /* ===== Design tokens ===== */
     :root{
       --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
       --line:#1b273a; --card:#0f1623;
-      --brand:#0ea5e9; --brand-600:#0284c7; --accent:#22c55e;
+      --brand:#0ea5e9; --brand-600:#0284c7;
+      --accent:#22c55e;
       --container:1200px; --radius:16px;
       --gutter: clamp(18px, 6vw, 120px);
     }
@@ -22,105 +20,81 @@
     html,body{margin:0;padding:0}
     body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    .container{width:min(var(--container),92%);margin-inline:auto}
 
-    /* ===== Header ===== */
-    .header{position:sticky;top:0;z-index:30;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
+    /* ===== Header / Nav ===== */
+    .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.72);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-    .navlinks{display:flex;align-items:center;gap:16px}
-    .navlinks a{padding:8px 10px;border-radius:10px}
+    .brand img{width:42px;height:42px;object-fit:contain;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    .navlinks{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .navlinks a{padding:10px 14px;border-radius:10px}
     .navlinks a:hover{background:#0f1726}
-    .menu{display:none}
-    @media (max-width:900px){ .navlinks{display:none} .menu{display:inline-flex} }
 
+    .actions{display:flex;align-items:center;gap:10px}
+    .badge-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid var(--line);border-radius:12px;background:#0f1623}
+    .badge{position:absolute;top:-6px;right:-6px;background:#10b981;color:#03120c;border-radius:999px;font-size:11px;line-height:1;padding:3px 6px;border:1px solid #073f2f}
+    .icon{width:20px;height:20px;display:block;opacity:.9}
+
+    .lang{padding:8px 12px;border:1px solid var(--line);border-radius:10px;background:#0f1623;cursor:pointer}
+    .menu{display:none}
+
+    @media (max-width:980px){
+      .navlinks{display:none}
+      .menu{display:inline-flex;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0f1623;cursor:pointer}
+    }
+
+    /* ===== Buttons ===== */
     .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
     .btn--brand{background:var(--brand);color:#06121b;border:none}
     .btn--brand:hover{background:var(--brand-600);color:#fff}
     .btn--ghost{background:transparent;border:1px solid var(--line)}
 
-    /* ===== HERO — full-bleed background with overlayed text ===== */
+    /* ===== HERO (full bleed background, text overlay) ===== */
     .hero{
-      position:relative;
-      isolation:isolate;
-      width:100%;
-      min-height: clamp(520px, 78vh, 880px);
-      display:flex;
-      align-items:center;
-      /* full-bleed background image */
-      background-image: url("/images/title-artisan.jpg");
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      position:relative;isolation:isolate;min-height:72vh;display:grid;
+      place-items:center;overflow:hidden;border-bottom:1px solid var(--line);
+      background:#0b1320;
     }
-    /* dark gradient & brand glow on top of photo for readability */
-    .hero::before{
-      content:"";
-      position:absolute; inset:0;
+    .hero__bg{
+      position:absolute;inset:0;
+      background-image:url("images/title-artisan.jpg");
+      background-size:cover;background-position:center;
+      filter:contrast(1.05) brightness(.9);
+      transform:scale(1.02);
+    }
+    .hero__veil{
+      position:absolute;inset:0;
       background:
-        linear-gradient(90deg, rgba(6,12,20,.78) 0%, rgba(6,12,20,.55) 38%, rgba(6,12,20,.20) 65%, rgba(6,12,20,.00) 100%),
-        radial-gradient(900px 320px at 8% 12%, #0ea5e91c, transparent 60%),
-        radial-gradient(700px 300px at 110% 110%, #22c55e1c, transparent 55%);
-      pointer-events:none;
-      z-index:0;
+        radial-gradient(1200px 420px at 12% 15%, #0ea5e933, transparent 65%),
+        radial-gradient(1200px 420px at 88% 85%, #22c55e22, transparent 60%),
+        linear-gradient(180deg, rgba(6,10,16,.55), rgba(6,10,16,.66));
     }
-    .hero .container{
-      position:relative;
-      z-index:1;              /* put text above image/overlay */
-      padding: clamp(44px,6.4vw,96px) var(--gutter);
+    .hero__content{
+      position:relative;z-index:1;width:min(var(--container),92%);
+      display:grid;gap:18px;padding:clamp(40px,6vw,80px) 0;
     }
     .hero__title{
-      font-size: clamp(38px, 7.2vw, 84px);
-      line-height: 1.06;
-      margin: 0 0 10px;
-      font-weight: 900;
-      max-width: 16ch;
-      text-wrap: balance;
+      margin:0;font-weight:900;line-height:1.06;
+      font-size:clamp(38px,7.4vw,92px);
+      text-shadow: 0 2px 26px rgba(0,0,0,.55);
+      max-width:18ch;
     }
-    .hero__subtitle{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: clamp(16px,2.2vw,20px);
-      font-style: italic;  /* as requested earlier */
-    }
+    .hero__subtitle{margin:0 0 14px;color:#eaeefb;opacity:.9;font-size:clamp(16px,2.2vw,22px);font-style:italic}
     .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-
-    /* caption in Great Vibes at bottom-right of hero */
-    .hero__cap{
-      position:absolute;
-      right: clamp(18px, 4vw, 44px);
-      bottom: clamp(12px, 2.8vw, 22px);
-      font-family: 'Great Vibes', cursive;
-      font-weight: normal;
-      letter-spacing: .3px;
-      color: #fdf6e3;
-      font-size: clamp(18px, 2.6vw, 28px);
-      text-shadow: 2px 2px 4px rgba(0,0,0,.55);
-      z-index: 1;
-      opacity: .95;
-    }
 
     /* ===== Marquee ===== */
     .marquee{
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      background:#0b1320;
-      padding:12px 0;
-      overflow:hidden;
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      background:#0b1320;padding:12px 0;overflow:hidden;
     }
-    .marquee__track{
-      display:flex; gap:60px; white-space:nowrap;
-      will-change:transform;
-      animation:scroll 24s linear infinite;
-    }
+    .container{width:min(var(--container),92%);margin-inline:auto}
+    .marquee__track{display:flex;gap:60px;white-space:nowrap;will-change:transform;animation:scroll 24s linear infinite}
     .marquee__item{color:#eaf2ff;opacity:.95;font-weight:700;letter-spacing:.2px;padding-inline:6px}
     .marquee__bullet{opacity:.35;margin:0 12px}
     @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
     @media (prefers-reduced-motion:reduce){.marquee__track{animation:none}}
 
-    /* ===== Sections / Stats / Cards ===== */
+    /* ===== Sections / Cards ===== */
     .section{padding:clamp(40px,6vw,72px) var(--gutter)}
     .section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,34px)}
     .muted{color:var(--muted)}
@@ -146,33 +120,59 @@
 <body>
 
   <!-- Header -->
-  <header class="header">
+  <header class="header" aria-label="Main">
     <div class="nav">
-      <a class="brand" href="#">
-        <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
-        <span>Resin Keycap Studio</span>
+      <a class="brand" href="#home" aria-label="Resin Keycap Studio">
+        <img src="images/logo-k-resin.png" alt="Logo">
+        <span id="brand">Resin Keycap Studio</span>
       </a>
-      <nav class="navlinks">
-        <a href="#philosophy">Philosophy</a>
-        <a href="#stats">Stats</a>
-        <a href="#collections">Collections</a>
-        <a href="#contact">Contact</a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#home" data-i18n="navHome">Home</a>
+        <a href="#philosophy" data-i18n="navPhilosophy">Philosophy</a>
+        <a href="#collections" data-i18n="navCollections">Collections</a>
+        <a href="#custom" data-i18n="navCustom">Custom Order</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
       </nav>
-      <button class="menu btn btn--ghost" id="menuBtn">☰</button>
+
+      <div class="actions">
+        <!-- Account -->
+        <a class="badge-wrap" href="#account" aria-label="Account">
+          <!-- simple user icon -->
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 12c2.8 0 5-2.2 5-5s-2.2-5-5-5-5 2.2-5 5 2.2 5 5 5Zm0 2c-4.4 0-8 2.7-8 6v2h16v-2c0-3.3-3.6-6-8-6Z"/>
+          </svg>
+        </a>
+        <!-- Cart -->
+        <a class="badge-wrap" href="#cart" aria-label="Cart">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M7 4h-2l-1 2h2l3.6 7.6-1.35 2.45A2 2 0 0 0 8 18h10v-2H9.42l.93-1.68h6.45a2 2 0 0 0 1.79-1.11l3.34-6.69A1 1 0 0 0 21 4H7Z"/>
+          </svg>
+          <span class="badge" id="cartCount">0</span>
+        </a>
+
+        <!-- Language toggle -->
+        <button class="lang" id="langBtn" aria-label="Toggle language">EN</button>
+
+        <!-- mobile menu (optional) -->
+        <button class="menu" id="menuBtn" aria-label="Open menu">☰</button>
+      </div>
     </div>
   </header>
 
   <!-- HERO (full-bleed) -->
-  <section class="hero" aria-label="Hero">
-    <div class="container">
-      <h1 class="hero__title">Every Key Tells a Story</h1>
-      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
+  <section id="home" class="hero" aria-label="Hero">
+    <div class="hero__bg" role="img" aria-label="Hero background image"></div>
+    <div class="hero__veil" aria-hidden="true"></div>
+
+    <div class="hero__content">
+      <h1 class="hero__title" id="heroTitle">Every Key Tells a Story</h1>
+      <p class="hero__subtitle" id="heroSub"><em>Crafting Keys, Capturing Souls</em></p>
       <div class="hero__actions">
-        <a class="btn btn--brand" href="#collections">Browse Collections</a>
-        <a class="btn btn--ghost" href="#contact">Custom Order</a>
+        <a class="btn btn--brand" href="#collections" id="ctaBrowse">Browse Collections</a>
+        <a class="btn btn--ghost" href="#custom" id="ctaCustom">Custom Order</a>
       </div>
     </div>
-    <div class="hero__cap">Art you can touch.</div>
   </section>
 
   <!-- Philosophy marquee -->
@@ -180,20 +180,20 @@
     <div class="container" style="overflow:hidden">
       <div class="marquee__track" id="mqTrack">
         <div>
-          <span class="marquee__item">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Made to Be Yours</span>
+          <span class="marquee__item" data-i18n="m1">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m2">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m3">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m4">Design Speaks</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m5">Details Make the Difference</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m6">Made to Be Yours</span>
         </div>
         <div aria-hidden="true">
-          <span class="marquee__item">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Design Speaks</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Details Make the Difference</span><span class="marquee__bullet">•</span>
-          <span class="marquee__item">Made to Be Yours</span>
+          <span class="marquee__item" data-i18n="m1">Handcrafted is Quality</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m2">Every Keycap is One of a Kind</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m3">Slow Made, Long Lasting</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m4">Design Speaks</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m5">Details Make the Difference</span><span class="marquee__bullet">•</span>
+          <span class="marquee__item" data-i18n="m6">Made to Be Yours</span>
         </div>
       </div>
     </div>
@@ -202,13 +202,26 @@
   <!-- Stats -->
   <section id="stats" class="section">
     <div class="container">
-      <h2>Value at a Glance</h2>
-      <p class="muted">Những điều người chơi bàn phím quan tâm — hiển thị rõ, gọn, dễ hiểu.</p>
+      <h2 data-i18n="valueGlance">Value at a Glance</h2>
+      <p class="muted" data-i18n="valueDesc">What keyboard folks care about—clear, concise, easy to scan.</p>
+
       <div class="stats">
-        <div class="stat"><div class="num">100% Handmade</div><div class="lbl">Không sản xuất hàng loạt</div></div>
-        <div class="stat"><div class="num">50+ Designs</div><div class="lbl">Bộ sưu tập đang mở rộng</div></div>
-        <div class="stat"><div class="num">UV Coated</div><div class="lbl">Bóng, bền, khó ố vàng</div></div>
-        <div class="stat"><div class="num">Global Shipping</div><div class="lbl">Ship toàn quốc & quốc tế</div></div>
+        <div class="stat">
+          <div class="num" data-i18n="s1">100% Handmade</div>
+          <div class="lbl" data-i18n="s1d">No mass production</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-i18n="s2">50+ Designs</div>
+          <div class="lbl" data-i18n="s2d">An expanding collection</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-i18n="s3">UV Coated</div>
+          <div class="lbl" data-i18n="s3d">Glossy, durable, anti‑yellowing</div>
+        </div>
+        <div class="stat">
+          <div class="num" data-i18n="s4">Global Shipping</div>
+          <div class="lbl" data-i18n="s4d">Nationwide & international</div>
+        </div>
       </div>
     </div>
   </section>
@@ -216,39 +229,44 @@
   <!-- Collections -->
   <section id="collections" class="section">
     <div class="container">
-      <h2>Collections</h2>
-      <p class="muted">Các dòng sản phẩm tiêu biểu — tối giản, tập trung vào thông điệp.</p>
+      <h2 data-i18n="collections">Collections</h2>
+      <p class="muted" data-i18n="collectionsDesc">Signature product lines — minimal, message‑forward.</p>
 
       <div class="grid">
         <article class="card">
-          <b>Galaxy Series</b>
-          <p>Swirl & nebula cho ESC / Enter — mỗi chiếc kể một câu chuyện vũ trụ.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
+          <b data-i18n="c1">Galaxy Series</b>
+          <p data-i18n="c1d">Swirl & nebula for ESC / Enter — each cap tells a cosmic story.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#!" data-i18n="explore">Explore</a></div>
         </article>
+
         <article class="card">
-          <b>Nature Series</b>
-          <p>Rừng, suối, koi — resin trong suốt, màu sắc tĩnh mà động.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
+          <b data-i18n="c2">Nature Series</b>
+          <p data-i18n="c2d">Forest, streams, koi — crystal resin, calm yet vibrant colors.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#!" data-i18n="explore">Explore</a></div>
         </article>
+
         <article class="card">
-          <b>Monochrome</b>
-          <p>Đen–trắng–bạc, phong cách tối giản và sang trọng.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#">Explore</a></div>
+          <b data-i18n="c3">Monochrome</b>
+          <p data-i18n="c3d">Black–white–silver, minimalist and classy.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#!" data-i18n="explore">Explore</a></div>
         </article>
-        <article class="card">
-          <b>Custom Lab</b>
-          <p>Đặt mẫu theo ý: phối màu, profile, kí tự, hiệu ứng đặc biệt.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#contact">Request</a></div>
+
+        <article class="card" id="custom">
+          <b data-i18n="c4">Custom Lab</b>
+          <p data-i18n="c4d">Your spec: colors, profile, lettering, special effects.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#contact" data-i18n="request">Request</a></div>
         </article>
+
         <article class="card">
-          <b>Workshop</b>
-          <p>Học đổ resin cho người mới — trải nghiệm craft tại studio.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#">Join</a></div>
+          <b data-i18n="c5">Workshop</b>
+          <p data-i18n="c5d">Hands‑on resin casting for newcomers at our studio.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#!" data-i18n="join">Join</a></div>
         </article>
+
         <article class="card">
-          <b>Community</b>
-          <p>Tips bảo quản, case study, hậu trường chế tác.</p>
-          <div class="cta"><a class="btn btn--ghost" href="#">Enter</a></div>
+          <b data-i18n="c6">Community</b>
+          <p data-i18n="c6d">Care tips, case studies, making‑of stories.</p>
+          <div class="cta"><a class="btn btn--ghost" href="#!" data-i18n="enter">Enter</a></div>
         </article>
       </div>
     </div>
@@ -258,34 +276,155 @@
   <footer id="contact">
     <small>© <span id="y"></span> Resin Keycap Studio</small>
     <div>
-      <a href="#" class="muted">Terms</a> ·
-      <a href="#" class="muted">Privacy</a> ·
-      <a href="mailto:order@yourshop.vn" class="muted">Contact</a>
+      <a href="#!" class="muted" data-i18n="terms">Terms</a> ·
+      <a href="#!" class="muted" data-i18n="privacy">Privacy</a> ·
+      <a href="mailto:order@yourshop.vn" class="muted" data-i18n="contactLink">Contact</a>
     </div>
   </footer>
 
   <script>
-    // Năm hiện tại
+    // Current year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Menu nhỏ (demo)
+    // Simple mobile menu (shows primary links)
     document.getElementById('menuBtn')?.addEventListener('click', ()=>{
       const links = document.querySelector('.navlinks');
-      if(!links) return;
-      if(getComputedStyle(links).display==='none'){
+      if (!links) return;
+      if (getComputedStyle(links).display === 'none') {
         links.style.display='flex';
         links.style.flexDirection='column';
         links.style.position='absolute';
-        links.style.top='64px';
+        links.style.top='66px';
         links.style.right='4%';
         links.style.background='#0f1626';
         links.style.padding='10px';
         links.style.border='1px solid var(--line)';
         links.style.borderRadius='12px';
         links.style.boxShadow='0 20px 60px rgba(0,0,0,.45)';
-      }else{
+      } else {
         links.removeAttribute('style');
       }
+    });
+
+    // --- Language toggle (EN <-> VI)
+    const i18n = {
+      en: {
+        navHome:'Home', navPhilosophy:'Philosophy', navCollections:'Collections', navCustom:'Custom Order', navContact:'Contact',
+        heroTitle:'Every Key Tells a Story', heroSub:'Crafting Keys, Capturing Souls',
+        ctaBrowse:'Browse Collections', ctaCustom:'Custom Order',
+        m1:'Handcrafted is Quality', m2:'Every Keycap is One of a Kind', m3:'Slow Made, Long Lasting', m4:'Design Speaks', m5:'Details Make the Difference', m6:'Made to Be Yours',
+        valueGlance:'Value at a Glance',
+        valueDesc:'What keyboard folks care about—clear, concise, easy to scan.',
+        s1:'100% Handmade', s1d:'No mass production',
+        s2:'50+ Designs', s2d:'An expanding collection',
+        s3:'UV Coated', s3d:'Glossy, durable, anti‑yellowing',
+        s4:'Global Shipping', s4d:'Nationwide & international',
+        collections:'Collections', collectionsDesc:'Signature product lines — minimal, message‑forward.',
+        c1:'Galaxy Series', c1d:'Swirl & nebula for ESC / Enter — each cap tells a cosmic story.',
+        c2:'Nature Series', c2d:'Forest, streams, koi — crystal resin, calm yet vibrant colors.',
+        c3:'Monochrome', c3d:'Black–white–silver, minimalist and classy.',
+        c4:'Custom Lab', c4d:'Your spec: colors, profile, lettering, special effects.',
+        c5:'Workshop', c5d:'Hands‑on resin casting for newcomers at our studio.',
+        c6:'Community', c6d:'Care tips, case studies, making‑of stories.',
+        explore:'Explore', request:'Request', join:'Join', enter:'Enter',
+        terms:'Terms', privacy:'Privacy', contactLink:'Contact'
+      },
+      vi: {
+        navHome:'Trang chủ', navPhilosophy:'Triết lý', navCollections:'Bộ sưu tập', navCustom:'Đặt theo yêu cầu', navContact:'Liên hệ',
+        heroTitle:'Mỗi phím đều kể một câu chuyện', heroSub:'Làm phím bằng tay, chạm đến cảm xúc',
+        ctaBrowse:'Xem bộ sưu tập', ctaCustom:'Đặt theo yêu cầu',
+        m1:'Thủ công là chất lượng', m2:'Mỗi keycap là độc bản', m3:'Chậm mà bền lâu', m4:'Thiết kế lên tiếng', m5:'Chi tiết tạo khác biệt', m6:'Làm nên để là của bạn',
+        valueGlance:'Giá trị trong một ánh nhìn',
+        valueDesc:'Những điều người chơi bàn phím quan tâm — rõ ràng, gọn, dễ hiểu.',
+        s1:'100% Thủ công', s1d:'Không sản xuất hàng loạt',
+        s2:'50+ Mẫu', s2d:'Bộ sưu tập đang mở rộng',
+        s3:'Phủ UV', s3d:'Bóng, bền, khó ố vàng',
+        s4:'Vận chuyển toàn cầu', s4d:'Trong nước & quốc tế',
+        collections:'Bộ sưu tập', collectionsDesc:'Các dòng sản phẩm tiêu biểu — tối giản, rõ thông điệp.',
+        c1:'Dải Ngân Hà', c1d:'Xoáy & Nebula cho ESC / Enter — mỗi phím kể chuyện vũ trụ.',
+        c2:'Thiên Nhiên', c2d:'Rừng, suối, koi — resin trong suốt, tĩnh mà động.',
+        c3:'Đơn Sắc', c3d:'Đen–trắng–bạc, tối giản và sang trọng.',
+        c4:'Phòng Tùy Biến', c4d:'Đặt thông số: màu, profile, ký tự, hiệu ứng đặc biệt.',
+        c5:'Workshop', c5d:'Trải nghiệm đổ resin cho người mới tại studio.',
+        c6:'Cộng Đồng', c6d:'Mẹo bảo quản, case study, hậu trường.',
+        explore:'Khám phá', request:'Yêu cầu', join:'Tham gia', enter:'Vào xem',
+        terms:'Điều khoản', privacy:'Quyền riêng tư', contactLink:'Liên hệ'
+      }
+    };
+
+    let currentLang = 'en';
+    const $ = (sel)=>document.querySelector(sel);
+    const $$ = (sel)=>document.querySelectorAll(sel);
+
+    function applyLang(lang){
+      currentLang = lang;
+      $('#langBtn').textContent = lang.toUpperCase();
+
+      // nav
+      $('[data-i18n="navHome"]').textContent        = i18n[lang].navHome;
+      $('[data-i18n="navPhilosophy"]').textContent  = i18n[lang].navPhilosophy;
+      $('[data-i18n="navCollections"]').textContent = i18n[lang].navCollections;
+      $('[data-i18n="navCustom"]').textContent      = i18n[lang].navCustom;
+      $('[data-i18n="navContact"]').textContent     = i18n[lang].navContact;
+
+      // hero
+      $('#heroTitle').textContent = i18n[lang].heroTitle;
+      $('#heroSub').innerHTML     = `<em>${i18n[lang].heroSub}</em>`;
+      $('#ctaBrowse').textContent = i18n[lang].ctaBrowse;
+      $('#ctaCustom').textContent = i18n[lang].ctaCustom;
+
+      // marquee
+      $$('[data-i18n="m1"]').forEach(n=>n.textContent=i18n[lang].m1);
+      $$('[data-i18n="m2"]').forEach(n=>n.textContent=i18n[lang].m2);
+      $$('[data-i18n="m3"]').forEach(n=>n.textContent=i18n[lang].m3);
+      $$('[data-i18n="m4"]').forEach(n=>n.textContent=i18n[lang].m4);
+      $$('[data-i18n="m5"]').forEach(n=>n.textContent=i18n[lang].m5);
+      $$('[data-i18n="m6"]').forEach(n=>n.textContent=i18n[lang].m6);
+
+      // stats
+      $('[data-i18n="valueGlance"]').textContent = i18n[lang].valueGlance;
+      $('[data-i18n="valueDesc"]').textContent   = i18n[lang].valueDesc;
+      $('[data-i18n="s1"]').textContent          = i18n[lang].s1;
+      $('[data-i18n="s1d"]').textContent         = i18n[lang].s1d;
+      $('[data-i18n="s2"]').textContent          = i18n[lang].s2;
+      $('[data-i18n="s2d"]').textContent         = i18n[lang].s2d;
+      $('[data-i18n="s3"]').textContent          = i18n[lang].s3;
+      $('[data-i18n="s3d"]').textContent         = i18n[lang].s3d;
+      $('[data-i18n="s4"]').textContent          = i18n[lang].s4;
+      $('[data-i18n="s4d"]').textContent         = i18n[lang].s4d;
+
+      // collections
+      $('[data-i18n="collections"]').textContent    = i18n[lang].collections;
+      $('[data-i18n="collectionsDesc"]').textContent= i18n[lang].collectionsDesc;
+      $('[data-i18n="c1"]').textContent            = i18n[lang].c1;
+      $('[data-i18n="c1d"]').textContent           = i18n[lang].c1d;
+      $('[data-i18n="c2"]').textContent            = i18n[lang].c2;
+      $('[data-i18n="c2d"]').textContent           = i18n[lang].c2d;
+      $('[data-i18n="c3"]').textContent            = i18n[lang].c3;
+      $('[data-i18n="c3d"]').textContent           = i18n[lang].c3d;
+      $('[data-i18n="c4"]').textContent            = i18n[lang].c4;
+      $('[data-i18n="c4d"]').textContent           = i18n[lang].c4d;
+      $('[data-i18n="c5"]').textContent            = i18n[lang].c5;
+      $('[data-i18n="c5d"]').textContent           = i18n[lang].c5d;
+      $('[data-i18n="c6"]').textContent            = i18n[lang].c6;
+      $('[data-i18n="c6d"]').textContent           = i18n[lang].c6d;
+      $$('[data-i18n="explore"]').forEach(n=>n.textContent=i18n[lang].explore);
+      $('[data-i18n="request"]').textContent       = i18n[lang].request;
+      $('[data-i18n="join"]').textContent          = i18n[lang].join;
+      $('[data-i18n="enter"]').textContent         = i18n[lang].enter;
+
+      // footer
+      $('[data-i18n="terms"]').textContent       = i18n[lang].terms;
+      $('[data-i18n="privacy"]').textContent     = i18n[lang].privacy;
+      $('[data-i18n="contactLink"]').textContent = i18n[lang].contactLink;
+
+      // update html lang attr
+      document.documentElement.lang = lang === 'en' ? 'en' : 'vi';
+    }
+
+    applyLang('en');
+    document.getElementById('langBtn').addEventListener('click', ()=>{
+      applyLang(currentLang === 'en' ? 'vi' : 'en');
     });
   </script>
 </body>
