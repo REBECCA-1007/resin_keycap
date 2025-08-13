@@ -18,55 +18,33 @@
     .btn,.icon{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:#0e1624;border:1px solid #223146;color:inherit;cursor:pointer}
     .cart-badge{font-size:12px;background:#22c55e;color:#041017;border-radius:999px;padding:2px 6px;min-width:18px;text-align:center}
 
-    /* HERO */
-    .hero-wrap{max-width:1200px;margin:18px auto;padding:0 16px}
+    /* HERO FULL-BLEED */
     .hero{
-      position:relative;width:100%;min-height:60vh;
-      border:4px solid #000;border-radius:12px;overflow:hidden;
-      box-shadow:0 30px 60px rgba(0,0,0,.45);background:#000;
+      width:100%;            /* phủ tràn chiều ngang */
+      min-height:70vh;       /* chiều cao linh hoạt */
+      margin:0;              /* không chừa viền/mép */
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.28)),
+        url('/images/title-artisan.jpg') center/cover no-repeat; /* KHÔNG mờ */
+      display:grid; align-items:center;
     }
-    .hero::before{
-      content:"";position:absolute;inset:0;
-      background:url('/images/title-artisan.jpg') center/cover no-repeat;
-    }
-    .hero::after{
-      content:"";position:absolute;inset:0;background:rgba(0,0,0,.18); /* lớp tối nhẹ cho chữ */
-    }
-    .hero-content{
-      position:relative;z-index:1;height:100%;
-      display:grid;align-content:center;
-      padding:36px clamp(18px,4vw,56px);
+    .hero__inner{
+      width:min(1200px, 100%);
+      margin-inline:auto;
+      padding: clamp(18px, 5vw, 64px);
     }
     .hero h1{
-      margin:0 0 12px;line-height:1.08;
-      font-size:clamp(36px,6.5vw,86px);font-weight:900;color:#fff;
-      text-shadow:0 10px 30px rgba(0,0,0,.45);max-width:1100px;
+      margin:0 0 12px; line-height:1.05;
+      font-size:clamp(36px, 6.8vw, 92px);
+      font-weight:900; color:#fff; text-shadow:0 10px 30px rgba(0,0,0,.45);
     }
     .hero p{
-      margin:0;font-size:clamp(16px,2.4vw,22px);color:#eaf3ff;max-width:1000px;
-      text-shadow:0 6px 20px rgba(0,0,0,.35);
-    }
-
-    /* 2 ẢNH NHỎ GÓC PHẢI DƯỚI (trong suốt, không nền trắng) */
-    .thumb{
-      position:absolute;z-index:1;bottom:18px;right:18px;
-      width:160px;height:auto;object-fit:contain;border-radius:10px;
-      /* KHÔNG background để giữ trong suốt */
-      border:4px solid #000;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
-      background: transparent;
-    }
-    .thumb--top{
-      right:188px;        /* dịch qua trái để hai ảnh lệch nhau */
-      bottom:32px;
-      width:136px;
-      border-radius:10px;
+      margin:0; font-size:clamp(16px, 2.4vw, 22px);
+      color:#eaf3ff; max-width:1000px; text-shadow:0 6px 20px rgba(0,0,0,.35);
     }
 
     @media (max-width:640px){
       .brand-logo{width:44px;height:44px}
-      .thumb{width:120px}
-      .thumb--top{right:146px;width:100px}
     }
   </style>
 </head>
@@ -85,19 +63,11 @@
     </div>
   </header>
 
-  <!-- HERO -->
-  <section class="hero-wrap">
-    <div class="hero">
-      <div class="hero-content">
-        <h1>Artisan Resin Keycap thủ công — độc bản, đổ khuôn chuẩn</h1>
-        <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
-      </div>
-
-      <!-- HAI ẢNH NHỎ (trong suốt), nếu cần chỉ 1 ảnh thì xoá 1 dòng -->
-      <img class="thumb" src="/images/bg-keycap-small.png" alt="BG keycap nhỏ"
-           onerror="this.onerror=null; this.remove();">
-      <img class="thumb thumb--top" src="/images/logo-k-resin.png" alt="Logo nhỏ"
-           onerror="this.onerror=null; this.remove();">
+  <!-- HERO FULL-BLEED (không viền, không ảnh nhỏ) -->
+  <section class="hero">
+    <div class="hero__inner">
+      <h1>Artisan Resin Keycap thủ công — độc bản, đổ khuôn chuẩn</h1>
+      <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
     </div>
   </section>
 </body>
