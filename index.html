@@ -6,197 +6,225 @@
   <title>Resin Keycap Studio</title>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --bg:#0b1220; --card:#0f172a; --ink:#e6edf5; --muted:#9fb0c3; --line:#1f2a3a;
-      --brand:#22c55e; --ring:#22c55e55;
-      --radius:18px;
+      --bg:#0b1220;
+      --panel:#0f172a;
+      --ink:#e6edf5;
+      --muted:#b6c2cf;
+      --line:#1f2a3b;
+      --brand:#22c55e;
+      --brand-deep:#16a34a;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
     a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-    .wrap{width:min(1200px,92%);margin-inline:auto}
+    .container{width:min(1200px,92%);margin-inline:auto}
 
-    /* Header */
-    .nav{height:68px;display:flex;align-items:center;gap:18px}
-    .logo{width:44px;height:44px;border-radius:12px;object-fit:cover}
-    .brand{font-weight:800;letter-spacing:.2px;margin-right:auto}
-    .menu{display:flex;gap:28px;color:var(--muted)}
-    .menu a:hover{color:var(--ink)}
+    /* ------- Top bar (đơn giản) ------- */
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(11,18,32,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;min-height:64px;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+    .brand .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#22c55e,#0ea5e9);display:grid;place-items:center;font-weight:900;color:#06121b}
+    .nav a{color:var(--muted);font-weight:600}
+    .nav a:hover{color:var(--ink)}
+    .nav .links{display:flex;gap:26px}
 
-    /* Hero */
-    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;padding:56px 0}
-    .h1{font-size:clamp(38px,6vw,72px);line-height:1.08;margin:0 0 10px}
-    .sub{color:var(--muted);font-style:italic;margin:0 0 18px}
-    .row{display:flex;gap:12px;align-items:center}
-    .btn{padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit}
-    .btn--primary{background:var(--brand);color:#06121b;border:0;font-weight:700}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 20px 40px rgba(0,0,0,.28);overflow:hidden}
-
-    /* Hero media + caption */
-    .hero-media{position:relative}
-    .hero-media img{display:block}
-    .hero__cap{
-      position:absolute;left:18px;bottom:14px;
-      font-family:"Great Vibes",cursive;font-size:24px;letter-spacing:.4px;
-      color:#fdf6e3;text-shadow:2px 2px 4px rgba(0,0,0,.55);
-      pointer-events:none;user-select:none;
+    /* ===== Hero full-bleed ===== */
+    .hero-full{
+      position:relative;
+      width:100vw;
+      left:50%;
+      margin-left:-50vw;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-full__media{
+      position:relative;width:100%;
+      height:clamp(420px,70vh,760px);
+    }
+    .hero-full__media::before{
+      content:"";
+      position:absolute;inset:0;
+      background:
+        linear-gradient(90deg, rgba(2,8,23,.72) 0%, rgba(2,8,23,.35) 46%, rgba(2,8,23,0) 68%),
+        linear-gradient(0deg, rgba(2,8,23,.55) 0%, rgba(2,8,23,0) 30%),
+        url("images/bg-keycap.jpg") center/cover no-repeat;
+      z-index:-1;
+    }
+    .hero-full__content{
+      position:absolute;inset:0;
+      display:grid;align-content:center;
+      padding:clamp(20px,4vw,48px);
+      padding-left:min(6vw,72px);
+      max-width:1280px;margin-inline:auto;
+    }
+    .hero-eyebrow{font-size:clamp(20px,2.4vw,28px);font-weight:600;color:#c7d2fe;margin:0 0 10px;opacity:.9}
+    .hero-title{margin:0 0 8px;line-height:1.02;font-weight:900;font-size:clamp(36px,7.2vw,84px);letter-spacing:.3px;color:var(--ink)}
+    .hero-sub{margin:10px 0 22px;color:var(--muted);font-size:clamp(18px,2.4vw,24px);font-weight:700;font-style:italic}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+    .btn-primary{padding:14px 18px;border-radius:12px;border:none;background:var(--brand);color:#041018;font-weight:800;cursor:pointer}
+    .btn-primary:hover{background:var(--brand-deep);color:#fff}
+    .btn-ghost{padding:12px 16px;border-radius:12px;border:1px solid rgba(230,237,245,.22);background:transparent;color:var(--ink);font-weight:700;cursor:pointer}
+    .btn-ghost:hover{border-color:rgba(230,237,245,.45)}
+    /* Caption Great Vibes */
+    .hero-cap{
+      position:absolute;right:clamp(12px,2vw,24px);bottom:clamp(10px,1.8vw,20px);
+      font-family:'Great Vibes', cursive;
+      font-size:clamp(20px,2.2vw,28px);
+      color:#f6f1e6;text-shadow:2px 2px 6px rgba(0,0,0,.55);
+      pointer-events:none
+    }
+    @media (max-width:720px){
+      .hero-full__content{padding-left:20px;padding-right:20px}
+      .hero-actions{gap:10px}
     }
 
-    /* Philosophy ticker (right -> left) */
-    .ticker{margin-top:10px;background:#0e1726;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .marquee{white-space:nowrap;overflow:hidden}
-    .marquee__inner{display:inline-block;padding:14px 0;animation:marq 26s linear infinite}
-    .pill{display:inline-block;margin-right:26px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink)}
-    .dot{margin:0 18px;color:#4b5b6e}
-    @keyframes marq{
-      from{transform:translateX(100%)}
-      to{transform:translateX(-100%)}
+    /* ===== Philosophy ticker (full-bleed, infinite) ===== */
+    .ticker{
+      width:100vw;left:50%;margin-left:-50vw;
+      position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      background:#0f172a;
     }
+    .ticker__viewport{
+      overflow:hidden;white-space:nowrap
+    }
+    .ticker__track{
+      display:inline-flex;gap:46px;align-items:center;
+      padding-block:18px;
+      animation:marquee 38s linear infinite;
+    }
+    /* chạy mượt ngược chiều để giống “trôi vào” */
+    @keyframes marquee{
+      0%{transform:translateX(0)}
+      100%{transform:translateX(-50%)}
+    }
+    .tick{
+      font-weight:800;color:#dbe7f3;font-size:22px;letter-spacing:.2px
+    }
+    .dot{opacity:.5;margin-inline:2px}
+    /* tinh chỉnh chữ nhỏ khi màn hình hẹp */
+    @media (max-width:900px){ .tick{font-size:18px} }
 
-    /* Value grid */
-    .section{padding:36px 0}
-    .h2{font-size:clamp(24px,3.4vw,42px);margin:18px 0}
+    /* ===== demo section dưới (giữ style gọn) ===== */
+    .section{padding:clamp(36px,6vw,72px) 0}
+    h2{font-size:clamp(28px,3.6vw,42px);margin:0 0 14px}
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+    .card{grid-column:span 3;background:#0f172a;border:1px solid var(--line);border-radius:16px;padding:18px}
+    .kpi{font-size:38px;font-weight:900;margin:0}
     .muted{color:var(--muted)}
-    .grid{display:grid;gap:18px}
-    .value{padding:22px;border-radius:18px;background:#0d1626;border:1px solid var(--line)}
-    .value strong{font-size:40px;display:block}
-    .value .muted{margin-top:4px}
-
-    @media(min-width:900px){
-      .grid--4{grid-template-columns:repeat(4,1fr)}
-      .grid--3{grid-template-columns:repeat(3,1fr)}
-      .hero{grid-template-columns:1.05fr .95fr}
-    }
-    @media(max-width:900px){
-      .hero{grid-template-columns:1fr}
-    }
-
-    /* Cards (Collections) */
-    .c-card{padding:24px;border-radius:18px;background:#0d1626;border:1px solid var(--line);display:grid;gap:14px}
-    .c-title{font-weight:800}
-    .c-cta{width:max-content}
-
-    /* Footer */
-    footer{border-top:1px solid var(--line);padding:20px 0;margin-top:24px;color:var(--muted)}
+    @media(max-width:980px){.card{grid-column:span 6}}
+    @media(max-width:640px){.card{grid-column:span 12}}
+    footer{border-top:1px solid var(--line);padding:22px 0;color:#9fb0c3}
   </style>
 </head>
 <body>
-  <header class="wrap nav">
-    <img src="images/logo-k-resin.png" alt="Logo" class="logo">
-    <div class="brand">Resin Keycap Studio</div>
-    <nav class="menu">
-      <a href="#philosophy">Philosophy</a>
-      <a href="#stats">Stats</a>
-      <a href="#collections">Collections</a>
-      <a href="#contact">Contact</a>
-    </nav>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#">
+        <span class="logo">K</span>
+        Resin Keycap Studio
+      </a>
+      <nav class="links">
+        <a href="#philosophy">Philosophy</a>
+        <a href="#stats">Stats</a>
+        <a href="#collections">Collections</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="wrap">
-    <!-- Hero -->
-    <section class="hero">
-      <div>
-        <h1 class="h1">Every Key Tells a<br>Story</h1>
-        <p class="sub">Crafting Keys, Capturing Souls</p>
-        <div class="row">
-          <a class="btn btn--primary" href="#collections">Browse Collections</a>
-          <a class="btn" href="#contact">Custom Order</a>
-        </div>
+  <!-- Hero full-bleed -->
+  <section class="hero-full" id="home">
+    <div class="hero-full__media"></div>
+
+    <div class="hero-full__content">
+      <div class="hero-eyebrow">Philosophy</div>
+      <h1 class="hero-title">Every Key Tells a<br/>Story</h1>
+      <p class="hero-sub">Crafting Keys, Capturing Souls</p>
+      <div class="hero-actions">
+        <button class="btn-primary">Browse Collections</button>
+        <button class="btn-ghost">Custom Order</button>
       </div>
+    </div>
 
-      <figure class="card hero-media">
-        <img src="images/bg-keycap.jpg" alt="Keycap hero">
-        <!-- Caption Great Vibes -->
-        <figcaption class="hero__cap">Art you can touch.</figcaption>
-      </figure>
-    </section>
-  </main>
+    <div class="hero-cap">Art you can touch.</div>
+  </section>
 
-  <!-- Philosophy ticker -->
-  <section id="philosophy" class="ticker">
-    <div class="wrap">
-      <div class="marquee">
-        <div class="marquee__inner">
-          <span class="pill">Every Keycap is One of a Kind</span><span class="dot">•</span>
-          <span class="pill">Slow Made, Long Lasting</span><span class="dot">•</span>
-          <span class="pill">Design Speaks</span><span class="dot">•</span>
-          <span class="pill">Details Make the Difference</span><span class="dot">•</span>
-          <span class="pill">Made to Be Yours</span>
-          <!-- lặp lần nữa để chạy liên tục mượt hơn -->
-          <span class="dot">•</span><span class="pill">Every Keycap is One of a Kind</span><span class="dot">•</span>
-          <span class="pill">Slow Made, Long Lasting</span><span class="dot">•</span>
-          <span class="pill">Design Speaks</span><span class="dot">•</span>
-          <span class="pill">Details Make the Difference</span><span class="dot">•</span>
-          <span class="pill">Made to Be Yours</span>
-        </div>
+  <!-- Ticker full-bleed (infinite) -->
+  <section class="ticker" id="philosophy">
+    <div class="ticker__viewport">
+      <!-- track lặp 2 lần để chạy vô hạn mượt -->
+      <div class="ticker__track" aria-hidden="true">
+        <span class="tick">Handcrafted is Quality</span><span class="dot">•</span>
+        <span class="tick">Every Keycap is One of a Kind</span><span class="dot">•</span>
+        <span class="tick">Slow Made, Long Lasting</span><span class="dot">•</span>
+        <span class="tick">Design Speaks</span><span class="dot">•</span>
+        <span class="tick">Details Make the Difference</span><span class="dot">•</span>
+        <span class="tick">Made to Be Yours</span><span class="dot">•</span>
+
+        <span class="tick">Handcrafted is Quality</span><span class="dot">•</span>
+        <span class="tick">Every Keycap is One of a Kind</span><span class="dot">•</span>
+        <span class="tick">Slow Made, Long Lasting</span><span class="dot">•</span>
+        <span class="tick">Design Speaks</span><span class="dot">•</span>
+        <span class="tick">Details Make the Difference</span><span class="dot">•</span>
+        <span class="tick">Made to Be Yours</span><span class="dot">•</span>
       </div>
     </div>
   </section>
 
-  <!-- Value -->
-  <section id="stats" class="wrap section">
-    <h2 class="h2">Value at a Glance</h2>
+  <!-- Demo “Value at a Glance” (giữ phong cách cũ) -->
+  <section class="section container" id="stats">
+    <h2>Value at a Glance</h2>
     <p class="muted">Những điều người chơi bàn phím quan tâm — hiển thị rõ, gọn, dễ hiểu.</p>
-    <div class="grid grid--4" style="margin-top:14px">
-      <div class="value"><strong>100%</strong><div class="h3">Handmade</div><div class="muted">Không sản xuất hàng loạt</div></div>
-      <div class="value"><strong>50+</strong><div class="h3">Designs</div><div class="muted">Bộ sưu tập đang mở rộng</div></div>
-      <div class="value"><strong>UV</strong><div class="h3">Coated</div><div class="muted">Bóng, bền, khó ố vàng</div></div>
-      <div class="value"><strong>Global</strong><div class="h3">Shipping</div><div class="muted">Ship toàn quốc & quốc tế</div></div>
+    <div class="grid" style="margin-top:14px">
+      <article class="card"><p class="kpi">100% Handmade</p><p class="muted">Không sản xuất hàng loạt</p></article>
+      <article class="card"><p class="kpi">50+ Designs</p><p class="muted">Bộ sưu tập đang mở rộng</p></article>
+      <article class="card"><p class="kpi">UV Coated</p><p class="muted">Bóng, bền, khó ố vàng</p></article>
+      <article class="card"><p class="kpi">Global Shipping</p><p class="muted">Ship toàn quốc & quốc tế</p></article>
     </div>
   </section>
 
-  <!-- Collections -->
-  <section id="collections" class="wrap section">
-    <h2 class="h2">Collections</h2>
-    <p class="muted">Các dòng sản phẩm tiêu biểu — tối giản, tập trung vào thông điệp.</p>
-    <div class="grid grid--3" style="margin-top:14px">
-      <article class="c-card">
-        <div class="c-title">Galaxy Series</div>
+  <!-- Demo Collections (rút gọn) -->
+  <section class="section container" id="collections">
+    <h2>Collections</h2>
+    <div class="grid" style="margin-top:10px">
+      <article class="card" style="grid-column:span 6">
+        <h3>Galaxy Series</h3>
         <p class="muted">Swirl & nebula cho ESC / Enter — mỗi chiếc kể một câu chuyện vũ trụ.</p>
-        <a class="btn c-cta" href="#">Explore</a>
       </article>
-      <article class="c-card">
-        <div class="c-title">Nature Series</div>
-        <p class="muted">Rừng, suối, koi — resin trong suốt, màu sắc tinh mà động.</p>
-        <a class="btn c-cta" href="#">Explore</a>
+      <article class="card" style="grid-column:span 6">
+        <h3>Nature Series</h3>
+        <p class="muted">Rừng, suối, koi — resin trong suốt, màu sắc tính mà động.</p>
       </article>
-      <article class="c-card">
-        <div class="c-title">Monochrome</div>
-        <p class="muted">Đen–trắng–bạc, phong cách tối giản và sang trọng.</p>
-        <a class="btn c-cta" href="#">Explore</a>
+      <article class="card" style="grid-column:span 6">
+        <h3>Monochrome</h3>
+        <p class="muted">Đen–trắng–bạc, tối giản và sang trọng.</p>
       </article>
-
-      <article class="c-card">
-        <div class="c-title">Custom Lab</div>
+      <article class="card" style="grid-column:span 6">
+        <h3>Custom Lab</h3>
         <p class="muted">Đặt mẫu theo ý: phối màu, profile, kí tự, hiệu ứng đặc biệt.</p>
-        <a class="btn c-cta" href="#">Request</a>
-      </article>
-      <article class="c-card">
-        <div class="c-title">Workshop</div>
-        <p class="muted">Học đổ resin cho người mới — trải nghiệm craft tại studio.</p>
-        <a class="btn c-cta" href="#">Join</a>
-      </article>
-      <article class="c-card">
-        <div class="c-title">Community</div>
-        <p class="muted">Tips bảo quản, case study, hậu trường chế tác.</p>
-        <a class="btn c-cta" href="#">Enter</a>
       </article>
     </div>
   </section>
 
-  <footer class="wrap">
-    <div class="row" style="justify-content:space-between">
-      <small>© 2025 Resin Keycap Studio</small>
-      <div class="row" style="gap:14px">
-        <a class="muted" href="#">Terms</a>
-        <a class="muted" href="#">Privacy</a>
-        <a class="muted" href="#contact">Contact</a>
-      </div>
-    </div>
+  <footer class="container">
+    © 2025 Resin Keycap Studio · <a href="#" class="muted">Terms</a> ·
+    <a href="#" class="muted">Privacy</a> · <a href="#contact" class="muted">Contact</a>
   </footer>
+
 </body>
 </html>
