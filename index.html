@@ -1,257 +1,202 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Resin Keycap Studio — Modern Minimal</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-  --line:#1b273a; --card:#0f1623;
-  --brand:#0ea5e9; --brand-600:#0284c7;
-  --gutter:clamp(18px,6vw,120px);
-  --radius:14px;
-}
-*{box-sizing:border-box} html,body{margin:0}
-body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--fg)}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resin Keycap Studio</title>
 
-/* Header (WorldQuant-ish) */
-.header{position:sticky;top:0;z-index:30;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--gutter)}
-.brand{display:flex;align-items:center;gap:12px;font-weight:900}
-.brand img{height:46px;width:auto;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.navlinks{display:flex;align-items:center;gap:16px}
-.navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none;color:inherit}
-.navlinks a:hover{background:#0f1726}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer}
-.badge{background:#22c55e;color:#041015;border-radius:999px;padding:2px 6px;font-size:12px;min-width:18px;text-align:center}
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet" />
 
-/* Hero split */
-.hero{padding:clamp(46px,6.4vw,96px) var(--gutter);display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
-.hero__title{margin:0 0 8px;font-size:clamp(32px,6.6vw,66px);line-height:1.06;font-weight:900}
-.hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
-.hero__actions{display:flex;gap:12px;flex-wrap:wrap}
-.btn--brand{background:var(--brand);border:none;color:#06121b;font-weight:700}
-.btn--brand:hover{background:var(--brand-600);color:#fff}
-.media{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-.media img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
-.hero__cap{position:absolute;left:18px;bottom:14px;font-size:22px;color:#fdf6e3;
-  font-family:'Great Vibes',cursive;letter-spacing:.7px;text-shadow:0 2px 4px rgba(0,0,0,.55)}
+  <style>
+    :root{
+      --bg:#0b1220; --card:#0f172a; --ink:#e6edf5; --muted:#9fb0c3; --line:#1f2a3a;
+      --brand:#22c55e; --ring:#22c55e55;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .wrap{width:min(1200px,92%);margin-inline:auto}
 
-/* Philosophy marquee (RIGHT ➜ LEFT) */
-.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b1320;overflow:hidden}
-.marquee__inner{display:flex;gap:60px;white-space:nowrap;will-change:transform;
-  padding:12px var(--gutter);animation:marquee-rtl 24s linear infinite}
-.marquee__chunk{display:flex;gap:60px}
-.marquee__item{font-weight:800;opacity:.95}
-.sep{opacity:.4}
-@keyframes marquee-rtl{
-  0%{transform:translateX(50%)}
-  100%{transform:translateX(-50%)}
-}
-@media (prefers-reduced-motion:reduce){.marquee__inner{animation:none}}
+    /* Header */
+    .nav{height:68px;display:flex;align-items:center;gap:18px}
+    .logo{width:44px;height:44px;border-radius:12px;object-fit:cover}
+    .brand{font-weight:800;letter-spacing:.2px;margin-right:auto}
+    .menu{display:flex;gap:28px;color:var(--muted)}
+    .menu a:hover{color:var(--ink)}
 
-/* Products grid */
-.section{padding:clamp(40px,6vw,72px) var(--gutter)}
-.section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,34px)}
-.muted{color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
-.card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.card__body{padding:14px;display:grid;gap:8px}
-.price{font-weight:900}
-@media (max-width:980px){.hero{grid-template-columns:1fr}.media{order:-1}.card{grid-column:span 6}}
-@media (max-width:680px){.card{grid-column:span 12}}
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center;padding:56px 0}
+    .h1{font-size:clamp(38px,6vw,72px);line-height:1.08;margin:0 0 10px}
+    .sub{color:var(--muted);font-style:italic;margin:0 0 18px}
+    .row{display:flex;gap:12px;align-items:center}
+    .btn{padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit}
+    .btn--primary{background:var(--brand);color:#06121b;border:0;font-weight:700}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 20px 40px rgba(0,0,0,.28);overflow:hidden}
 
-/* Cart drawer */
-.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,92%);background:var(--bg);border-left:1px solid var(--line);
-  transform:translateX(100%);transition:transform .28s ease;z-index:40;display:grid;grid-template-rows:auto 1fr auto}
-.drawer.open{transform:translateX(0)}
-.drawer__hd,.drawer__ft{padding:12px 16px;border-bottom:1px solid var(--line)}
-.drawer__ft{border-top:1px solid var(--line);border-bottom:0;display:grid;gap:8px}
-.drawer__bd{padding:12px 16px;overflow:auto}
-.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
-.qty{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 8px}
-.qty button{border:none;background:transparent;color:inherit;cursor:pointer}
+    /* Hero media + caption */
+    .hero-media{position:relative}
+    .hero-media img{display:block}
+    .hero__cap{
+      position:absolute;left:18px;bottom:14px;
+      font-family:"Great Vibes",cursive;font-size:24px;letter-spacing:.4px;
+      color:#fdf6e3;text-shadow:2px 2px 4px rgba(0,0,0,.55);
+      pointer-events:none;user-select:none;
+    }
 
-/* Footer */
-footer{border-top:1px solid var(--line);padding:22px var(--gutter);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
-</style>
+    /* Philosophy ticker (right -> left) */
+    .ticker{margin-top:10px;background:#0e1726;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .marquee{white-space:nowrap;overflow:hidden}
+    .marquee__inner{display:inline-block;padding:14px 0;animation:marq 26s linear infinite}
+    .pill{display:inline-block;margin-right:26px;padding:10px 16px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink)}
+    .dot{margin:0 18px;color:#4b5b6e}
+    @keyframes marq{
+      from{transform:translateX(100%)}
+      to{transform:translateX(-100%)}
+    }
+
+    /* Value grid */
+    .section{padding:36px 0}
+    .h2{font-size:clamp(24px,3.4vw,42px);margin:18px 0}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:18px}
+    .value{padding:22px;border-radius:18px;background:#0d1626;border:1px solid var(--line)}
+    .value strong{font-size:40px;display:block}
+    .value .muted{margin-top:4px}
+
+    @media(min-width:900px){
+      .grid--4{grid-template-columns:repeat(4,1fr)}
+      .grid--3{grid-template-columns:repeat(3,1fr)}
+      .hero{grid-template-columns:1.05fr .95fr}
+    }
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr}
+    }
+
+    /* Cards (Collections) */
+    .c-card{padding:24px;border-radius:18px;background:#0d1626;border:1px solid var(--line);display:grid;gap:14px}
+    .c-title{font-weight:800}
+    .c-cta{width:max-content}
+
+    /* Footer */
+    footer{border-top:1px solid var(--line);padding:20px 0;margin-top:24px;color:var(--muted)}
+  </style>
 </head>
 <body>
-
-<!-- Header -->
-<header class="header">
-  <div class="nav">
-    <a class="brand" href="#"><img src="/images/logo-k-resin.png" alt="Logo"><span>Resin Keycap Studio</span></a>
-    <nav class="navlinks">
+  <header class="wrap nav">
+    <img src="images/logo-k-resin.png" alt="Logo" class="logo">
+    <div class="brand">Resin Keycap Studio</div>
+    <nav class="menu">
       <a href="#philosophy">Philosophy</a>
-      <a href="#products">Products</a>
+      <a href="#stats">Stats</a>
+      <a href="#collections">Collections</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button id="openCart" class="btn">🛒 Cart <span id="cartCount" class="badge">0</span></button>
-  </div>
-</header>
+  </header>
 
-<!-- Hero -->
-<section class="hero">
-  <div>
-    <h1 class="hero__title">Crafting Keys, Capturing Souls</h1>
-    <p class="hero__subtitle"><em>Handcrafted &amp; One of a Kind</em></p>
-    <div class="hero__actions">
-      <a href="#products" class="btn btn--brand">Browse Collections</a>
-      <a href="#contact" class="btn">Custom Order</a>
-    </div>
-  </div>
-
-  <div class="media">
-    <img src="/images/title-artisan.jpg" alt="Artisan Resin Hero">
-    <div class="hero__cap">Art you can touch</div>
-  </div>
-</section>
-
-<!-- Philosophy marquee (Right ➜ Left) -->
-<section id="philosophy" class="marquee" aria-label="Philosophy">
-  <div class="marquee__inner">
-    <div class="marquee__chunk">
-      <span class="marquee__item">Handcrafted is Quality</span><span class="sep">•</span>
-      <span class="marquee__item">Every Keycap is One of a Kind</span><span class="sep">•</span>
-      <span class="marquee__item">Slow Made, Long Lasting</span><span class="sep">•</span>
-      <span class="marquee__item">Design Speaks</span><span class="sep">•</span>
-      <span class="marquee__item">Details Make the Difference</span><span class="sep">•</span>
-      <span class="marquee__item">Made to Be Yours</span>
-    </div>
-    <!-- duplicate để chạy mượt -->
-    <div class="marquee__chunk" aria-hidden="true">
-      <span class="marquee__item">Handcrafted is Quality</span><span class="sep">•</span>
-      <span class="marquee__item">Every Keycap is One of a Kind</span><span class="sep">•</span>
-      <span class="marquee__item">Slow Made, Long Lasting</span><span class="sep">•</span>
-      <span class="marquee__item">Design Speaks</span><span class="sep">•</span>
-      <span class="marquee__item">Details Make the Difference</span><span class="sep">•</span>
-      <span class="marquee__item">Made to Be Yours</span>
-    </div>
-  </div>
-</section>
-
-<!-- Products -->
-<section id="products" class="section">
-  <h2>Collections</h2>
-  <p class="muted">Lưới sản phẩm tối giản, nhấn vào typography và khoảng trắng.</p>
-  <div class="grid" id="grid"></div>
-</section>
-
-<!-- Cart Drawer -->
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer__hd" style="display:flex;justify-content:space-between;align-items:center">
-    <strong>Cart</strong>
-    <button id="closeCart" class="btn">✕</button>
-  </div>
-  <div class="drawer__bd" id="cartItems"></div>
-  <div class="drawer__ft">
-    <div style="display:flex;justify-content:space-between">
-      <span>Subtotal</span><strong id="subtotal">0₫</strong>
-    </div>
-    <button id="checkout" class="btn btn--brand">Checkout (Email)</button>
-  </div>
-</aside>
-
-<footer id="contact">
-  <small>© <span id="y"></span> Resin Keycap Studio</small>
-  <div><a class="muted" href="#">Terms</a> · <a class="muted" href="#">Privacy</a> · <a class="muted" href="mailto:order@yourshop.vn">Contact</a></div>
-</footer>
-
-<script>
-// year
-document.getElementById('y').textContent = new Date().getFullYear();
-
-// demo products
-const VND = new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0});
-function ph(hex){
-  const t=encodeURIComponent; const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'>
-  <defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='${hex}'/><stop offset='1' stop-color='%230ea5e9'/></linearGradient></defs>
-  <rect width='600' height='400' rx='22' fill='${hex}'/><g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'>
-  <rect x='90' y='120' width='420' height='160' rx='22'/></g>
-  <text x='40' y='360' fill='white' font-family='system-ui' font-size='20'>Ảnh sản phẩm</text></svg>`;
-  return `data:image/svg+xml;utf8,${t(svg)}`;
-}
-const products=[
-  {id:'rk-galaxy-esc',name:'Galaxy Nebula – ESC', price:249000,img:ph('#6d28d9')},
-  {id:'rk-koi-raise', name:'Koi Pond – RAISE',    price:279000,img:ph('#38bdf8')},
-  {id:'rk-oni-tab',   name:'Oni Spirit – TAB',    price:299000,img:ph('#ef4444')},
-  {id:'rk-forest-ent',name:'Forest Spirit – ENTER',price:339000,img:ph('#22c55e')},
-  {id:'rk-void-1u',   name:'Void Black – 1U',     price:189000,img:ph('#111827')},
-  {id:'rk-ice-1u',    name:'Ice Clear – 1U',      price:189000,img:ph('#e2e8f0')}
-];
-const grid=document.getElementById('grid');
-grid.innerHTML = products.map(p=>`
-  <article class="card">
-    <img src="${p.img}" alt="${p.name}">
-    <div class="card__body">
-      <div style="display:flex;justify-content:space-between;gap:8px">
-        <strong>${p.name}</strong>
-        <span class="price">${VND.format(p.price)}</span>
-      </div>
-      <button class="btn btn--brand" data-id="${p.id}">Thêm vào giỏ</button>
-    </div>
-  </article>
-`).join('');
-
-// cart logic
-const state={cart:[]};
-const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
-function openDrawer(){ const d=$('#drawer'); d.classList.add('open'); d.setAttribute('aria-hidden','false'); }
-function closeDrawer(){ const d=$('#drawer'); d.classList.remove('open'); d.setAttribute('aria-hidden','true'); }
-$('#openCart').addEventListener('click',openDrawer); $('#closeCart').addEventListener('click',closeDrawer);
-
-$$('.card .btn').forEach(b=>b.addEventListener('click',()=>{
-  const id=b.dataset.id; const p=products.find(x=>x.id===id); if(!p) return;
-  const f=state.cart.find(x=>x.id===id); if(f) f.qty++; else state.cart.push({id,name:p.name,price:p.price,qty:1,img:p.img});
-  updateCartUI(); openDrawer();
-}));
-
-function updateCartUI(){
-  $('#cartCount').textContent = state.cart.reduce((s,i)=>s+i.qty,0);
-  const wrap=$('#cartItems');
-  if(state.cart.length===0){ wrap.innerHTML=`<p class="muted">Giỏ hàng trống.</p>`; $('#subtotal').textContent=VND.format(0); return; }
-  wrap.innerHTML = state.cart.map(i=>`
-    <div class="item">
-      <img src="${i.img}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:10px">
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
       <div>
-        <div><strong>${i.name}</strong></div>
-        <div class="muted">${VND.format(i.price)}</div>
-        <div class="qty">
-          <button data-id="${i.id}" data-act="dec">−</button>
-          <span>${i.qty}</span>
-          <button data-id="${i.id}" data-act="inc">+</button>
-          <button data-id="${i.id}" data-act="del" title="Xoá" style="margin-left:6px">🗑️</button>
+        <h1 class="h1">Every Key Tells a<br>Story</h1>
+        <p class="sub">Crafting Keys, Capturing Souls</p>
+        <div class="row">
+          <a class="btn btn--primary" href="#collections">Browse Collections</a>
+          <a class="btn" href="#contact">Custom Order</a>
         </div>
       </div>
-      <div><strong>${VND.format(i.qty*i.price)}</strong></div>
+
+      <figure class="card hero-media">
+        <img src="images/bg-keycap.jpg" alt="Keycap hero">
+        <!-- Caption Great Vibes -->
+        <figcaption class="hero__cap">Art you can touch.</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <!-- Philosophy ticker -->
+  <section id="philosophy" class="ticker">
+    <div class="wrap">
+      <div class="marquee">
+        <div class="marquee__inner">
+          <span class="pill">Every Keycap is One of a Kind</span><span class="dot">•</span>
+          <span class="pill">Slow Made, Long Lasting</span><span class="dot">•</span>
+          <span class="pill">Design Speaks</span><span class="dot">•</span>
+          <span class="pill">Details Make the Difference</span><span class="dot">•</span>
+          <span class="pill">Made to Be Yours</span>
+          <!-- lặp lần nữa để chạy liên tục mượt hơn -->
+          <span class="dot">•</span><span class="pill">Every Keycap is One of a Kind</span><span class="dot">•</span>
+          <span class="pill">Slow Made, Long Lasting</span><span class="dot">•</span>
+          <span class="pill">Design Speaks</span><span class="dot">•</span>
+          <span class="pill">Details Make the Difference</span><span class="dot">•</span>
+          <span class="pill">Made to Be Yours</span>
+        </div>
+      </div>
     </div>
-  `).join('');
-  const sum=state.cart.reduce((s,i)=>s+i.qty*i.price,0);
-  $('#subtotal').textContent=VND.format(sum);
+  </section>
 
-  // qty handlers
-  $$('#cartItems button').forEach(b=>b.addEventListener('click',()=>{
-    const id=b.dataset.id, act=b.dataset.act; const it=state.cart.find(x=>x.id===id); if(!it) return;
-    if(act==='inc') it.qty++;
-    if(act==='dec') it.qty=Math.max(1,it.qty-1);
-    if(act==='del') state.cart=state.cart.filter(x=>x.id!==id);
-    updateCartUI();
-  }));
-}
+  <!-- Value -->
+  <section id="stats" class="wrap section">
+    <h2 class="h2">Value at a Glance</h2>
+    <p class="muted">Những điều người chơi bàn phím quan tâm — hiển thị rõ, gọn, dễ hiểu.</p>
+    <div class="grid grid--4" style="margin-top:14px">
+      <div class="value"><strong>100%</strong><div class="h3">Handmade</div><div class="muted">Không sản xuất hàng loạt</div></div>
+      <div class="value"><strong>50+</strong><div class="h3">Designs</div><div class="muted">Bộ sưu tập đang mở rộng</div></div>
+      <div class="value"><strong>UV</strong><div class="h3">Coated</div><div class="muted">Bóng, bền, khó ố vàng</div></div>
+      <div class="value"><strong>Global</strong><div class="h3">Shipping</div><div class="muted">Ship toàn quốc & quốc tế</div></div>
+    </div>
+  </section>
 
-document.getElementById('checkout').addEventListener('click',()=>{
-  if(state.cart.length===0){ alert('Giỏ hàng trống.'); return; }
-  const lines = state.cart.map(i=>`- ${i.name} x${i.qty} — ${VND.format(i.qty*i.price)}`).join('%0D%0A');
-  const total = VND.format(state.cart.reduce((s,i)=>s+i.qty*i.price,0));
-  const subject = encodeURIComponent('[Đặt hàng] Resin Keycap Studio');
-  const body = `Đơn hàng:%0D%0A${lines}%0D%0A%0DTạm tính: ${total}%0D%0A%0DHọ tên:%0D%0ASĐT:%0D%0AĐịa chỉ:%0D%0A`;
-  const email='order@yourshop.vn';
-  window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
-});
-</script>
+  <!-- Collections -->
+  <section id="collections" class="wrap section">
+    <h2 class="h2">Collections</h2>
+    <p class="muted">Các dòng sản phẩm tiêu biểu — tối giản, tập trung vào thông điệp.</p>
+    <div class="grid grid--3" style="margin-top:14px">
+      <article class="c-card">
+        <div class="c-title">Galaxy Series</div>
+        <p class="muted">Swirl & nebula cho ESC / Enter — mỗi chiếc kể một câu chuyện vũ trụ.</p>
+        <a class="btn c-cta" href="#">Explore</a>
+      </article>
+      <article class="c-card">
+        <div class="c-title">Nature Series</div>
+        <p class="muted">Rừng, suối, koi — resin trong suốt, màu sắc tinh mà động.</p>
+        <a class="btn c-cta" href="#">Explore</a>
+      </article>
+      <article class="c-card">
+        <div class="c-title">Monochrome</div>
+        <p class="muted">Đen–trắng–bạc, phong cách tối giản và sang trọng.</p>
+        <a class="btn c-cta" href="#">Explore</a>
+      </article>
+
+      <article class="c-card">
+        <div class="c-title">Custom Lab</div>
+        <p class="muted">Đặt mẫu theo ý: phối màu, profile, kí tự, hiệu ứng đặc biệt.</p>
+        <a class="btn c-cta" href="#">Request</a>
+      </article>
+      <article class="c-card">
+        <div class="c-title">Workshop</div>
+        <p class="muted">Học đổ resin cho người mới — trải nghiệm craft tại studio.</p>
+        <a class="btn c-cta" href="#">Join</a>
+      </article>
+      <article class="c-card">
+        <div class="c-title">Community</div>
+        <p class="muted">Tips bảo quản, case study, hậu trường chế tác.</p>
+        <a class="btn c-cta" href="#">Enter</a>
+      </article>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <div class="row" style="justify-content:space-between">
+      <small>© 2025 Resin Keycap Studio</small>
+      <div class="row" style="gap:14px">
+        <a class="muted" href="#">Terms</a>
+        <a class="muted" href="#">Privacy</a>
+        <a class="muted" href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
