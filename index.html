@@ -1,70 +1,63 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Cửa hàng Artisan Resin Keycap thủ công: độc bản, đổ khuôn chuẩn, hoàn thiện bóng, tương thích Cherry MX / Gateron. Ship toàn quốc, nhận custom theo yêu cầu." />
-    <meta name="theme-color" content="#0f172a" />
-    <meta property="og:title" content="Artisan Resin Keycap – Thủ công & Độc bản" />
-    <meta property="og:description" content="Keycap resin thủ công | Độc bản | Tương thích Cherry MX | Đặt hàng nhanh." />
-    <title>Artisan Resin Keycap – Thủ công & Độc bản</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: sans-serif;
-            background-color: #0f172a;
-            color: white;
-        }
-        .hero {
-            position: relative;
-            background: url('images/bg-keycap.jpg') center/cover no-repeat;
-            padding: 60px 20px;
-            text-align: center;
-        }
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-        .hero img {
-            max-width: 90%;
-            height: auto;
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-top: 20px;
-        }
-        .sub-title {
-            font-size: 1.5rem;
-            margin: 20px 0;
-        }
-        p {
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artisan Resin Keycap – Thủ công & Độc bản</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0b1220;
+      color: white;
+    }
+
+    .hero {
+      position: relative;
+      background: url('images/bg-keycap.jpg') no-repeat center center/cover;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content img {
+      max-width: 300px;
+      height: auto;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      margin-top: 15px;
+      font-weight: 300;
+    }
+
+    .subtitle strong {
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-
-    <section class="hero">
-        <div class="hero-content">
-            <!-- Logo K Resin Keycap Studio -->
-            <img src="images/logo-k-resin.png" alt="K Resin Keycap Studio">
-            
-            <!-- Tiêu đề chính -->
-            <h1>
-                <img src="images/title-artisan.png" alt="Artisan Resin Keycap – Thủ công & Độc bản">
-            </h1>
-
-            <!-- Phụ đề -->
-            <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
-        </div>
-    </section>
-
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <img src="images/logo-k-resin.jpg" alt="K Resin Keycap Studio"><br><br>
+      <img src="images/title-artisan.jpg" alt="Artisan Resin Keycap – Thủ công & Độc bản">
+      <p class="subtitle">
+        Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV).  
+        Ship toàn quốc, nhận custom theo yêu cầu.
+      </p>
+    </div>
+  </section>
 </body>
 </html>
