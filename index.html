@@ -1,87 +1,109 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Resin Keycap Studio</title>
+  <meta name="description" content="Artisan Resin Keycap – Thủ công & Độc bản. Phù hợp Cherry MX/Gateron, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc." />
+
   <style>
-    /* Gutter = khoảng cách mép trái thống nhất cho toàn bộ text */
     :root{
       --gutter: clamp(18px, 6vw, 120px);
+      --bg:#0b1220; --fg:#e8eef6; --muted:#9fb0c4; --card:#0f1726; --line:#223146;
+      --brand:#22c55e; --brand-600:#16a34a; --ring:#22c55e55;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    :root.light{
+      --bg:#f6f8fb; --fg:#0b1220; --muted:#42546a; --card:#ffffff; --line:#dbe3ef;
+      --brand:#0ea5e9; --brand-600:#0284c7; --ring:#0ea5e955; --shadow:0 10px 30px rgba(2,8,23,.08);
     }
 
-    body{
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0a0f1a;
-      color: #fff;
-    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--fg);}
 
-    header{
-      background-color: #08101f;
-      padding: 16px var(--gutter);
-      font-weight: bold;
-      font-size: 20px;
-    }
+    /* ============ Header ============ */
+    .header{position:sticky;top:0;z-index:20;background:#0e1624;border-bottom:1px solid var(--line);}
+    .header.light{background:#ffffffd0;backdrop-filter:saturate(1.1) blur(6px);}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:12px var(--gutter);gap:12px;max-width:1400px;margin:auto;}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
+    .brand-logo{width:40px;height:40px;object-fit:contain;border-radius:10px;box-shadow:var(--shadow)}
+    .actions{display:flex;align-items:center;gap:10px}
+    .btn,.icon{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:inherit;cursor:pointer}
+    .btn--primary{background:var(--brand);color:#041015;border:none;font-weight:800}
+    .btn--primary:hover{background:var(--brand-600);color:#fff}
+    .badge{font-size:12px;line-height:1;background:var(--brand);color:#041015;padding:2px 6px;border-radius:999px;min-width:18px;text-align:center}
 
+    /* ============ HERO full-bleed ============ */
     .hero{
-      position: relative;
-      width: 100%;
-      min-height: 72vh;
+      position:relative;width:100%;min-height:72vh;color:#fff;overflow:hidden;
       background:
         linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.30)),
         url('/images/title-artisan.jpg') center/cover no-repeat;
-      overflow:hidden;
     }
-
-    /* Tiêu đề ở giữa theo chiều dọc, căn trái theo gutter */
+    /* Khối tiêu đề giữa theo chiều dọc, CĂN TRÁI theo gutter */
     .hero__center{
-      position:absolute;
-      top:50%;
-      transform: translateY(-50%);
-      left: var(--gutter);
-      right: var(--gutter);
-      text-align: left;
-      max-width: min(1100px, 92vw);
+      position:absolute;top:50%;transform:translateY(-50%);
+      left:var(--gutter);right:var(--gutter);
+      text-align:left;max-width:min(1100px,92vw);
     }
-
-    .hero__title{
-      margin:0 0 .35rem 0;
-      font-weight:900;
-      line-height:1.06;
-      font-size: clamp(32px, 6.4vw, 70px);
-      text-shadow: 0 10px 30px rgba(0,0,0,.45);
-    }
-
-    .hero__subtitle{
-      margin:0;
-      font-weight:500;
-      font-size: clamp(16px, 2.2vw, 26px);
-      text-shadow: 0 8px 24px rgba(0,0,0,.40);
-    }
-
-    /* Mô tả sát đáy, cùng mép trái */
+    .hero__title{margin:0 0 .35rem 0;font-weight:900;line-height:1.06;
+      font-size:clamp(32px,6.4vw,70px);text-shadow:0 10px 30px rgba(0,0,0,.45);}
+    .hero__subtitle{margin:0;font-weight:600;font-size:clamp(16px,2.2vw,26px);
+      text-shadow:0 8px 24px rgba(0,0,0,.40);}
+    /* Mô tả: nhỏ & sát mép dưới, cùng mép trái */
     .hero__desc{
-      position:absolute;
-      left: var(--gutter);
-      right: var(--gutter);
-      bottom: clamp(8px, 2vw, 20px);
-      text-align: left;
-      max-width: min(1100px, calc(100% - 2*var(--gutter)));
-      font-size: clamp(14px, 1.8vw, 20px);
-      line-height: 1.5;
-      text-shadow: 0 8px 24px rgba(0,0,0,.55);
+      position:absolute;left:var(--gutter);right:var(--gutter);
+      bottom:clamp(8px,2vw,20px);
+      text-align:left;max-width:min(1100px,calc(100% - 2*var(--gutter)));
+      font-size:clamp(14px,1.8vw,20px);line-height:1.55;text-shadow:0 8px 24px rgba(0,0,0,.55);
     }
 
-    @media (max-width: 680px){
-      .hero{ min-height: 64vh; }
-    }
+    /* ============ Section container ============ */
+    .section{padding: clamp(26px,6vw,56px) var(--gutter);max-width:1400px;margin:auto;}
+    .section h3{margin:0 0 12px;font-size:clamp(22px,3.2vw,32px)}
+    .muted{color:var(--muted)}
+
+    /* ============ Filters + Grid ============ */
+    .filters{display:grid;gap:10px;grid-template-columns:1fr 1fr 1fr auto;align-items:center;margin-top:10px}
+    .input,.select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--fg)}
+    .grid{margin-top:18px;display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{grid-column:span 3;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .card__body{padding:14px;display:grid;gap:8px}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .pill{font-size:12px;border:1px solid var(--line);padding:4px 8px;border-radius:999px}
+    .price{font-weight:900}
+    img{max-width:100%;display:block}
+    @media (max-width:1100px){.card{grid-column:span 4}}
+    @media (max-width:700px){.filters{grid-template-columns:1fr 1fr}.card{grid-column:span 6}}
+
+    /* ============ Drawer Cart ============ */
+    .drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,92%);background:var(--bg);border-left:1px solid var(--line);
+      transform:translateX(100%);transition:transform .25s ease;z-index:30;display:grid;grid-template-rows:auto 1fr auto}
+    .drawer.open{transform:translateX(0)}
+    .drawer__head,.drawer__foot{padding:12px 16px;border-bottom:1px solid var(--line)}
+    .drawer__foot{border-top:1px solid var(--line);border-bottom:0;display:grid;gap:8px}
+    .drawer__body{padding:12px 16px;overflow:auto}
+    .item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+    .qty{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 8px}
+    .qty button{border:none;background:transparent;color:inherit;cursor:pointer}
   </style>
 </head>
 <body>
+  <!-- Header -->
+  <header class="header">
+    <div class="nav">
+      <div class="brand">
+        <img src="/images/logo-k-resin.png" alt="Logo K" class="brand-logo">
+        <span>Resin Keycap Studio</span>
+      </div>
+      <div class="actions">
+        <button id="theme" class="icon" title="Đổi giao diện">🌓</button>
+        <button id="openCart" class="btn">🛒 Giỏ <span id="cartCount" class="badge">0</span></button>
+      </div>
+    </div>
+  </header>
 
-  <header>Resin Keycap Studio</header>
-
+  <!-- HERO -->
   <section class="hero">
     <div class="hero__center">
       <h1 class="hero__title">Artisan Resin Keycap</h1>
@@ -93,5 +115,184 @@
     </div>
   </section>
 
+  <!-- PRODUCTS -->
+  <section class="section">
+    <h3>Sản phẩm nổi bật</h3>
+    <div class="muted">Chọn nhanh theo màu/profile hoặc gõ từ khoá để lọc.</div>
+
+    <div class="filters">
+      <input id="q" class="input" placeholder="Tìm theo tên/màu (ví dụ: galaxy, koi, artisan)" />
+      <select id="profile" class="select">
+        <option value="">Profile (tất cả)</option>
+        <option>OEM</option><option>Cherry</option><option>SA</option>
+      </select>
+      <select id="color" class="select">
+        <option value="">Màu chủ đạo</option>
+        <option>Xanh dương</option><option>Đỏ</option><option>Đen</option>
+        <option>Trắng</option><option>Tím</option><option>Xanh lá</option>
+      </select>
+      <button id="clear" class="btn">Xoá lọc</button>
+    </div>
+
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- Drawer Cart -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer__head row">
+      <strong>Giỏ hàng</strong>
+      <button id="closeCart" class="icon">✕</button>
+    </div>
+    <div class="drawer__body" id="cartItems"></div>
+    <div class="drawer__foot">
+      <div class="row"><span>Tạm tính</span><strong id="subtotal">0₫</strong></div>
+      <div class="muted" style="font-size:12px">Phí ship sẽ báo sau (Nội thành HCM từ 20k).</div>
+      <button id="checkout" class="btn btn--primary">Đặt hàng</button>
+      <button id="export" class="btn">Xuất đơn (JSON)</button>
+    </div>
+  </aside>
+
+  <script>
+    // ===== Theme toggle =====
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme === 'light'){ root.classList.add('light'); }
+    document.getElementById('theme').addEventListener('click', ()=>{
+      root.classList.toggle('light');
+      localStorage.setItem('theme', root.classList.contains('light') ? 'light' : 'dark');
+      document.querySelector('.header').classList.toggle('light', root.classList.contains('light'));
+    });
+
+    // ===== Demo data =====
+    const VND = new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0});
+    function placeholder(hex){
+      const t = encodeURIComponent;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'>
+<defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='${hex}'/><stop offset='1' stop-color='%230ea5e9'/></linearGradient></defs>
+<rect width='600' height='400' rx='22' fill='${hex}'/>
+<g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'>
+<rect x='90' y='120' width='420' height='160' rx='22'/></g>
+<text x='40' y='360' fill='white' font-family='system-ui' font-size='20'>Ảnh sản phẩm demo</text></svg>`;
+      return `data:image/svg+xml;utf8,${t(svg)}`;
+    }
+    const products = [
+      { id:'rk-galaxy-esc', name:'Galaxy Nebula – ESC',  price:249000, color:'Tím',        profile:'OEM',   legend:'Artisan',     img:placeholder('#6d28d9') },
+      { id:'rk-koi-raise',  name:'Koi Pond – RAISE',     price:279000, color:'Trắng',      profile:'Cherry',legend:'Artisan',     img:placeholder('#38bdf8') },
+      { id:'rk-oni-tab',    name:'Oni Spirit – TAB',     price:299000, color:'Đỏ',         profile:'SA',    legend:'Artisan',     img:placeholder('#ef4444') },
+      { id:'rk-forest-ent', name:'Forest Spirit – ENTER',price:339000, color:'Xanh lá',    profile:'OEM',   legend:'Artisan',     img:placeholder('#22c55e') },
+      { id:'rk-void-1u',    name:'Void Black – 1U',      price:189000, color:'Đen',        profile:'Cherry',legend:'Solid',        img:placeholder('#111827') },
+      { id:'rk-ice-1u',     name:'Ice Clear – 1U',       price:189000, color:'Trắng',      profile:'Cherry',legend:'Transparent',  img:placeholder('#e2e8f0') },
+      { id:'rk-ocean-1u',   name:'Ocean Blue – 1U',      price:199000, color:'Xanh dương', profile:'OEM',   legend:'Swirl',       img:placeholder('#0ea5e9') },
+      { id:'rk-sakura-1u',  name:'Sakura Pink – 1U',     price:209000, color:'Đỏ',         profile:'OEM',   legend:'Petal',       img:placeholder('#f472b6') }
+    ];
+
+    // ===== State & helpers =====
+    const state = { q:'', profile:'', color:'', cart: load('cart', []) };
+    const $ = (s,d=document)=>d.querySelector(s);
+    const $$ = (s,d=document)=>[...d.querySelectorAll(s)];
+    function save(k,v){ localStorage.setItem(k, JSON.stringify(v)); }
+    function load(k,d){ try{ return JSON.parse(localStorage.getItem(k)) ?? d; } catch{ return d; } }
+
+    // ===== Grid render =====
+    const grid = $('#grid');
+    function card(p){
+      return `
+      <article class="card">
+        <img alt="${p.name}" src="${p.img}" loading="lazy"/>
+        <div class="card__body">
+          <div class="row"><strong>${p.name}</strong><span class="pill">${p.profile}</span></div>
+          <div class="row muted"><small>${p.legend} • ${p.color}</small><strong class="price">${VND.format(p.price)}</strong></div>
+          <button class="btn btn--primary add" data-id="${p.id}">Thêm vào giỏ</button>
+        </div>
+      </article>`;
+    }
+    function render(){
+      const q = state.q.toLowerCase();
+      const items = products.filter(p =>
+        (!state.profile || p.profile===state.profile) &&
+        (!state.color   || p.color===state.color) &&
+        (!q || p.name.toLowerCase().includes(q) || p.legend.toLowerCase().includes(q))
+      );
+      grid.innerHTML = items.map(card).join('') || `<p class="muted">Không tìm thấy sản phẩm phù hợp.</p>`;
+      $$('.add').forEach(b => b.addEventListener('click', () => {
+        const id = b.dataset.id; const p = products.find(x=>x.id===id);
+        const found = state.cart.find(x=>x.id===id);
+        if(found) found.qty++; else state.cart.push({ id, name:p.name, price:p.price, qty:1 });
+        save('cart', state.cart); updateCartUI(); openDrawer();
+      }));
+    }
+
+    // ===== Filters =====
+    $('#q').addEventListener('input', e => { state.q = e.target.value; render(); });
+    $('#profile').addEventListener('change', e => { state.profile = e.target.value; render(); });
+    $('#color').addEventListener('change', e => { state.color = e.target.value; render(); });
+    $('#clear').addEventListener('click', () => {
+      state.q=''; state.profile=''; state.color='';
+      $('#q').value=''; $('#profile').value=''; $('#color').value=''; render();
+    });
+
+    // ===== Drawer (cart) =====
+    const drawer = $('#drawer');
+    function openDrawer(){ drawer.classList.add('open'); drawer.setAttribute('aria-hidden','false'); }
+    function closeDrawer(){ drawer.classList.remove('open'); drawer.setAttribute('aria-hidden','true'); }
+    $('#openCart').addEventListener('click', openDrawer);
+    $('#closeCart').addEventListener('click', closeDrawer);
+
+    function updateCartUI(){
+      $('#cartCount').textContent = state.cart.reduce((s,i)=>s+i.qty,0);
+      const wrap = $('#cartItems');
+      if(state.cart.length===0){ wrap.innerHTML = `<p class='muted'>Giỏ hàng trống.</p>`; $('#subtotal').textContent = VND.format(0); return; }
+      wrap.innerHTML = state.cart.map(i => {
+        const p = products.find(p=>p.id===i.id) || {};
+        return `
+        <div class='item'>
+          <img src='${p.img||""}' alt='' />
+          <div>
+            <div><strong>${i.name}</strong></div>
+            <div class='muted'>${VND.format(i.price)}</div>
+            <div class='qty'>
+              <button data-id='${i.id}' data-act='dec'>−</button>
+              <span>${i.qty}</span>
+              <button data-id='${i.id}' data-act='inc'>+</button>
+              <button data-id='${i.id}' data-act='del' title='Xoá' style='margin-left:6px'>🗑️</button>
+            </div>
+          </div>
+          <div><strong>${VND.format(i.qty * i.price)}</strong></div>
+        </div>`;
+      }).join('');
+      const sum = state.cart.reduce((s,i)=>s+i.qty*i.price,0);
+      $('#subtotal').textContent = VND.format(sum);
+
+      $$('#cartItems button').forEach(b => b.addEventListener('click', () => {
+        const id = b.dataset.id; const act = b.dataset.act; const item = state.cart.find(x=>x.id===id);
+        if(!item) return;
+        if(act==='inc') item.qty++;
+        if(act==='dec') item.qty = Math.max(1, item.qty-1);
+        if(act==='del') state.cart = state.cart.filter(x=>x.id!==id);
+        save('cart', state.cart); updateCartUI();
+      }));
+    }
+
+    // ===== Checkout via email =====
+    $('#checkout').addEventListener('click', () => {
+      if(state.cart.length===0){ alert('Giỏ hàng đang trống.'); return; }
+      const lines = state.cart.map(i=>`- ${i.name} x${i.qty} — ${VND.format(i.qty*i.price)}`).join('%0D%0A');
+      const total = VND.format(state.cart.reduce((s,i)=>s+i.qty*i.price,0));
+      const subject = encodeURIComponent(`[Đặt hàng] Resin Keycap Studio`);
+      const body = `Đơn hàng:%0D%0A${lines}%0D%0A%0DTạm tính: ${total}%0D%0A%0DThông tin người nhận:%0D%0AHọ tên:%0D%0ASĐT:%0D%0AĐịa chỉ:%0D%0A`;
+      const email = 'order@yourshop.vn'; // chỉnh email cửa hàng tại đây
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    });
+
+    // ===== Export JSON =====
+    $('#export').addEventListener('click', () => {
+      const data = { items: state.cart, subtotal: state.cart.reduce((s,i)=>s+i.qty*i.price,0) };
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+      alert('Đã copy đơn hàng (JSON) vào clipboard!');
+    });
+
+    // ===== First paint =====
+    render(); updateCartUI();
+  </script>
 </body>
 </html>
