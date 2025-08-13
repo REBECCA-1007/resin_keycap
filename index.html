@@ -1,55 +1,74 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Resin Keycap Studio</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0d1117;
+    :root { --bg:#0b1220; --fg:#e8eef6; --line:#1f2a3a; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--fg);}
+
+    /* HEADER */
+    .header{position:sticky;top:0;z-index:40;background:#0e1624;border-bottom:1px solid var(--line)}
+    .nav{max-width:1200px;margin:auto;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800}
+    .brand-logo{width:56px;height:56px;object-fit:contain}
+    .actions{display:flex;align-items:center;gap:10px}
+    .btn,.icon{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;background:#0e1624;border:1px solid #223146;color:inherit;cursor:pointer}
+    .cart-badge{font-size:12px;background:#22c55e;color:#041017;border-radius:999px;padding:2px 6px;min-width:18px;text-align:center}
+
+    /* HERO FULL-BLEED */
+    .hero{
+      width:100%;            /* phủ tràn chiều ngang */
+      min-height:70vh;       /* chiều cao linh hoạt */
+      margin:0;              /* không chừa viền/mép */
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.28)),
+        url('/images/title-artisan.jpg') center/cover no-repeat; /* KHÔNG mờ */
+      display:grid; align-items:center;
     }
-    .banner {
-      position: relative;
-      width: 100%;
-      max-width: 1920px;
-      margin: 0 auto;
+    .hero__inner{
+      width:min(1200px, 100%);
+      margin-inline:auto;
+      padding: clamp(18px, 5vw, 64px);
     }
-    .banner img {
-      display: block;
-      width: 100%;
-      height: auto;
+    .hero h1{
+      margin:0 0 12px; line-height:1.05;
+      font-size:clamp(36px, 6.8vw, 92px);
+      font-weight:900; color:#fff; text-shadow:0 10px 30px rgba(0,0,0,.45);
     }
-    .banner-text {
-      position: absolute;
-      top: 25%;
-      left: 6%;
-      color: white;
-      line-height: 1.2;
+    .hero p{
+      margin:0; font-size:clamp(16px, 2.4vw, 22px);
+      color:#eaf3ff; max-width:1000px; text-shadow:0 6px 20px rgba(0,0,0,.35);
     }
-    .banner-text h1 {
-      font-size: 2.8rem;
-      font-weight: bold;
-      margin: 0;
-    }
-    .banner-text h2 {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 8px 0 0;
-    }
-    .banner-text p {
-      font-size: 1rem;
-      margin-top: 10px;
-      max-width: 600px;
+
+    @media (max-width:640px){
+      .brand-logo{width:44px;height:44px}
     }
   </style>
 </head>
 <body>
-  <div class="banner">
-    <img src="banner-keycap.jpg" alt="Banner Resin Keycap" />
-    <div class="banner-text">
-      <h1>Artisan Resin Keycap</h1>
-      <h2>Thủ công – Độc bản</h2>
-      <p>Phù hợp Cherry MX / Gateron, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
-    <
+  <!-- HEADER -->
+  <header class="header">
+    <div class="nav">
+      <div class="brand">
+        <img class="brand-logo" src="/images/logo-k-resin.png" alt="Logo K Resin">
+        <span>Resin Keycap Studio</span>
+      </div>
+      <div class="actions">
+        <button class="icon" title="Đổi giao diện">🌓</button>
+        <button class="btn">🛒 Giỏ <span class="cart-badge">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO FULL-BLEED (không viền, không ảnh nhỏ) -->
+  <section class="hero">
+    <div class="hero__inner">
+      <h1>Artisan Resin Keycap thủ công — độc bản, đổ khuôn chuẩn</h1>
+      <p>Phù hợp <strong>Cherry MX / Gateron</strong>, hoàn thiện bóng, không ố vàng (phủ UV). Ship toàn quốc, nhận custom theo yêu cầu.</p>
+    </div>
+  </section>
+</body>
+</html>
