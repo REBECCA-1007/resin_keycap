@@ -21,6 +21,24 @@
     img{display:block;max-width:100%}
     .container{width:min(var(--container),92%);margin-inline:auto}
     section[id]{scroll-margin-top:calc(var(--headerH) + 12px)}
+    /* Quantity control */
+.qty{
+  display:inline-flex;align-items:center;
+  border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  margin-right:10px;height:44px;background:#0c1423;
+}
+.qty input{
+  width:56px;background:transparent;border:0;text-align:center;
+  color:var(--fg);height:100%;font-weight:700;font-size:16px;
+  -moz-appearance: textfield;
+}
+.qty input::-webkit-outer-spin-button,
+.qty input::-webkit-inner-spin-button{ -webkit-appearance: none; margin:0; }
+.qbtn{
+  width:44px;height:44px;background:transparent;border:0;color:var(--fg);
+  cursor:pointer;font-size:18px;display:grid;place-items:center;
+}
+.qbtn:hover{ background:#0f1726; }
 
     /* Header */
     .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.72);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
@@ -172,9 +190,18 @@
         <p class="muted">Galaxy swirl, subtle sparkles — a calm cosmic whisper. Cherry MX / MX style compatible.</p>
         <div class="price">$49.00</div>
         <div class="mini">
-          <button class="btn btn--brand" id="add">Add to Cart</button>
-          <a class="btn" href="index.html#collections">Back to Collections</a>
-        </div>
+  <!-- Quantity -->
+  <div class="qty">
+    <button type="button" class="qbtn" id="qMinus">−</button>
+    <input id="qty" type="number" min="1" value="1" inputmode="numeric" />
+    <button type="button" class="qbtn" id="qPlus">+</button>
+  </div>
+
+  <!-- Add to Cart -->
+  <button class="btn btn--brand" id="add">Add to Cart</button>
+  <a class="btn" href="index.html#collections">Back to Collections</a>
+</div>
+
 
         <div class="detail">
           <h3>Item Detail</h3>
@@ -322,6 +349,24 @@
     $('#openCart').addEventListener('click', openCart);
     $('#closeCart').addEventListener('click', closeCart);
     document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCart(); });
+    // === Qty controls ===
+const qtyInput = document.getElementById('qty');
+const qPlus = document.getElementById('qPlus');
+const qMinus = document.getElementById('qMinus');
+
+qPlus.addEventListener('click', ()=> {
+  qtyInput.value = (+qtyInput.value || 1) + 1;
+});
+qMinus.addEventListener('click', ()=> {
+  qtyInput.value = Math.max(1, (+qtyInput.value || 1) - 1);
+});
+
+// Add to cart button (use selected qty)
+document.getElementById('add').addEventListener('click', ()=>{
+  const qty = Math.max(1, parseInt(qtyInput.value || '1', 10));
+  const img = document.getElementById('main').getAttribute('src') || '/images/c1.jpg';
+  addToCart({id:'c1', name:'Nebula Echo', price:49, img, qty});
+});
 
     // Add to cart button (lấy ảnh main hiện tại)
     $('#add').addEventListener('click', ()=>{
