@@ -5,76 +5,90 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Resin Keycap Studio — Art You Can Touch</title>
   <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
+  <link rel="preload" as="image" href="/images/title-artisan.jpg">
   <style>
-    /* ===== Tokens ===== */
+    /* ========== Tokens ========== */
     :root{
-      --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-      --line:#1b273a; --card:#0f1623;
+      --bg:#0a0f18; --fg:#e6edf6; --muted:#9db0c9;
+      --line:#172238; --card:#0f1623;
       --brand:#0ea5e9; --brand-600:#0284c7; --accent:#22c55e;
-      --container:1200px; --radius:16px;
+      --danger:#ef4444; --warning:#f59e0b;
+      --container:1200px; --radius:16px; --shadow:0 20px 60px rgba(0,0,0,.45);
       --gutter: clamp(18px, 6vw, 120px);
-      --danger:#ef4444;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
     body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
     .container{width:min(var(--container),92%);margin-inline:auto}
 
-    /* ===== Header ===== */
-    .header{position:sticky;top:0;z-index:40;background:rgba(10,15,24,.75);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
+    /* ========== Header ========== */
+    .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+    .nav{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
     .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+    .brand img{width:44px;height:44px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
     .navlinks{display:flex;align-items:center;gap:18px}
     .navlinks a{padding:8px 10px;border-radius:10px}
     .navlinks a:hover{background:#0f1726}
+    .nav-ctas{display:flex;align-items:center;gap:10px}
+    .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:10px 12px;border-radius:12px;background:#0f1626}
+    .chip--ghost{background:transparent}
+    .badge{display:inline-flex;min-width:20px;min-height:20px;padding:0 6px;border-radius:999px;align-items:center;justify-content:center;background:var(--accent);color:#052011;font-size:12px;font-weight:800}
+    .lang{border-radius:12px;border:1px solid var(--line);padding:10px 14px;background:#0f1626}
     .menu{display:none}
-    .nav-rt{display:flex;align-items:center;gap:12px}
-    .icon-btn{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:#0c1421;cursor:pointer}
-    .icon-btn:hover{background:#0f1726}
-    .cart-ind{position:relative}
-    .cart-badge{position:absolute;right:-6px;top:-6px;background:var(--accent);color:#031214;font-size:12px;font-weight:900;border-radius:999px;padding:2px 6px;min-width:20px;text-align:center}
-    @media (max-width:900px){ .navlinks{display:none} .menu{display:inline-flex} }
+    @media (max-width:1000px){
+      .navlinks{display:none}
+      .menu{display:inline-flex;border:1px solid var(--line);background:#0f1626;border-radius:12px;padding:10px 12px}
+    }
 
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
+    /* ========== Hero (full-bleed) ========== */
+    .hero{
+      position:relative;isolation:isolate;border-bottom:1px solid var(--line);
+      background: #0b1320;
+    }
+    .hero__bg{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(1200px 500px at 20% -20%, rgba(14,165,233,.35), transparent 60%),
+        radial-gradient(800px 400px at 120% 120%, rgba(34,197,94,.20), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.55)),
+        url("/images/title-artisan.jpg") center/cover no-repeat;
+      filter:saturate(.85) contrast(.98);
+      z-index:-2;
+    }
+    .hero__shade{
+      position:absolute;inset:0;background:linear-gradient(180deg, rgba(3,10,20,.35) 0 40%, rgba(3,10,20,.65) 100%);
+      z-index:-1;
+    }
+    .hero__wrap{
+      padding:clamp(38px,6.4vw,80px) var(--gutter) clamp(36px,6vw,64px);
+      width:min(var(--container),92%);margin-inline:auto;
+    }
+    .hero__title{font-size:clamp(34px,7.2vw,88px);line-height:1.03;margin:0 0 10px;font-weight:900}
+    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+    .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:700;cursor:pointer}
     .btn--brand{background:var(--brand);color:#06121b;border:none}
     .btn--brand:hover{background:var(--brand-600);color:#fff}
     .btn--ghost{background:transparent;border:1px solid var(--line)}
-    .btn--danger{background:transparent;border:1px solid var(--danger);color:#fecaca}
-    .btn--sm{padding:8px 12px;border-radius:10px;font-size:14px}
 
-    /* ===== Hero ===== */
-    .hero{position:relative;isolation:isolate;overflow:hidden}
-    .hero__wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:clamp(44px,6.4vw,96px) var(--gutter)}
-    .hero__title{font-size:clamp(34px,6.6vw,66px);line-height:1.06;margin:0 0 10px;font-weight:900}
-    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
-    .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-    .hero__media{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-    .hero__media::before{
-      content:"";position:absolute;inset:0;
-      background:
-        radial-gradient(800px 320px at 20% -10%, #0ea5e933, transparent 60%),
-        radial-gradient(700px 300px at 120% 120%, #22c55e22, transparent 55%);
-      pointer-events:none;
+    /* ========== Marquee ========== */
+    .marquee{
+      border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+      background:#0b1320;overflow:hidden;padding:12px 0;
     }
-    .hero__img{aspect-ratio:16/10;object-fit:cover;width:100%;height:auto;filter:grayscale(.1) contrast(1.02)}
-    .hero__cap{position:absolute;left:18px;bottom:14px;font-size:12px;color:#c6d3e7cc}
-    @media (max-width:980px){ .hero__wrap{grid-template-columns:1fr} .hero__media{order:-1} }
-
-    /* ===== Marquee ===== */
-    .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b1320;padding:12px 0;overflow:hidden}
-    .marquee__track{display:flex;gap:60px;white-space:nowrap;will-change:transform;animation:scroll 24s linear infinite}
-    .marquee__item{color:#eaf2ff;opacity:.95;font-weight:700;letter-spacing:.2px;padding-inline:6px}
+    .marquee__track{display:flex;gap:60px;white-space:nowrap;animation:scroll 26s linear infinite}
+    .marquee__item{font-weight:800;opacity:.96}
     .marquee__bullet{opacity:.35;margin:0 12px}
     @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-    @media (prefers-reduced-motion:reduce){.marquee__track{animation:none}}
 
-    /* ===== Sections / Stats ===== */
+    /* ========== Sections ========== */
     .section{padding:clamp(40px,6vw,72px) var(--gutter)}
     .section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,34px)}
     .muted{color:var(--muted)}
+
+    /* Stats row */
     .stats{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
     .stat{grid-column:span 3;border:1px solid var(--line);border-radius:14px;padding:18px;background:#0c1728}
     .stat .num{font-size:clamp(22px,3.4vw,36px);font-weight:900}
@@ -82,90 +96,82 @@
     @media (max-width:980px){.stat{grid-column:span 6}}
     @media (max-width:680px){.stat{grid-column:span 12}}
 
-    /* ===== Product Catalog ===== */
-    .catalog{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:22px}
-    .product{grid-column:span 3;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
-    .product__img-wrap{position:relative;overflow:hidden;background:#0a1320}
-    .product__img{width:100%;aspect-ratio:1/1;object-fit:cover;transform:scale(1);transition:transform .5s ease}
-    .product:hover .product__img{transform:scale(1.05)}
-    .product__body{padding:14px 14px 16px;display:flex;flex-direction:column;gap:8px}
-    .product__title{font-weight:800;font-size:18px;margin:0}
-    .product__desc{color:var(--muted);font-size:14px;margin:0}
-    .product__meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px}
-    .price{font-weight:900;font-size:18px}
-    @media (max-width:1100px){.product{grid-column:span 4}}
-    @media (max-width:820px){.product{grid-column:span 6}}
-    @media (max-width:520px){.product{grid-column:span 12}}
+    /* Products */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:20px}
+    .product{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .product__img{aspect-ratio:1/1;object-fit:cover;width:100%}
+    .product__body{padding:16px;display:grid;gap:8px}
+    .product__name{font-size:18px;font-weight:800}
+    .price{font-weight:900}
+    .product__footer{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+    .qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+    .qty button{background:#0f1726;border:none;color:var(--fg);width:34px;height:34px;font-weight:900;cursor:pointer}
+    .qty input{width:42px;background:transparent;border:none;color:var(--fg);text-align:center}
+    @media (max-width:980px){.product{grid-column:span 6}}
+    @media (max-width:680px){.product{grid-column:span 12}}
 
-    /* ===== Cart Drawer ===== */
-    .drawer{position:fixed;inset:0;pointer-events:none;z-index:60}
-    .drawer.open{pointer-events:auto}
-    .overlay{position:absolute;inset:0;background:rgba(0,0,0,.5);opacity:0;transition:opacity .25s ease}
-    .drawer.open .overlay{opacity:1}
-    .panel{position:absolute;right:0;top:0;height:100%;width:min(420px,92%);background:#0d1626;border-left:1px solid var(--line);transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
-    .drawer.open .panel{transform:translateX(0)}
-    .panel header{padding:16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
-    .panel .items{padding:14px;display:flex;flex-direction:column;gap:12px;overflow:auto}
-    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px;background:#0c1728}
-    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-    .cart-item .ttl{font-weight:700}
-    .qty{display:flex;align-items:center;gap:8px}
-    .qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:#0f1726;color:var(--fg);cursor:pointer}
-    .panel footer{margin-top:auto;border-top:1px solid var(--line);padding:14px;display:grid;gap:10px}
-    .subtotal{display:flex;align-items:center;justify-content:space-between;font-weight:900}
-    .empty{color:var(--muted);text-align:center;padding:24px}
+    /* Cart Drawer */
+    .drawer{position:fixed;top:0;right:-420px;width:min(420px,92%);height:100dvh;background:#0b1320;border-left:1px solid var(--line);box-shadow:var(--shadow);z-index:60;display:flex;flex-direction:column;transition:right .28s ease}
+    .drawer.open{right:0}
+    .drawer__head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid var(--line)}
+    .drawer__list{flex:1;overflow:auto;padding:12px 16px;display:grid;gap:10px}
+    .cart-item{display:grid;grid-template-columns:72px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0f1626}
+    .cart-item img{width:72px;height:72px;object-fit:cover;border-radius:10px}
+    .cart-item b{display:block}
+    .cart-item small{color:var(--muted)}
+    .cart-item .actions{display:flex;align-items:center;gap:8px}
+    .drawer__foot{border-top:1px solid var(--line);padding:16px;display:grid;gap:10px}
+    .total{display:flex;align-items:center;justify-content:space-between;font-weight:900}
 
-    /* ===== Footer ===== */
+    /* Footer */
     footer{border-top:1px solid var(--line);padding:22px var(--gutter);color:var(--muted);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- ===== Header ===== -->
   <header class="header">
     <div class="nav">
       <a class="brand" href="#home">
         <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
         <span>Resin Keycap Studio</span>
       </a>
+
       <nav class="navlinks">
         <a href="#home">Home</a>
         <a href="#philosophy">Philosophy</a>
         <a href="#collections">Collections</a>
-        <a href="#contact">Custom Order</a>
+        <a href="#custom">Custom Order</a>
         <a href="#contact">Contact</a>
       </nav>
-      <div class="nav-rt">
-        <button class="icon-btn cart-ind" id="openCart" aria-label="Cart">
-          🧺
-          <span class="cart-badge" id="cartCount">0</span>
+
+      <div class="nav-ctas">
+        <button class="chip chip--ghost" id="accountBtn" title="Account">👤</button>
+        <button class="chip" id="cartBtn" title="Cart">
+          🧺 <span class="badge" id="cartCount">0</span>
         </button>
-        <button class="icon-btn" title="Account">👤</button>
-        <button class="menu btn btn--ghost" id="menuBtn">☰</button>
+        <button class="lang" id="langBtn" title="Language">EN</button>
+        <button class="menu" id="menuBtn">☰</button>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- ===== Hero (full-bleed) ===== -->
   <section id="home" class="hero">
-    <div class="hero__wrap">
-      <div>
-        <h1 class="hero__title">Every Key Tells a Story</h1>
-        <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
-        <div class="hero__actions">
-          <a class="btn btn--brand" href="#collections">Browse Collections</a>
-          <a class="btn btn--ghost" href="#contact">Custom Order</a>
-        </div>
-      </div>
+    <div class="hero__bg"></div>
+    <div class="hero__shade"></div>
 
-      <div class="hero__media">
-        <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Resin Hero" />
-        <div class="hero__cap">Art you can touch.</div>
+    <div class="hero__wrap">
+      <h1 class="hero__title">Every Key Tells a Story</h1>
+      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
+      <div class="hero__actions">
+        <a class="btn btn--brand" href="#collections">Browse Collections</a>
+        <a class="btn btn--ghost" href="#custom">Custom Order</a>
       </div>
     </div>
   </section>
 
-  <!-- Philosophy marquee -->
+  <!-- ===== Philosophy Marquee ===== -->
   <section id="philosophy" class="marquee" aria-label="Philosophy">
     <div class="container" style="overflow:hidden">
       <div class="marquee__track">
@@ -199,11 +205,11 @@
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="section">
+  <!-- ===== Stats ===== -->
+  <section id="stats" class="section">
     <div class="container">
       <h2>Value at a Glance</h2>
-      <p class="muted">Clear, compact highlights for keyboard enthusiasts.</p>
+      <p class="muted">What keyboard enthusiasts care about — clear, concise, and honest.</p>
       <div class="stats">
         <div class="stat">
           <div class="num">100% Handmade</div>
@@ -211,11 +217,11 @@
         </div>
         <div class="stat">
           <div class="num">50+ Designs</div>
-          <div class="lbl">Expanding collections</div>
+          <div class="lbl">Growing collections</div>
         </div>
         <div class="stat">
           <div class="num">UV Coated</div>
-          <div class="lbl">Glossy, durable, anti-yellow</div>
+          <div class="lbl">Glossy, durable, anti-yellowing</div>
         </div>
         <div class="stat">
           <div class="num">Global Shipping</div>
@@ -225,17 +231,28 @@
     </div>
   </section>
 
-  <!-- Collections / Products -->
+  <!-- ===== Collections / Products ===== -->
   <section id="collections" class="section">
     <div class="container">
       <h2>Collections</h2>
-      <p class="muted">Signature artisan keycaps — minimal, message-forward.</p>
+      <p class="muted">Signature product lines — minimal, message‑forward.</p>
 
-      <div class="catalog" id="catalog"><!-- injected by JS --></div>
+      <div class="grid" id="productGrid">
+        <!-- Products will be rendered by JS based on the list below -->
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ===== Custom / CTA ===== -->
+  <section id="custom" class="section">
+    <div class="container">
+      <h2>Custom Order</h2>
+      <p class="muted">Your spec: colors, profile, lettering, special effects. We’ll craft it—slowly, carefully.</p>
+      <a class="btn btn--brand" href="#contact">Request via Email</a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
   <footer id="contact">
     <small>© <span id="y"></span> Resin Keycap Studio</small>
     <div>
@@ -245,30 +262,203 @@
     </div>
   </footer>
 
-  <!-- Cart Drawer -->
-  <div class="drawer" id="cartDrawer" aria-hidden="true">
-    <div class="overlay" id="cartOverlay"></div>
-    <aside class="panel" role="dialog" aria-label="Shopping Cart">
-      <header>
-        <strong>Your Cart</strong>
-        <button class="btn btn--ghost btn--sm" id="closeCart">Close</button>
-      </header>
-      <div class="items" id="cartItems">
-        <div class="empty">Your cart is empty.</div>
+  <!-- ===== Cart Drawer ===== -->
+  <aside class="drawer" id="cartDrawer" aria-label="Shopping cart" aria-hidden="true">
+    <div class="drawer__head">
+      <b>Cart</b>
+      <button class="btn btn--ghost" id="closeCart">✕</button>
+    </div>
+    <div class="drawer__list" id="cartList"></div>
+    <div class="drawer__foot">
+      <div class="total">
+        <span>Subtotal</span>
+        <span id="cartTotal">$0.00</span>
       </div>
-      <footer>
-        <div class="subtotal"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
-        <button class="btn btn--brand" id="checkoutBtn">Checkout</button>
-        <button class="btn btn--danger" id="clearBtn">Clear Cart</button>
-      </footer>
-    </aside>
-  </div>
+      <button class="btn btn--brand" id="checkoutBtn">Checkout</button>
+      <small class="muted">Taxes & shipping calculated at checkout.</small>
+    </div>
+  </aside>
 
   <script>
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Mobile menu (simple demo)
+    // ===== Products data =====
+    const PRODUCTS = [
+      {
+        id:'c1', name:'Nebula ESC', price:49,
+        desc:'Swirl galaxy resin for the Escape key — each piece is unique.',
+        img:'/images/c1.jpg'
+      },
+      {
+        id:'c2', name:'Glacier Enter', price:45,
+        desc:'Frosted blue transparency with subtle depth and calm.',
+        img:'/images/c2.jpg'
+      },
+      {
+        id:'c3', name:'Sakura Petal', price:55,
+        desc:'Soft pink bloom gradient — delicate yet vibrant.',
+        img:'/images/c3.jpg'
+      },
+      {
+        id:'c4', name:'Deep Forest', price:52,
+        desc:'Emerald swirls with moss flecks; vivid and organic.',
+        img:'/images/c4.jpg'
+      },
+      {
+        id:'c5', name:'Koi Pond', price:59,
+        desc:'Crystal teal with orange/white marbling — motion in stillness.',
+        img:'/images/c5.jpg'
+      },
+      {
+        id:'c6', name:'Night Runner', price:47,
+        desc:'Smoke black base with a razor neon accent line.',
+        img:'/images/c6.jpg'
+      },
+      {
+        id:'c7', name:'Lunar Silver', price:44,
+        desc:'Pearl‑metallic monochrome for a clean, modern board.',
+        img:'/images/c7.jpg'
+      },
+      {
+        id:'c8', name:'Desert Dune', price:46,
+        desc:'Warm sand gradient, translucent and soft‑toned.',
+        img:'/images/c8.jpg'
+      },
+      {
+        id:'c9', name:'Ocean Ripple', price:49,
+        desc:'Wave‑blue ripple pattern with crisp transparency.',
+        img:'/images/c9.jpg'
+      },
+      {
+        id:'c10', name:'Noir Minimal', price:39,
+        desc:'Matte black and silver — quiet, disciplined, timeless.',
+        img:'/images/c10.jpg'
+      }
+    ];
+
+    // ===== Render products =====
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = PRODUCTS.map(p => `
+      <article class="product">
+        <img class="product__img" src="${p.img}" alt="${p.name}">
+        <div class="product__body">
+          <div class="product__name">${p.name}</div>
+          <small class="muted">${p.desc}</small>
+          <div class="product__footer">
+            <span class="price">$${p.price.toFixed(2)}</span>
+            <button class="btn btn--brand" data-add="${p.id}">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+    `).join('');
+
+    // ===== Simple Cart =====
+    const cartBtn     = document.getElementById('cartBtn');
+    const cartDrawer  = document.getElementById('cartDrawer');
+    const closeCart   = document.getElementById('closeCart');
+    const cartList    = document.getElementById('cartList');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const cartCountEl = document.getElementById('cartCount');
+
+    const CART_KEY = 'rks_cart_v1';
+    let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+    const fmt = n => '$' + n.toFixed(2);
+
+    function saveCart(){
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+      renderCart();
+    }
+
+    function addToCart(id, qty=1){
+      const found = cart.find(i => i.id === id);
+      if(found) found.qty += qty;
+      else{
+        const p = PRODUCTS.find(p => p.id === id);
+        if(!p) return;
+        cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty});
+      }
+      saveCart();
+      openCart();
+    }
+
+    function updateQty(id, delta){
+      const item = cart.find(i => i.id === id);
+      if(!item) return;
+      item.qty += delta;
+      if(item.qty <= 0) cart = cart.filter(i => i.id !== id);
+      saveCart();
+    }
+
+    function removeItem(id){
+      cart = cart.filter(i => i.id !== id);
+      saveCart();
+    }
+
+    function renderCart(){
+      if(cart.length === 0){
+        cartList.innerHTML = `<div class="muted">Your cart is empty.</div>`;
+        cartTotalEl.textContent = fmt(0);
+        cartCountEl.textContent = '0';
+        return;
+      }
+      cartList.innerHTML = cart.map(i => `
+        <div class="cart-item">
+          <img src="${i.img}" alt="${i.name}">
+          <div>
+            <b>${i.name}</b>
+            <small class="muted">${fmt(i.price)} each</small>
+            <div class="actions" style="margin-top:6px">
+              <button class="btn btn--ghost" data-dec="${i.id}">−</button>
+              <span>${i.qty}</span>
+              <button class="btn btn--ghost" data-inc="${i.id}">+</button>
+              <button class="btn btn--ghost" data-del="${i.id}" title="Remove">🗑</button>
+            </div>
+          </div>
+          <div style="font-weight:900">${fmt(i.price * i.qty)}</div>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((s,i)=> s + i.price*i.qty, 0);
+      cartTotalEl.textContent = fmt(total);
+      cartCountEl.textContent = String(cart.reduce((s,i)=> s + i.qty, 0));
+    }
+
+    function openCart(){
+      cartDrawer.classList.add('open');
+      cartDrawer.setAttribute('aria-hidden','false');
+    }
+    function closeCartDrawer(){
+      cartDrawer.classList.remove('open');
+      cartDrawer.setAttribute('aria-hidden','true');
+    }
+
+    // Listeners
+    document.body.addEventListener('click', (e)=>{
+      const add = e.target.closest('[data-add]');
+      if(add){
+        addToCart(add.dataset.add);
+      }
+      const inc = e.target.closest('[data-inc]');
+      if(inc) updateQty(inc.dataset.inc, +1);
+
+      const dec = e.target.closest('[data-dec]');
+      if(dec) updateQty(dec.dataset.dec, -1);
+
+      const del = e.target.closest('[data-del]');
+      if(del) removeItem(del.dataset.del);
+    });
+
+    cartBtn.addEventListener('click', openCart);
+    closeCart.addEventListener('click', closeCartDrawer);
+
+    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+      if(cart.length === 0) return alert('Your cart is empty.');
+      alert('Thanks! This is a demo checkout.\nYou can wire this button to Stripe/PayPal later.');
+    });
+
+    // simple menu (mobile demo)
     document.getElementById('menuBtn')?.addEventListener('click', ()=>{
       const links = document.querySelector('.navlinks');
       if(!links) return;
@@ -276,156 +466,25 @@
         links.style.display='flex';
         links.style.flexDirection='column';
         links.style.position='absolute';
-        links.style.top='64px';
+        links.style.top='68px';
         links.style.right='4%';
         links.style.background='#0f1626';
         links.style.padding='10px';
         links.style.border='1px solid var(--line)';
         links.style.borderRadius='12px';
-        links.style.boxShadow='0 20px 60px rgba(0,0,0,.45)';
+        links.style.boxShadow='var(--shadow)';
       }else{
         links.removeAttribute('style');
       }
     });
 
-    /* =========================
-       Product Data (10 items)
-       ========================= */
-    const PRODUCTS = [
-      {id:'c1',  title:'Nebula Echo',      desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.',        price:49, img:'/images/c1.jpg'},
-      {id:'c2',  title:'Forest Mist',      desc:'Crystal-clear resin with deep green accents — tranquil woods.', price:45, img:'/images/c2.jpg'},
-      {id:'c3',  title:'Monochrome Peak',  desc:'Black–white–silver minimalism — clean and classy.',            price:47, img:'/images/c3.jpg'},
-      {id:'c4',  title:'Ocean Drift',      desc:'Sea blues fading to dusk — smooth gradient flow.',              price:46, img:'/images/c4.jpg'},
-      {id:'c5',  title:'Sakura Bloom',     desc:'Soft pink bloom preserved in crystal clarity.',                 price:52, img:'/images/c5.jpg'},
-      {id:'c6',  title:'Nightfall Aurora', desc:'Dark base with aurora shimmer — quiet and mysterious.',         price:48, img:'/images/c6.jpg'},
-      {id:'c7',  title:'Copper Pulse',     desc:'Warm metallic notes under glossy dome.',                        price:44, img:'/images/c7.jpg'},
-      {id:'c8',  title:'Glacier Fade',     desc:'Icy translucence with gentle white drift.',                     price:46, img:'/images/c8.jpg'},
-      {id:'c9',  title:'Solar Flare',      desc:'Amber glow and light burst — a bright statement.',              price:49, img:'/images/c9.jpg'},
-      {id:'c10', title:'Mossy Stone',      desc:'Earthy tones in clear resin — grounded elegance.',              price:43, img:'/images/c10.jpg'},
-    ];
-
-    /* =========================
-       Render Catalog
-       ========================= */
-    const $catalog = document.getElementById('catalog');
-    function fmt(n){ return `$${n.toFixed(2)}` }
-    function renderCatalog(){
-      $catalog.innerHTML = PRODUCTS.map(p=>`
-        <article class="product">
-          <div class="product__img-wrap">
-            <img class="product__img" src="${p.img}" alt="${p.title}">
-          </div>
-          <div class="product__body">
-            <h3 class="product__title">${p.title}</h3>
-            <p class="product__desc">${p.desc}</p>
-            <div class="product__meta">
-              <span class="price">${fmt(p.price)}</span>
-              <button class="btn btn--brand btn--sm" onclick="addToCart('${p.id}')">Add to Cart</button>
-            </div>
-          </div>
-        </article>
-      `).join('');
-    }
-    renderCatalog();
-
-    /* =========================
-       Cart (LocalStorage)
-       ========================= */
-    const CART_KEY = 'rk_cart_v1';
-    const $drawer = document.getElementById('cartDrawer');
-    const $open = document.getElementById('openCart');
-    const $close = document.getElementById('closeCart');
-    const $overlay = document.getElementById('cartOverlay');
-    const $items = document.getElementById('cartItems');
-    const $subtotal = document.getElementById('cartSubtotal');
-    const $count = document.getElementById('cartCount');
-
-    function loadCart(){
-      try{ return JSON.parse(localStorage.getItem(CART_KEY) || '[]') }catch(e){ return [] }
-    }
-    function saveCart(arr){ localStorage.setItem(CART_KEY, JSON.stringify(arr)); }
-    function getProduct(id){ return PRODUCTS.find(p=>p.id===id) }
-
-    function addToCart(id){
-      const cart = loadCart();
-      const it = cart.find(i=>i.id===id);
-      if(it){ it.qty += 1 } else { cart.push({id, qty:1}) }
-      saveCart(cart);
-      renderCart();
-      openCart();
-    }
-    function removeFromCart(id){
-      let cart = loadCart().filter(i=>i.id!==id);
-      saveCart(cart);
-      renderCart();
-    }
-    function setQty(id,delta){
-      const cart = loadCart();
-      const it = cart.find(i=>i.id===id);
-      if(!it) return;
-      it.qty += delta;
-      if(it.qty<=0){ return removeFromCart(id) }
-      saveCart(cart);
-      renderCart();
-    }
-    function cartTotals(){
-      const cart = loadCart();
-      let items = 0, sum = 0;
-      cart.forEach(i=>{
-        const p = getProduct(i.id);
-        if(p){ items += i.qty; sum += i.qty * p.price; }
-      });
-      return {items,sum};
-    }
-    function renderCart(){
-      const cart = loadCart();
-      const {items,sum} = cartTotals();
-      $count.textContent = items;
-      $subtotal.textContent = fmt(sum);
-
-      if(cart.length===0){
-        $items.innerHTML = '<div class="empty">Your cart is empty.</div>';
-        return;
-      }
-      $items.innerHTML = cart.map(i=>{
-        const p = getProduct(i.id);
-        return `
-          <div class="cart-item">
-            <img src="${p.img}" alt="${p.title}">
-            <div>
-              <div class="ttl">${p.title}</div>
-              <div class="muted">${fmt(p.price)} each</div>
-            </div>
-            <div class="qty">
-              <button onclick="setQty('${i.id}',-1)">−</button>
-              <span>${i.qty}</span>
-              <button onclick="setQty('${i.id}',+1)">+</button>
-              <button class="btn btn--danger btn--sm" style="margin-left:8px" onclick="removeFromCart('${i.id}')">Remove</button>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-    function openCart(){ $drawer.classList.add('open'); $drawer.setAttribute('aria-hidden','false'); }
-    function closeCart(){ $drawer.classList.remove('open'); $drawer.setAttribute('aria-hidden','true'); }
-    $open.addEventListener('click', openCart);
-    $close.addEventListener('click', closeCart);
-    $overlay.addEventListener('click', closeCart);
-    document.getElementById('clearBtn').addEventListener('click', ()=>{
-      localStorage.removeItem(CART_KEY); renderCart();
-    });
-    document.getElementById('checkoutBtn').addEventListener('click', ()=>{
-      const {items,sum} = cartTotals();
-      if(items===0){ alert('Your cart is empty.'); return; }
-      // Demo checkout
-      alert(`Thanks! We received your order of ${items} item(s) — total ${fmt(sum)}.\nWe will contact you via email to confirm shipping.`);
-      localStorage.removeItem(CART_KEY);
-      renderCart();
-      closeCart();
-    });
-
-    // Initial render
+    // init
     renderCart();
+
+    // Language toggle placeholder
+    document.getElementById('langBtn')?.addEventListener('click', ()=>{
+      alert('EN/VI toggle placeholder. We will add bilingual strings later.');
+    });
   </script>
 </body>
 </html>
