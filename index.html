@@ -1,238 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resin Keycap Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      background-color: #000;
-    }
-    /* Navigation */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 30px;
-      background: rgba(0, 0, 0, 0.8);
-      position: fixed;
-      width: 100%;
-      z-index: 10;
-    }
-    .navbar img.logo {
-      height: 60px;
-    }
-    .navbar nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-size: 16px;
-    }
-    .cart-icon {
-      position: relative;
-      cursor: pointer;
-    }
-    .cart-count {
-      position: absolute;
-      top: -5px;
-      right: -10px;
-      background: red;
-      color: white;
-      font-size: 12px;
-      border-radius: 50%;
-      padding: 2px 6px;
-    }
-    /* Hero */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      background: url('images/title-artisan.jpg') no-repeat center center/cover;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: 48px;
-      margin: 0;
-    }
-    .hero h2 {
-      font-size: 24px;
-      font-style: italic;
-      margin-top: 10px;
-    }
-    .tagline {
-      position: absolute;
-      bottom: 20px;
-      font-size: 18px;
-    }
-    .scrolling-text {
-      width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      box-sizing: border-box;
-      position: absolute;
-      bottom: 0;
-      background: rgba(0,0,0,0.6);
-      padding: 8px 0;
-      font-size: 16px;
-    }
-    .scrolling-text span {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll 20s linear infinite;
-    }
-    @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .hero__cap {
-      position: absolute;
-      left: 18px;
-      bottom: 14px;
-      font-size: 22px;
-      color: #fdf6e3;
-      font-family: 'Great Vibes', cursive;
-      font-weight: normal;
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    }
-    /* Products */
-    .products {
-      padding: 60px 30px;
-      background-color: #111;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .product {
-      background: #1a1a1a;
-      border-radius: 10px;
-      padding: 15px;
-      text-align: center;
-    }
-    .product img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    .product h3 {
-      margin: 10px 0;
-    }
-    .product p {
-      color: #ccc;
-    }
-    .product button {
-      background: #ff9900;
-      border: none;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    /* Cart */
-    .cart {
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 300px;
-      height: 100%;
-      background: #222;
-      padding: 20px;
-      overflow-y: auto;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-    }
-    .cart.active {
-      transform: translateX(0);
-    }
-    .cart h2 {
-      margin-top: 0;
-    }
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resin Keycap Studio — Modern Minimal</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
+  --line:#1b273a; --card:#0f1623;
+  --brand:#0ea5e9; --brand-600:#0284c7;
+  --gutter:clamp(18px,6vw,120px);
+  --radius:14px;
+}
+*{box-sizing:border-box} html,body{margin:0}
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--fg)}
+
+/* Header (WorldQuant-ish) */
+.header{position:sticky;top:0;z-index:30;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{min-height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px var(--gutter)}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900}
+.brand img{height:46px;width:auto;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.navlinks{display:flex;align-items:center;gap:16px}
+.navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none;color:inherit}
+.navlinks a:hover{background:#0f1726}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;cursor:pointer}
+.badge{background:#22c55e;color:#041015;border-radius:999px;padding:2px 6px;font-size:12px;min-width:18px;text-align:center}
+
+/* Hero split */
+.hero{padding:clamp(46px,6.4vw,96px) var(--gutter);display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center}
+.hero__title{margin:0 0 8px;font-size:clamp(32px,6.6vw,66px);line-height:1.06;font-weight:900}
+.hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,20px)}
+.hero__actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn--brand{background:var(--brand);border:none;color:#06121b;font-weight:700}
+.btn--brand:hover{background:var(--brand-600);color:#fff}
+.media{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.media img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.hero__cap{position:absolute;left:18px;bottom:14px;font-size:22px;color:#fdf6e3;
+  font-family:'Great Vibes',cursive;letter-spacing:.7px;text-shadow:0 2px 4px rgba(0,0,0,.55)}
+
+/* Philosophy marquee (RIGHT ➜ LEFT) */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b1320;overflow:hidden}
+.marquee__inner{display:flex;gap:60px;white-space:nowrap;will-change:transform;
+  padding:12px var(--gutter);animation:marquee-rtl 24s linear infinite}
+.marquee__chunk{display:flex;gap:60px}
+.marquee__item{font-weight:800;opacity:.95}
+.sep{opacity:.4}
+@keyframes marquee-rtl{
+  0%{transform:translateX(50%)}
+  100%{transform:translateX(-50%)}
+}
+@media (prefers-reduced-motion:reduce){.marquee__inner{animation:none}}
+
+/* Products grid */
+.section{padding:clamp(40px,6vw,72px) var(--gutter)}
+.section h2{margin:0 0 8px;font-size:clamp(22px,3.2vw,34px)}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-top:18px}
+.card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.card__body{padding:14px;display:grid;gap:8px}
+.price{font-weight:900}
+@media (max-width:980px){.hero{grid-template-columns:1fr}.media{order:-1}.card{grid-column:span 6}}
+@media (max-width:680px){.card{grid-column:span 12}}
+
+/* Cart drawer */
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(420px,92%);background:var(--bg);border-left:1px solid var(--line);
+  transform:translateX(100%);transition:transform .28s ease;z-index:40;display:grid;grid-template-rows:auto 1fr auto}
+.drawer.open{transform:translateX(0)}
+.drawer__hd,.drawer__ft{padding:12px 16px;border-bottom:1px solid var(--line)}
+.drawer__ft{border-top:1px solid var(--line);border-bottom:0;display:grid;gap:8px}
+.drawer__bd{padding:12px 16px;overflow:auto}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px dashed var(--line)}
+.qty{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:999px;padding:4px 8px}
+.qty button{border:none;background:transparent;color:inherit;cursor:pointer}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:22px var(--gutter);color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
 </head>
 <body>
 
-  <header class="navbar">
-    <img src="images/logo-k-resin.png" alt="Logo" class="logo">
-    <nav>
-      <a href="#products">Sản phẩm</a>
-      <a href="#about">Giới thiệu</a>
-      <a href="#contact">Liên hệ</a>
+<!-- Header -->
+<header class="header">
+  <div class="nav">
+    <a class="brand" href="#"><img src="/images/logo-k-resin.png" alt="Logo"><span>Resin Keycap Studio</span></a>
+    <nav class="navlinks">
+      <a href="#philosophy">Philosophy</a>
+      <a href="#products">Products</a>
+      <a href="#contact">Contact</a>
     </nav>
-    <div class="cart-icon" onclick="toggleCart()">
-      🛒
-      <div class="cart-count" id="cartCount">0</div>
-    </div>
-  </header>
+    <button id="openCart" class="btn">🛒 Cart <span id="cartCount" class="badge">0</span></button>
+  </div>
+</header>
 
-  <div class="hero">
-    <h1>Crafting Keys, Capturing Souls</h1>
-    <h2><em>Handcrafted & One of a Kind</em></h2>
+<!-- Hero -->
+<section class="hero">
+  <div>
+    <h1 class="hero__title">Crafting Keys, Capturing Souls</h1>
+    <p class="hero__subtitle"><em>Handcrafted &amp; One of a Kind</em></p>
+    <div class="hero__actions">
+      <a href="#products" class="btn btn--brand">Browse Collections</a>
+      <a href="#contact" class="btn">Custom Order</a>
+    </div>
+  </div>
+
+  <div class="media">
+    <img src="/images/title-artisan.jpg" alt="Artisan Resin Hero">
     <div class="hero__cap">Art you can touch</div>
-    <div class="tagline">Phù hợp Cherry MX / Gateron, hoàn thiện bóng, không ố vàng (phủ UV) <br> Ship toàn quốc, nhận custom theo yêu cầu</div>
-    <div class="scrolling-text">
-      <span>Handcrafted is Quality, Every Keycap is One of a Kind, Slow Made, Long Lasting, Design Speaks, Details Make the Difference, Made to Be Yours</span>
+  </div>
+</section>
+
+<!-- Philosophy marquee (Right ➜ Left) -->
+<section id="philosophy" class="marquee" aria-label="Philosophy">
+  <div class="marquee__inner">
+    <div class="marquee__chunk">
+      <span class="marquee__item">Handcrafted is Quality</span><span class="sep">•</span>
+      <span class="marquee__item">Every Keycap is One of a Kind</span><span class="sep">•</span>
+      <span class="marquee__item">Slow Made, Long Lasting</span><span class="sep">•</span>
+      <span class="marquee__item">Design Speaks</span><span class="sep">•</span>
+      <span class="marquee__item">Details Make the Difference</span><span class="sep">•</span>
+      <span class="marquee__item">Made to Be Yours</span>
+    </div>
+    <!-- duplicate để chạy mượt -->
+    <div class="marquee__chunk" aria-hidden="true">
+      <span class="marquee__item">Handcrafted is Quality</span><span class="sep">•</span>
+      <span class="marquee__item">Every Keycap is One of a Kind</span><span class="sep">•</span>
+      <span class="marquee__item">Slow Made, Long Lasting</span><span class="sep">•</span>
+      <span class="marquee__item">Design Speaks</span><span class="sep">•</span>
+      <span class="marquee__item">Details Make the Difference</span><span class="sep">•</span>
+      <span class="marquee__item">Made to Be Yours</span>
     </div>
   </div>
+</section>
 
-  <section class="products" id="products">
-    <div class="product">
-      <img src="images/keycap1.jpg" alt="Keycap 1">
-      <h3>Dragon Artisan</h3>
-      <p>350,000đ</p>
-      <button onclick="addToCart('Dragon Artisan', 350000)">Thêm vào giỏ</button>
-    </div>
-    <div class="product">
-      <img src="images/keycap2.jpg" alt="Keycap 2">
-      <h3>Galaxy Resin</h3>
-      <p>320,000đ</p>
-      <button onclick="addToCart('Galaxy Resin', 320000)">Thêm vào giỏ</button>
-    </div>
-    <div class="product">
-      <img src="images/keycap3.jpg" alt="Keycap 3">
-      <h3>Nature Green</h3>
-      <p>300,000đ</p>
-      <button onclick="addToCart('Nature Green', 300000)">Thêm vào giỏ</button>
-    </div>
-  </section>
+<!-- Products -->
+<section id="products" class="section">
+  <h2>Collections</h2>
+  <p class="muted">Lưới sản phẩm tối giản, nhấn vào typography và khoảng trắng.</p>
+  <div class="grid" id="grid"></div>
+</section>
 
-  <div class="cart" id="cart">
-    <h2>Giỏ hàng</h2>
-    <div id="cartItems"></div>
+<!-- Cart Drawer -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__hd" style="display:flex;justify-content:space-between;align-items:center">
+    <strong>Cart</strong>
+    <button id="closeCart" class="btn">✕</button>
   </div>
+  <div class="drawer__bd" id="cartItems"></div>
+  <div class="drawer__ft">
+    <div style="display:flex;justify-content:space-between">
+      <span>Subtotal</span><strong id="subtotal">0₫</strong>
+    </div>
+    <button id="checkout" class="btn btn--brand">Checkout (Email)</button>
+  </div>
+</aside>
 
-  <script>
-    let cart = [];
-    function addToCart(name, price) {
-      cart.push({ name, price });
-      document.getElementById('cartCount').textContent = cart.length;
-      updateCartUI();
-    }
-    function updateCartUI() {
-      const cartItems = document.getElementById('cartItems');
-      cartItems.innerHTML = '';
-      cart.forEach(item => {
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `<span>${item.name}</span><span>${item.price.toLocaleString()}đ</span>`;
-        cartItems.appendChild(div);
-      });
-    }
-    function toggleCart() {
-      document.getElementById('cart').classList.toggle('active');
-    }
-  </script>
+<footer id="contact">
+  <small>© <span id="y"></span> Resin Keycap Studio</small>
+  <div><a class="muted" href="#">Terms</a> · <a class="muted" href="#">Privacy</a> · <a class="muted" href="mailto:order@yourshop.vn">Contact</a></div>
+</footer>
 
+<script>
+// year
+document.getElementById('y').textContent = new Date().getFullYear();
+
+// demo products
+const VND = new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0});
+function ph(hex){
+  const t=encodeURIComponent; const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 400'>
+  <defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='${hex}'/><stop offset='1' stop-color='%230ea5e9'/></linearGradient></defs>
+  <rect width='600' height='400' rx='22' fill='${hex}'/><g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'>
+  <rect x='90' y='120' width='420' height='160' rx='22'/></g>
+  <text x='40' y='360' fill='white' font-family='system-ui' font-size='20'>Ảnh sản phẩm</text></svg>`;
+  return `data:image/svg+xml;utf8,${t(svg)}`;
+}
+const products=[
+  {id:'rk-galaxy-esc',name:'Galaxy Nebula – ESC', price:249000,img:ph('#6d28d9')},
+  {id:'rk-koi-raise', name:'Koi Pond – RAISE',    price:279000,img:ph('#38bdf8')},
+  {id:'rk-oni-tab',   name:'Oni Spirit – TAB',    price:299000,img:ph('#ef4444')},
+  {id:'rk-forest-ent',name:'Forest Spirit – ENTER',price:339000,img:ph('#22c55e')},
+  {id:'rk-void-1u',   name:'Void Black – 1U',     price:189000,img:ph('#111827')},
+  {id:'rk-ice-1u',    name:'Ice Clear – 1U',      price:189000,img:ph('#e2e8f0')}
+];
+const grid=document.getElementById('grid');
+grid.innerHTML = products.map(p=>`
+  <article class="card">
+    <img src="${p.img}" alt="${p.name}">
+    <div class="card__body">
+      <div style="display:flex;justify-content:space-between;gap:8px">
+        <strong>${p.name}</strong>
+        <span class="price">${VND.format(p.price)}</span>
+      </div>
+      <button class="btn btn--brand" data-id="${p.id}">Thêm vào giỏ</button>
+    </div>
+  </article>
+`).join('');
+
+// cart logic
+const state={cart:[]};
+const $=s=>document.querySelector(s); const $$=s=>[...document.querySelectorAll(s)];
+function openDrawer(){ const d=$('#drawer'); d.classList.add('open'); d.setAttribute('aria-hidden','false'); }
+function closeDrawer(){ const d=$('#drawer'); d.classList.remove('open'); d.setAttribute('aria-hidden','true'); }
+$('#openCart').addEventListener('click',openDrawer); $('#closeCart').addEventListener('click',closeDrawer);
+
+$$('.card .btn').forEach(b=>b.addEventListener('click',()=>{
+  const id=b.dataset.id; const p=products.find(x=>x.id===id); if(!p) return;
+  const f=state.cart.find(x=>x.id===id); if(f) f.qty++; else state.cart.push({id,name:p.name,price:p.price,qty:1,img:p.img});
+  updateCartUI(); openDrawer();
+}));
+
+function updateCartUI(){
+  $('#cartCount').textContent = state.cart.reduce((s,i)=>s+i.qty,0);
+  const wrap=$('#cartItems');
+  if(state.cart.length===0){ wrap.innerHTML=`<p class="muted">Giỏ hàng trống.</p>`; $('#subtotal').textContent=VND.format(0); return; }
+  wrap.innerHTML = state.cart.map(i=>`
+    <div class="item">
+      <img src="${i.img}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:10px">
+      <div>
+        <div><strong>${i.name}</strong></div>
+        <div class="muted">${VND.format(i.price)}</div>
+        <div class="qty">
+          <button data-id="${i.id}" data-act="dec">−</button>
+          <span>${i.qty}</span>
+          <button data-id="${i.id}" data-act="inc">+</button>
+          <button data-id="${i.id}" data-act="del" title="Xoá" style="margin-left:6px">🗑️</button>
+        </div>
+      </div>
+      <div><strong>${VND.format(i.qty*i.price)}</strong></div>
+    </div>
+  `).join('');
+  const sum=state.cart.reduce((s,i)=>s+i.qty*i.price,0);
+  $('#subtotal').textContent=VND.format(sum);
+
+  // qty handlers
+  $$('#cartItems button').forEach(b=>b.addEventListener('click',()=>{
+    const id=b.dataset.id, act=b.dataset.act; const it=state.cart.find(x=>x.id===id); if(!it) return;
+    if(act==='inc') it.qty++;
+    if(act==='dec') it.qty=Math.max(1,it.qty-1);
+    if(act==='del') state.cart=state.cart.filter(x=>x.id!==id);
+    updateCartUI();
+  }));
+}
+
+document.getElementById('checkout').addEventListener('click',()=>{
+  if(state.cart.length===0){ alert('Giỏ hàng trống.'); return; }
+  const lines = state.cart.map(i=>`- ${i.name} x${i.qty} — ${VND.format(i.qty*i.price)}`).join('%0D%0A');
+  const total = VND.format(state.cart.reduce((s,i)=>s+i.qty*i.price,0));
+  const subject = encodeURIComponent('[Đặt hàng] Resin Keycap Studio');
+  const body = `Đơn hàng:%0D%0A${lines}%0D%0A%0DTạm tính: ${total}%0D%0A%0DHọ tên:%0D%0ASĐT:%0D%0AĐịa chỉ:%0D%0A`;
+  const email='order@yourshop.vn';
+  window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
+});
+</script>
 </body>
 </html>
