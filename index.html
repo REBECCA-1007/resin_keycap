@@ -1,314 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Resin Keycap Studio — Art You Can Touch</title>
-  <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resin Keycap Studio — Art You Can Touch</title>
+<meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
 
-  <style>
-    /* ====== Design Tokens ====== */
-    :root{
-      --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-      --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
-      --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
-      --radius:18px; --container:1200px; --gutter: clamp(18px, 6vw, 120px);
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
+<style>
+  /* ===== Design tokens ===== */
+  :root{
+    --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
+    --line:#1b273a; --surface:#101827; --surface-2:#0b1320;
+    --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
+    --radius:20px; --container:1200px;
+    --gutter: clamp(18px, 6vw, 120px);
+    --shadow: 0 22px 60px rgba(0,0,0,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
 
-    .container{width:min(var(--container),92%);margin-inline:auto}
-    /* container rộng hơn riêng cho hero để ảnh sát mép phải */
-    .container--wide{width:min(1300px,96%);margin-inline:auto}
+  .container{width:min(var(--container),92%);margin-inline:auto}
 
-    /* ====== Header ====== */
-    .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
-    .brand img{width:46px;height:46px;object-fit:contain;border-radius:12px;box-shadow:var(--shadow)}
-    .navlinks{display:flex;align-items:center;gap:22px}
-    .navlinks a{padding:8px 10px;border-radius:10px;opacity:.92}
-    .navlinks a:hover{background:#0f1726}
-    .right{display:flex;align-items:center;gap:10px}
+  /* ===== Header ===== */
+  .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-inline:var(--gutter)}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:900}
+  .brand img{width:46px;height:46px;border-radius:12px;object-fit:contain;box-shadow:var(--shadow)}
+  .navlinks{display:flex;gap:28px}
+  .navlinks a{padding:8px 10px;border-radius:10px;opacity:.95}
+  .navlinks a:hover{background:#0f1726}
+  .right{display:flex;gap:10px;align-items:center}
+  .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
+  .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
 
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
-    .btn--brand{background:var(--brand);color:#06121b;border:none}
-    .btn--brand:hover{background:var(--brand-600);color:#fff}
-    .btn--ghost{background:transparent;border:1px solid var(--line)}
-    .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
+  .btn--brand{background:var(--brand);color:#06121b;border:none}
+  .btn--brand:hover{background:var(--brand-600);color:#fff}
+  .btn--ghost{background:transparent;border:1px solid var(--line)}
 
-    /* Cart bubble */
-    .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
+  /* ===== Hero (title 2 dòng bên trái + ảnh tràn mép phải) ===== */
+  .hero{padding:42px 0 32px}
+  .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding-left:var(--gutter)}
+  .hero__title{margin:0 0 12px;font-weight:900;line-height:1.04;font-size:clamp(42px,7.4vw,92px)}
+  .hero__title .line{display:block}
+  .hero__subtitle{margin:0 0 20px;color:var(--muted);font-size:clamp(16px,2.2vw,22px)}
+  .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* ====== Hero (bản chuẩn) ====== */
-    .hero{padding:40px 0 30px}
-    .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
-    .hero__title{font-size:clamp(42px,7.4vw,88px);line-height:1.04;margin:0 0 10px;font-weight:900}
-    /* ép 2 dòng */
-    .hero__title .ln{display:block}
-    .hero__subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(16px,2.2vw,22px)}
-    .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-    .hero__media{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0f1623;box-shadow:var(--shadow);justify-self:end}
-    .hero__media::before{
-      content:"";position:absolute;inset:0;pointer-events:none;
-      background:
-        radial-gradient(900px 360px at 10% -10%, #0ea5e91f, transparent 60%),
-        radial-gradient(800px 300px at 120% 120%, #22c55e17, transparent 55%);
-    }
-    .hero__img{aspect-ratio:16/10;object-fit:cover;width:100%}
-    .hero__cap{position:absolute;left:18px;bottom:14px;font-size:14px;color:#dfe9fbcc}
+  /* media cột phải full‑bleed sang mép phải bằng negative margin */
+  .hero__media{
+    position:relative;border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;background:#0f1623;box-shadow:var(--shadow);
+    margin-right:calc(-1 * var(--gutter));   /* đẩy sát mép phải màn hình */
+  }
+  .hero__media::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(900px 360px at 10% -10%, #0ea5e91c, transparent 60%),
+      radial-gradient(800px 300px at 120% 120%, #22c55e17, transparent 55%);
+  }
+  .hero__img{aspect-ratio:16/10;object-fit:cover;width:100%}
+  .hero__cap{position:absolute;left:18px;bottom:14px;font-size:14px;color:#dfe9fbcc}
 
-    @media (max-width:980px){ .hero-wrap{grid-template-columns:1fr} .hero__media{order:2;justify-self:stretch} }
+  @media (max-width:980px){
+    .hero-wrap{grid-template-columns:1fr;padding-inline:var(--gutter)}
+    .hero__media{order:2;margin-right:0}
+  }
 
-    /* ====== Marquee (triết lý) ====== */
-    .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);padding:12px 0;overflow:hidden}
-    .marquee .container{overflow:hidden}
-    .mq-track{display:flex;gap:60px;white-space:nowrap;animation:mq 24s linear infinite}
-    .mq-item{font-weight:700;opacity:.95}
-    .dot{opacity:.35;margin:0 12px}
-    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  /* ===== Marquee ===== */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);padding:12px 0;overflow:hidden}
+  .marquee .container{overflow:hidden}
+  .mq-track{display:flex;gap:60px;white-space:nowrap;animation:mq 24s linear infinite}
+  .mq-item{font-weight:700;opacity:.95}
+  .dot{opacity:.35;margin:0 12px}
+  @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-    /* ====== Sections ====== */
-    .section{padding:40px var(--gutter)}
-    .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
-    .muted{color:var(--muted)}
+  /* ===== Sections + products (3 cột) ===== */
+  .section{padding:40px var(--gutter)}
+  .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
+  .muted{color:var(--muted)}
 
-    /* ====== Products grid: 3 per row ====== */
-    .grid{display:grid;gap:18px}
-    .grid.products{grid-template-columns:repeat(3,1fr)}
-    @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:640px){ .grid.products{grid-template-columns:1fr} }
+  .grid{display:grid;gap:18px}
+  .grid.products{grid-template-columns:repeat(3,1fr)}
+  @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:640px){ .grid.products{grid-template-columns:1fr} }
 
-    .product{
-      background:var(--surface);
-      border:1px solid var(--line);
-      border-radius:16px;
-      overflow:hidden;display:flex;flex-direction:column;
-      box-shadow:0 8px 30px rgba(0,0,0,.25);
-    }
-    .product__img{aspect-ratio:4/3;object-fit:cover;width:100%}
-    .product__body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-    .product h3{margin:0 0 2px;font-size:20px}
-    .product p{margin:0;color:var(--muted)}
-    .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-    .price{font-weight:900;font-size:20px}
-    .product .btn{padding:10px 14px;border-radius:10px}
+  .product{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
+  .product__img{aspect-ratio:4/3;object-fit:cover;width:100%}
+  .product__body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .product h3{margin:0 0 2px;font-size:20px}
+  .product p{margin:0;color:var(--muted)}
+  .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .price{font-weight:900;font-size:20px}
+  .product .btn{padding:10px 14px;border-radius:10px}
 
-    /* ====== Cart Drawer ====== */
-    .drawer{
-      position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
-      transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column
-    }
-    .drawer.open{transform:none}
-    .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-    .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
-    .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
-    .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-    .cart-item b{display:block}
-    .cart-item small{color:var(--muted)}
-    .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
-    .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
-    .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
-  </style>
+  /* ===== Cart Drawer ===== */
+  .drawer{position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
+          transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+  .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
+  .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+  .cart-item b{display:block}
+  .cart-item small{color:var(--muted)}
+  .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
+  .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
+  .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
+</style>
 </head>
 <body>
 
-  <!-- ===== Header ===== -->
-  <header class="header">
-    <div class="nav">
-      <a class="brand" href="#">
-        <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
-        <span>Resin Keycap Studio</span>
-      </a>
+<!-- ===== Header ===== -->
+<header class="header">
+  <div class="nav">
+    <a class="brand" href="#">
+      <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
+      <span>Resin Keycap Studio</span>
+    </a>
 
-      <nav class="navlinks">
-        <a href="#home">Home</a>
-        <a href="#philosophy">Philosophy</a>
-        <a href="#collections">Collections</a>
-        <a href="#custom">Custom Order</a>
-        <a href="#contact">Contact</a>
-      </nav>
+    <nav class="navlinks">
+      <a href="#home">Home</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#collections">Collections</a>
+      <a href="#custom">Custom Order</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-      <div class="right">
-        <button class="icon-btn" id="btnAccount" title="Account">👤</button>
-        <div style="position:relative">
-          <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
-          <span class="cart-count" id="cartCount">0</span>
-        </div>
+    <div class="right">
+      <button class="icon-btn" title="Account">👤</button>
+      <div style="position:relative">
+        <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
+        <span class="cart-count" id="cartCount">0</span>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- ===== Hero ===== -->
-  <section id="home" class="hero">
-    <div class="hero-wrap container--wide">
+<!-- ===== Hero (chuẩn bạn yêu cầu) ===== -->
+<section id="home" class="hero">
+  <div class="hero-wrap">
+    <!-- Left: Title 2 dòng -->
+    <div>
+      <h1 class="hero__title">
+        <span class="line">Every Key Tells</span>
+        <span class="line">a Story</span>
+      </h1>
+      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
+      <div class="hero__actions">
+        <a class="btn btn--brand" href="#collections">Browse Collections</a>
+        <a class="btn btn--ghost" href="#custom">Custom Order</a>
+      </div>
+    </div>
+
+    <!-- Right: image ôm sát mép phải -->
+    <div class="hero__media">
+      <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero"/>
+      <div class="hero__cap">Art you can touch.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Marquee / Philosophy ===== -->
+<section id="philosophy" class="marquee" aria-label="Philosophy">
+  <div class="container">
+    <div class="mq-track">
       <div>
-        <h1 class="hero__title">
-          <span class="ln">Every Key Tells</span>
-          <span class="ln">a Story</span>
-        </h1>
-        <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
-        <div class="hero__actions">
-          <a class="btn btn--brand" href="#collections">Browse Collections</a>
-          <a class="btn btn--ghost" href="#custom">Custom Order</a>
-        </div>
+        <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
+        <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
+        <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
+        <span class="mq-item">Design Speaks</span><span class="dot">•</span>
+        <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
+        <span class="mq-item">Made to Be Yours</span>
       </div>
-
-      <div class="hero__media">
-        <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero" />
-        <div class="hero__cap">Art you can touch.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== Marquee / Philosophy ===== -->
-  <section id="philosophy" class="marquee" aria-label="Philosophy">
-    <div class="container">
-      <div class="mq-track">
-        <div>
-          <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
-          <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
-          <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
-          <span class="mq-item">Design Speaks</span><span class="dot">•</span>
-          <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
-          <span class="mq-item">Made to Be Yours</span>
-        </div>
-        <div aria-hidden="true">
-          <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
-          <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
-          <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
-          <span class="mq-item">Design Speaks</span><span class="dot">•</span>
-          <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
-          <span class="mq-item">Made to Be Yours</span>
-        </div>
+      <div aria-hidden="true">
+        <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
+        <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
+        <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
+        <span class="mq-item">Design Speaks</span><span class="dot">•</span>
+        <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
+        <span class="mq-item">Made to Be Yours</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== Collections (3 per row) ===== -->
-  <section id="collections" class="section">
-    <div class="container">
-      <h2>Collections</h2>
-      <p class="muted">Signature artisan keycaps — minimal, message‑forward.</p>
+<!-- ===== Collections (3 per row) ===== -->
+<section id="collections" class="section">
+  <div class="container">
+    <h2>Collections</h2>
+    <p class="muted">Signature artisan keycaps — minimal, message‑forward.</p>
 
-      <div class="grid products" id="productGrid">
-        <!-- Products will be injected by JS (using images c1..c10.jpg) -->
-      </div>
+    <div class="grid products" id="productGrid">
+      <!-- Injected by JS -->
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== Custom Order ===== -->
-  <section id="custom" class="section" style="border-top:1px solid var(--line)">
-    <div class="container">
-      <h2>Custom Order</h2>
-      <p class="muted">Send your idea (profile, colors, lettering, special effects). We’ll craft it for you.</p>
-      <a class="btn btn--brand" href="#contact">Request via Email</a>
-    </div>
-  </section>
+<!-- ===== Custom / Contact (anchor only for nav) ===== -->
+<section id="custom" class="section" style="padding-top:0"></section>
 
-  <!-- ===== Footer ===== -->
-  <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
-    <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
-      <small>© <span id="y"></span> Resin Keycap Studio</small>
-      <div class="muted">Terms · Privacy · <a href="mailto:order@yourshop.vn" class="muted">Contact</a></div>
-    </div>
-  </footer>
+<!-- ===== Footer ===== -->
+<footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <small>© <span id="y"></span> Resin Keycap Studio</small>
+    <div class="muted">Terms · Privacy · <a href="mailto:order@yourshop.vn" class="muted">Contact</a></div>
+  </div>
+</footer>
 
-  <!-- ===== Cart Drawer ===== -->
-  <aside class="drawer" id="cartDrawer" aria-label="Cart">
-    <div class="drawer__head">
-      <b>Your Cart</b>
-      <button class="btn btn--ghost" id="closeCart">Close</button>
-    </div>
-    <div class="drawer__body" id="cartItems"></div>
-    <div class="drawer__foot">
-      <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
-      <button class="btn btn--brand" style="width:100%">Checkout</button>
-    </div>
-  </aside>
+<!-- ===== Cart Drawer ===== -->
+<aside class="drawer" id="cartDrawer" aria-label="Cart">
+  <div class="drawer__head">
+    <b>Your Cart</b>
+    <button class="btn btn--ghost" id="closeCart">Close</button>
+  </div>
+  <div class="drawer__body" id="cartItems"></div>
+  <div class="drawer__foot">
+    <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <button class="btn btn--brand" style="width:100%">Checkout</button>
+  </div>
+</aside>
 
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
+<script>
+  // Year
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ====== Catalog data (images c1..c10.jpg) ======
-    const products = [
-      {id:'c1',  name:'Nebula Echo',        img:'/images/c1.jpg',  price:49, desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
-      {id:'c2',  name:'Forest Mist',        img:'/images/c2.jpg',  price:45, desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
-      {id:'c3',  name:'Monochrome Peak',    img:'/images/c3.jpg',  price:47, desc:'Black–white–silver minimalism — clean and classy.'},
-      {id:'c4',  name:'Ocean Drift',        img:'/images/c4.jpg',  price:46, desc:'Sea blues fading to dusk — smooth gradient flow.'},
-      {id:'c5',  name:'Aurora Bloom',       img:'/images/c5.jpg',  price:48, desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
-      {id:'c6',  name:'Koi Garden',         img:'/images/c6.jpg',  price:52, desc:'Transparent pond tones with koi‑like swirls and gold.'},
-      {id:'c7',  name:'Stellar Dust',       img:'/images/c7.jpg',  price:44, desc:'Deep night resin with micro‑glitter — stardust finish.'},
-      {id:'c8',  name:'Canyon Amber',       img:'/images/c8.jpg',  price:45, desc:'Warm amber & sand hues — canyon breeze captured.'},
-      {id:'c9',  name:'Glacier Fade',       img:'/images/c9.jpg',  price:50, desc:'Icy clear to slate gradient — crisp, modern chill.'},
-      {id:'c10', name:'Retro Vapor',        img:'/images/c10.jpg', price:43, desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
-    ];
+  // ===== Catalog (c1..c10.jpg) =====
+  const products = [
+    {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
+    {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
+    {id:'c3',  name:'Monochrome Peak', img:'/images/c3.jpg',  price:47, desc:'Black–white–silver minimalism — clean and classy.'},
+    {id:'c4',  name:'Ocean Drift',     img:'/images/c4.jpg',  price:46, desc:'Sea blues fading to dusk — smooth gradient flow.'},
+    {id:'c5',  name:'Aurora Bloom',    img:'/images/c5.jpg',  price:48, desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
+    {id:'c6',  name:'Koi Garden',      img:'/images/c6.jpg',  price:52, desc:'Transparent pond tones with koi‑like swirls and gold.'},
+    {id:'c7',  name:'Stellar Dust',    img:'/images/c7.jpg',  price:44, desc:'Deep night resin with micro‑glitter — stardust finish.'},
+    {id:'c8',  name:'Canyon Amber',    img:'/images/c8.jpg',  price:45, desc:'Warm amber & sand hues — canyon breeze captured.'},
+    {id:'c9',  name:'Glacier Fade',    img:'/images/c9.jpg',  price:50, desc:'Icy clear to slate gradient — crisp, modern chill.'},
+    {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
+  ];
 
-    // ====== Render products ======
-    const grid = document.getElementById('productGrid');
-    grid.innerHTML = products.map(p => `
-      <article class="product" data-id="${p.id}">
-        <img class="product__img" src="${p.img}" alt="${p.name}">
-        <div class="product__body">
-          <h3>${p.name}</h3>
-          <p>${p.desc}</p>
-          <div class="price-row">
-            <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
-          </div>
+  // Render products (3 per row)
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = products.map(p => `
+    <article class="product" data-id="${p.id}">
+      <img class="product__img" src="${p.img}" alt="${p.name}">
+      <div class="product__body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="price-row">
+          <span class="price">$${p.price.toFixed(2)}</span>
+          <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
         </div>
-      </article>
-    `).join('');
+      </div>
+    </article>
+  `).join('');
 
-    // ====== Simple Cart ======
-    const cart = [];
-    const cartBtn = document.getElementById('btnCart');
-    const drawer = document.getElementById('cartDrawer');
-    const closeCart = document.getElementById('closeCart');
-    const cartCount = document.getElementById('cartCount');
-    const cartItems = document.getElementById('cartItems');
-    const cartTotal = document.getElementById('cartTotal');
+  // ===== Simple Cart =====
+  const cart = [];
+  const cartBtn   = document.getElementById('btnCart');
+  const drawer    = document.getElementById('cartDrawer');
+  const closeCart = document.getElementById('closeCart');
+  const cartItems = document.getElementById('cartItems');
+  const cartTotal = document.getElementById('cartTotal');
+  const cartCount = document.getElementById('cartCount');
 
-    function addToCart(id){
-      const p = products.find(x=>x.id===id);
-      const ex = cart.find(x=>x.id===id);
-      if(ex){ ex.qty += 1; }
-      else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty:1}); }
-      renderCart(); openCart();
-    }
-    function removeFromCart(id){
-      const idx = cart.findIndex(x=>x.id===id);
-      if(idx>-1){ cart.splice(idx,1); renderCart(); }
-    }
-    function renderCart(){
-      let total = 0, count = 0;
-      cartItems.innerHTML = cart.length
-        ? cart.map(it=>{
-            const sub = it.price*it.qty; total += sub; count += it.qty;
-            return `
-              <div class="cart-item">
-                <img src="${it.img}" alt="${it.name}">
-                <div>
-                  <b>${it.name}</b>
-                  <small>$${it.price.toFixed(2)} × ${it.qty}</small>
-                </div>
-                <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
-              </div>`;
-          }).join('')
-        : '<div class="muted">Your cart is empty.</div>';
-      cartTotal.textContent = `$${total.toFixed(2)}`;
-      cartCount.textContent = count;
-    }
-    function openCart(){ drawer.classList.add('open'); }
-    function closeCartFn(){ drawer.classList.remove('open'); }
-    cartBtn.addEventListener('click', openCart);
-    closeCart.addEventListener('click', closeCartFn);
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
-  </script>
+  function addToCart(id){
+    const p  = products.find(x=>x.id===id);
+    const ex = cart.find(x=>x.id===id);
+    if(ex){ ex.qty+=1; } else { cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1}); }
+    renderCart(); openCart();
+  }
+  function removeFromCart(id){
+    const i = cart.findIndex(x=>x.id===id);
+    if(i>-1){ cart.splice(i,1); renderCart(); }
+  }
+  function renderCart(){
+    let total=0, count=0;
+    cartItems.innerHTML = cart.length
+      ? cart.map(it=>{
+          const sub = it.price*it.qty; total+=sub; count+=it.qty;
+          return `
+            <div class="cart-item">
+              <img src="${it.img}" alt="${it.name}">
+              <div><b>${it.name}</b><small>$${it.price.toFixed(2)} × ${it.qty}</small></div>
+              <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
+            </div>`;
+        }).join('')
+      : '<div class="muted">Your cart is empty.</div>';
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+    cartCount.textContent = count;
+  }
+  function openCart(){ drawer.classList.add('open'); }
+  function closeCartFn(){ drawer.classList.remove('open'); }
+  cartBtn.addEventListener('click', openCart);
+  closeCart.addEventListener('click', closeCartFn);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
+</script>
 </body>
 </html>
