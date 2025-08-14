@@ -244,6 +244,49 @@
 /* tiny toggle */
 .toggle { display:flex; align-items:center; gap:10px; padding:0 14px }
 
+/* ===== Mini Collections (showcase 1 lớn + 2 nhỏ) ===== */
+.mini-collections{ padding:24px var(--gutter) 10px }
+.mini-collections h2{ margin:0 0 14px; font-size:clamp(20px,2.8vw,28px) }
+
+.collections-showcase{
+  display:grid; gap:16px;
+  grid-template-columns: 2fr 1.1fr;   /* trái to, phải nhỏ */
+  align-items:stretch;
+}
+@media (max-width:980px){
+  .collections-showcase{ grid-template-columns:1fr } /* mobile xếp dọc */
+}
+
+.collection-card{
+  position:relative; overflow:hidden;
+  background:var(--surface); border:1px solid var(--line); border-radius:16px;
+  box-shadow:0 8px 30px rgba(0,0,0,.25);
+}
+.collection-card img{
+  width:100%; height:100%; object-fit:cover; display:block;
+}
+.collection-card.card--tall{ min-height:560px }       /* trái cao */
+.collection-card.card--sm{  min-height:270px }        /* phải thấp */
+
+.collection-card .overlay{
+  position:absolute; inset:auto 0 0 0;
+  padding:14px 16px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+  color:#fff;
+  display:flex; justify-content:flex-end; align-items:flex-end;
+  gap:10px;
+}
+.collection-card .tag{
+  margin-right:auto; font-weight:700; letter-spacing:.3px;
+  text-shadow:0 2px 6px rgba(0,0,0,.5);
+}
+.collection-card .see-more{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:12px;
+  background:var(--brand); color:#06121b; border:none; font-weight:700;
+}
+.collection-card .see-more:hover{ background:var(--brand-600); color:#fff }
+  
 </style>
 </head>
 <body>
@@ -331,12 +374,48 @@
     <div class="slide">
       <img src="/images/title-artisan-4.jpg" alt="Slide 3">
     </div>
-
-
     <div class="dots" id="midDots"></div>
+  </div>
+
+  <!-- ===== Mini Collections (3 cards) ===== -->
+<section class="mini-collections">
+  <div class="container">
+    <h2>Bộ sưu tập</h2>
+
+    <div class="collections-showcase">
+      <!-- Card trái (lớn) -->
+      <article class="collection-card card--tall">
+        <img src="/images/collection1.jpg" alt="Collection 1">
+        <div class="overlay">
+          <span class="tag">LE SOLEIL</span>
+          <a class="see-more" href="/collections/collection1.html">Xem thêm</a>
+        </div>
+      </article>
+
+      <div style="display:grid; gap:16px">
+        <!-- Card phải (trên) -->
+        <article class="collection-card card--sm">
+          <img src="/images/collection2.jpg" alt="Collection 2">
+          <div class="overlay">
+            <span class="tag">SUMMER</span>
+            <a class="see-more" href="/collections/collection2.html">Xem thêm</a>
+          </div>
+        </article>
+
+        <!-- Card phải (dưới) -->
+        <article class="collection-card card--sm">
+          <img src="/images/collection3.jpg" alt="Collection 3">
+          <div class="overlay">
+            <span class="tag">MONOCHROME</span>
+            <a class="see-more" href="/collections/collection3.html">Xem thêm</a>
+          </div>
+        </article>
+      </div>
+    </div>
   </div>
 </section>
 
+  
 <!-- ===== Collections (3 per row + Filters) ===== -->
 <section id="collections" class="section">
   <div class="container">
