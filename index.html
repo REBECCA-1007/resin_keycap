@@ -286,6 +286,49 @@
   background:var(--brand); color:#06121b; border:none; font-weight:700;
 }
 .collection-card .see-more:hover{ background:var(--brand-600); color:#fff }
+
+/* ==== Collections slider (tabs + carousel) ==== */
+.coll-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:14px
+}
+.coll-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.coll-tab{
+  padding:10px 14px;border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);color:var(--fg);cursor:pointer;transition:.15s
+}
+.coll-tab.active,.coll-tab:hover{border-color:var(--brand);box-shadow:0 0 0 2px #0ea5e933 inset}
+.coll-viewall{opacity:.9}
+.coll-viewall:hover{opacity:1;text-decoration:underline}
+
+.coll-slider{position:relative}
+.coll-nav{
+  position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;
+  border:1px solid var(--line);border-radius:10px;background:#0c1423aa;backdrop-filter:blur(4px);
+  display:grid;place-items:center;cursor:pointer
+}
+.coll-nav.prev{left:-6px}
+.coll-nav.next{right:-6px}
+
+.coll-track{
+  display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:6px;
+  scrollbar-width:none
+}
+.coll-track::-webkit-scrollbar{display:none}
+
+.coll-card{
+  min-width: clamp(240px, 28vw, 320px);
+  background:var(--surface);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;display:flex;flex-direction:column;scroll-snap-align:start
+}
+.coll-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.coll-card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+.coll-card h3{margin:0;font-size:16px}
+.coll-card p{margin:0;color:var(--muted);font-size:14px}
+.coll-card .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+.coll-card .price{font-weight:900}
+.coll-card .btn{padding:8px 12px;border-radius:10px}
+
   
 </style>
 </head>
@@ -419,50 +462,24 @@
 <!-- ===== Collections (3 per row + Filters) ===== -->
 <section id="collections" class="section">
   <div class="container">
-    <h2>Collections</h2>
-    <p class="muted">Signature artisan keycaps — minimal, message‑forward.</p>
+    <div class="coll-header">
+      <div class="coll-tabs" id="collTabs">
+        <button class="coll-tab active" data-cat="top">Top Seller</button>
+        <button class="coll-tab" data-cat="best">Best Picks</button>
+        <button class="coll-tab" data-cat="flowers">Dried Flowers</button>
+        <button class="coll-tab" data-cat="decor">Decor Items</button>
+      </div>
+      <a class="coll-viewall" href="#collections">View All</a>
+    </div>
 
-    <!-- FILTER BAR -->
-    <div class="filters">
-      <input id="f_q" class="filter-input" type="search" placeholder="Search name or description…">
-      <select id="f_profile" class="filter-select">
-        <option value="">Profile (All)</option>
-        <option value="Cherry">Cherry</option>
-        <option value="OEM">OEM</option>
-        <option value="SA">SA</option>
-      </select>
-      <select id="f_color" class="filter-select">
-        <option value="">Color (All)</option>
-        <option value="Black">Black</option>
-        <option value="White">White</option>
-        <option value="Blue">Blue</option>
-        <option value="Green">Green</option>
-        <option value="Red">Red</option>
-        <option value="Pink">Pink</option>
-        <option value="Amber">Amber</option>
-        <option value="Teal">Teal</option>
-        <option value="Purple">Purple</option>
-        <option value="Orange">Orange</option>
-      </select>
-      <select id="f_collection" class="filter-select">
-        <option value="">Collection (All)</option>
-        <option value="Galaxy Series">Galaxy Series</option>
-        <option value="Nature Series">Nature Series</option>
-        <option value="Minimal Series">Minimal Series</option>
-        <option value="Gradient Series">Gradient Series</option>
-      </select>
-      <input id="f_min" class="filter-input" type="number" step="1" min="0" placeholder="Min $" />
-      <input id="f_max" class="filter-input" type="number" step="1" min="0" placeholder="Max $" />
-      <label class="filter-check"><input id="f_stock" type="checkbox"> In stock</label>
+    <div class="coll-slider">
+      <button class="coll-nav prev" aria-label="Prev">‹</button>
+      <div class="coll-track" id="collTrack" tabindex="0" aria-label="Products carousel"></div>
+      <button class="coll-nav next" aria-label="Next">›</button>
     </div>
-    <div class="filter-actions">
-      <button id="f_clear" class="btn btn--ghost">Clear</button>
-      <span id="f_count" class="muted">Showing all</span>
-    </div>
-    <!-- GRID -->
-    <div class="grid products" id="productGrid"></div>
   </div>
 </section>
+
 
 <!-- ===== Custom Order (Netlify Forms) ===== -->
 <section id="custom" class="section" style="border-top:1px solid var(--line)">
@@ -738,7 +755,68 @@ function nextSlide() {
 }
 
 setInterval(nextSlide, 3000); // 3 giây đổi ảnh
-</script>
 
+/* ==== Dữ liệu danh mục cho slider (10 mục/tab) ==== */
+/* Chọn id theo ý bạn; dưới đây là ví dụ nhanh. */
+const CAT_MAP = {
+  top:    ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'],
+  best:   ['c3','c5','c1','c7','c9','c2','c8','c4','c10','c6'],
+  flowers:['c6','c5','c8','c2','c4','c1','c3','c7','c9','c10'],
+  decor:  ['c7','c3','c9','c1','c4','c8','c2','c5','c6','c10'],
+};
+
+/* Tạo thẻ card nhỏ dùng cho slider (tận dụng addToCart có sẵn) */
+function sliderCard(p){
+  return `
+    <article class="coll-card" data-id="${p.id}">
+      <img src="${p.img}" alt="${p.name}">
+      <div class="body">
+        <h3>${p.name}</h3>
+        <p>${p.desc}</p>
+        <div class="row">
+          <span class="price">$${p.price.toFixed(2)}</span>
+          <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
+/* Render theo tab */
+const collTrack = document.getElementById('collTrack');
+const collTabs  = document.getElementById('collTabs');
+
+function renderCollection(cat='top'){
+  const ids = CAT_MAP[cat] || [];
+  const items = ids
+    .map(id => products.find(p=>p.id===id))
+    .filter(Boolean)
+    .slice(0,10);                         // tối đa 10
+  collTrack.innerHTML = items.map(sliderCard).join('');
+  collTrack.scrollTo({left:0, behavior:'instant'});
+}
+
+/* Tab click */
+collTabs?.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.coll-tab');
+  if(!btn) return;
+  collTabs.querySelectorAll('.coll-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCollection(btn.dataset.cat);
+});
+
+/* Nút điều hướng */
+document.querySelector('.coll-nav.prev')?.addEventListener('click', ()=>{
+  collTrack.scrollBy({left: -collTrack.clientWidth*0.9, behavior:'smooth'});
+});
+document.querySelector('.coll-nav.next')?.addEventListener('click', ()=>{
+  collTrack.scrollBy({left: collTrack.clientWidth*0.9, behavior:'smooth'});
+});
+
+/* Lần đầu hiển thị */
+renderCollection('top');
+
+  
+</script>
 </body>
 </html>
