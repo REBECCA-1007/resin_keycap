@@ -264,12 +264,12 @@
 
     // ===== Data for all products (c1..c10) =====
     const DB = {
-      c2: {
-        name:'Forest Mist', price:45,
-        main:'/images/c2.jpg',
-        gallery:['/images/c2.jpg','/images/c2.1.jpg','/images/c2.2.jpg','/images/c2.3.jpg','/images/c2.4.jpg','/images/c2.5.jpg'],
-        desc:'Crystal‑clear resin with deep green accents — tranquil woods. Cherry MX compatible.',
-        highlights:['Handmade in Vietnam','Eco‑friendly resin','Ships worldwide','MX compatible'],
+      c1: {
+        name:'Nebula Echo', price:49,
+        main:'/images/c1.jpg',
+        gallery:['/images/c1.jpg','/images/c1.1.jpg','/images/c1.2.jpg','/images/c1.3.jpg','/images/c1.4.jpg','/images/c1.5.jpg'],
+        desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper. Cherry MX / MX style compatible.',
+        highlights:['Made by Công Chúa BECCA','Supplies for making crafts','Ships from a small business in Vietnam','Materials: Resin, Epoxy'],
         detailHTML: `
           <p>Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts. This artisan keycap adds a unique and playful touch to your mechanical keyboard and fits Cherry MX / MX Style switches.</p>
           <p><b>Anime‑Inspired Design:</b> brings a fun and nostalgic vibe to your keyboard.</p>
@@ -277,7 +277,33 @@
           <p><b>Perfect for Gamers:</b> comfortable typing & gaming experience.</p>
           <p><b>Compatible & Easy to Install:</b> Cherry MX / MX Style.</p>
           <p><b>Great Gift:</b> for gamers, anime lovers & keyboard enthusiasts.</p>
-  
+        `
+      },
+      c2: {
+        name:'Forest Mist', price:45,
+        main:'/images/c2.jpg',
+        gallery:['/images/c2.jpg','/images/c2.1.jpg','/images/c2.2.jpg'],
+        desc:'Crystal‑clear resin with deep green accents — tranquil woods. Cherry MX compatible.',
+        highlights:['Handmade in Vietnam','Eco‑friendly resin','Ships worldwide','MX compatible'],
+        detailHTML:`<p>Clear body with layered green tones for a serene typing scene.</p>`
+      },
+      c3: {
+        name:'Monochrome Peak', price:47,
+        main:'/images/c3.jpg',
+        gallery:['/images/c3.jpg'],
+        desc:'Black–white–silver minimalism — clean and classy.',
+        highlights:['Minimal aesthetic','Premium pigment','MX compatible','Gift‑ready packaging'],
+        detailHTML:`<p>Understated elegance to match stealth or white builds.</p>`
+      },
+      c4: {
+        name:'Ocean Drift', price:46,
+        main:'/images/c4.jpg',
+        gallery:['/images/c4.jpg'],
+        desc:'Sea blues fading to dusk — smooth gradient flow.',
+        highlights:['Soft gradient','UV coated finish','MX compatible','Durable resin'],
+        detailHTML:`<p>Inspired by shoreline sunsets and calm tides.</p>`
+      }
+      // …bạn thêm c5..c10 tương tự nếu muốn
     };
 
     // ===== Read id from URL & fallback
