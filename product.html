@@ -17,7 +17,7 @@
   a{color:inherit;text-decoration:none}
   .container{width:min(1200px,92%);margin-inline:auto}
 
-  /* Header */
+  /* Header giống index */
   .header{position:sticky;top:0;z-index:40;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
   .navlinks{display:flex;gap:20px}
@@ -48,14 +48,14 @@
   .qty button{width:26px;height:26px;border:1px solid var(--line);background:#102032;border-radius:8px;cursor:pointer}
   .bullet{list-style:disc;margin-left:20px}
 
-  /* Blocks (không bo tròn, chữ trên nền đen) */
+  /* Blocks (đen, không bo tròn) */
   .block{padding:0}
   .block h3{margin:22px 0 10px}
   .highlights{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   @media (max-width:720px){ .highlights{grid-template-columns:1fr} }
   .hl{padding:12px 0;border-bottom:1px solid var(--line)}
 
-  /* Contact 2 cột */
+  /* Contact 2 cột (như index) */
   .contact2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media (max-width:720px){ .contact2{grid-template-columns:1fr} }
 
@@ -105,12 +105,7 @@
       <div id="thumbs" class="thumbs"></div>
 
       <h3 style="margin-top:22px">Highlights</h3>
-      <div class="highlights">
-        <div class="hl">Made by Công Chúa BECCA</div>
-        <div class="hl">Supplies for making crafts</div>
-        <div class="hl">Ships from a small business in Vietnam</div>
-        <div class="hl">Materials: Resin, Epoxy</div>
-      </div>
+      <div id="hlWrap" class="highlights"><!-- fill by JS --></div>
     </div>
 
     <!-- Right: info -->
@@ -129,17 +124,7 @@
 
       <div class="block">
         <h3>Item Detail</h3>
-        <div class="muted" style="line-height:1.75">
-          Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts.
-          This artisan keycap adds a unique and playful touch to your mechanical keyboard. Designed to fit Cherry MX and MX Style switches,
-          it’s the ideal way to showcase your love for classic anime while customizing your gaming setup. 🎮✨
-          <br><br>
-          <b>Anime‑Inspired Design:</b> brings a fun and nostalgic vibe to your keyboard.<br>
-          <b>Handcrafted Quality:</b> high‑quality resin with a glossy, eye‑catching finish.<br>
-          <b>Perfect for Gamers:</b> comfortable typing & gaming experience.<br>
-          <b>Compatible & Easy to Install:</b> Cherry MX / MX Style.<br>
-          <b>Great Gift:</b> for gamers, anime lovers & keyboard enthusiasts.
-        </div>
+        <div id="detail" class="muted" style="line-height:1.75"></div>
       </div>
     </div>
   </div>
@@ -166,7 +151,7 @@
   </div>
 </section>
 
-<!-- Contact 2 cột -->
+<!-- Contact 2 cột (như index) -->
 <section id="contact" class="section" style="border-top:1px solid var(--line)">
   <div class="container">
     <h3>Contact — We reply within 24 hours.</h3>
@@ -199,19 +184,53 @@
 </aside>
 
 <script>
-  // --- mini catalog (đồng bộ với index) ---
-  const catalog = [
-    {id:'c1',  name:'Nebula Echo',     price:49, img:'/images/c1.jpg',  desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
-    {id:'c2',  name:'Forest Mist',     price:45, img:'/images/c2.jpg',  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
-    {id:'c3',  name:'Monochrome Peak', price:47, img:'/images/c3.jpg',  desc:'Black–white–silver minimalism — clean and classy.'},
-    {id:'c4',  name:'Ocean Drift',     price:46, img:'/images/c4.jpg',  desc:'Sea blues fading to dusk — smooth gradient flow.'},
-    {id:'c5',  name:'Aurora Bloom',    price:48, img:'/images/c5.jpg',  desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
-    {id:'c6',  name:'Koi Garden',      price:52, img:'/images/c6.jpg',  desc:'Transparent pond tones with koi‑like swirls and gold.'},
-    {id:'c7',  name:'Stellar Dust',    price:44, img:'/images/c7.jpg',  desc:'Deep night resin with micro‑glitter — stardust finish.'},
-    {id:'c8',  name:'Canyon Amber',    price:45, img:'/images/c8.jpg',  desc:'Warm amber & sand hues — canyon breeze captured.'},
-    {id:'c9',  name:'Glacier Fade',    price:50, img:'/images/c9.jpg',  desc:'Icy clear to slate gradient — crisp, modern chill.'},
-    {id:'c10', name:'Retro Vapor',     price:43, img:'/images/c10.jpg', desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
-  ];
+  /* ==== Data riêng cho từng sản phẩm: name, price, desc, highlights[], detailHTML ==== */
+  const catalog = {
+    c1: {
+      name:'Nebula Echo', price:49, img:'/images/c1.jpg',
+      desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.',
+      highlights:[
+        'Made by Công Chúa BECCA',
+        'Supplies for making crafts',
+        'Ships from a small business in Vietnam',
+        'Materials: Resin, Epoxy'
+      ],
+      detailHTML:`Enhance your keyboard with the <b>Poke Monster Resin Keycap</b>, an anime‑inspired, handmade accessory perfect for gaming enthusiasts. Designed for Cherry MX / MX style switches.`
+    },
+    c2: {
+      name:'Forest Mist', price:45, img:'/images/c2.jpg',
+      desc:'Crystal‑clear resin with deep green accents — tranquil woods.',
+      highlights:['Handmade in Saigon','UV coated finish','MX compatible','Gift‑ready packaging'],
+      detailHTML:`Calming greens layered in crystal resin; each cap unique by hand pour and polish.`
+    },
+    c3: {
+      name:'Monochrome Peak', price:47, img:'/images/c3.jpg',
+      desc:'Black–white–silver minimalism — clean and classy.',
+      highlights:['Minimal palette','Mirror polish','MX compatible','Limited batch'],
+      detailHTML:`Monochrome gradients, polished to a glassy luster for a refined setup.`
+    },
+    c4: { name:'Ocean Drift', price:46, img:'/images/c4.jpg', desc:'Sea blues fading to dusk — smooth gradient flow.',
+      highlights:['Ocean tint','MX compatible','Hand polished','Durable coat'],
+      detailHTML:`Blue gradients inspired by shoreline dusk; smooth edges for daily typing.` },
+    c5: { name:'Aurora Bloom', price:48, img:'/images/c5.jpg', desc:'Soft pink–teal aurora, gentle bloom on crystal base.',
+      highlights:['Aurora sheen','MX compatible','Gift box','UV protection'],
+      detailHTML:`Soft aurora tones bloom through clear resin, each bloom pattern is unique.` },
+    c6: { name:'Koi Garden', price:52, img:'/images/c6.jpg', desc:'Transparent pond tones with koi‑like swirls and gold.',
+      highlights:['Koi swirls','Gold flakes','MX compatible','Hand cast'],
+      detailHTML:`Pond‑like clarity with koi swirls suspended in depth; subtle gold flecks.` },
+    c7: { name:'Stellar Dust', price:44, img:'/images/c7.jpg', desc:'Deep night resin with micro‑glitter — stardust finish.',
+      highlights:['Stardust micro‑glitter','MX compatible','Smooth top','Daily‑use safe'],
+      detailHTML:`Night‑sky depth with a stardust shimmer under light.` },
+    c8: { name:'Canyon Amber', price:45, img:'/images/c8.jpg', desc:'Warm amber & sand hues — canyon breeze captured.',
+      highlights:['Amber tones','MX compatible','Comfort sculpt','UV coat'],
+      detailHTML:`Warm canyon hues layered to create a serene, sandy glow.` },
+    c9: { name:'Glacier Fade', price:50, img:'/images/c9.jpg', desc:'Icy clear to slate gradient — crisp, modern chill.',
+      highlights:['Glacier clarity','MX compatible','Scratch‑resistant','Limited run'],
+      detailHTML:`Icy clarity with a slate fade for modern, clean builds.` },
+    c10:{ name:'Retro Vapor', price:43, img:'/images/c10.jpg', desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.',
+      highlights:['Vaporwave vibe','MX compatible','Soft sheen','Great gift'],
+      detailHTML:`Playful tint nodding to vaporwave palettes; smooth finish for comfort.` }
+  };
 
   // helpers
   function getParam(k){ return new URL(location.href).searchParams.get(k); }
@@ -232,33 +251,38 @@
   const cartItems=document.getElementById('cartItems');
   const cartTotal=document.getElementById('cartTotal');
   const cartCount=document.getElementById('cartCount');
+  const hlWrap=document.getElementById('hlWrap');
+  const detail=document.getElementById('detail');
 
   // init product
   const id = getParam('id') || 'c1';
-  const p = catalog.find(x=>x.id===id) || catalog[0];
-  document.title = `${p.name} — Resin Keycap Studio`;
-  pName.textContent = p.name;
-  pDesc.textContent = p.desc;
-  pPrice.textContent = `$${p.price.toFixed(2)}`;
-  mainImg.src = p.img;
+  const P = catalog[id] || catalog.c1;
+  document.title = `${P.name} — Resin Keycap Studio`;
+  pName.textContent = P.name;
+  pDesc.textContent = P.desc;
+  pPrice.textContent = `$${P.price.toFixed(2)}`;
+  mainImg.src = P.img;
 
-  // build thumbnails: id.jpg + id.1..id.5.jpg (ẩn nếu 404)
-  const thumbList = [`/images/${id}.jpg`];
-  for(let i=1;i<=5;i++){ thumbList.push(`/images/${id}.${i}.jpg`); }
+  // highlights & detail
+  hlWrap.innerHTML = (P.highlights||[]).map(t=>`<div class="hl">${t}</div>`).join('') || '<div class="muted">—</div>';
+  detail.innerHTML = P.detailHTML || '';
+
+  // build thumbnails: id.jpg + id.1..id.5.jpg (ẩn nếu không tồn tại)
+  const files = [`/images/${id}.jpg`];
+  for(let i=1;i<=5;i++){ files.push(`/images/${id}.${i}.jpg`); }
   let showList=[];
   function addThumb(src){
     const im = new Image();
     im.onload = ()=>{
       showList.push(src);
       const t = document.createElement('img');
-      t.src = src; t.alt=p.name;
+      t.src = src; t.alt=P.name;
       t.onclick = ()=>{ mainIdx = showList.indexOf(src); mainImg.src = src; };
       thumbsWrap.appendChild(t);
     };
-    im.onerror = ()=>{}; // skip missing
     im.src = src;
   }
-  thumbList.forEach(addThumb);
+  files.forEach(addThumb);
 
   // slider
   let mainIdx = 0;
@@ -270,7 +294,7 @@
   document.getElementById('minus').onclick = ()=>{ qty=Math.max(1, qty-1); qtyVal.textContent=qty; };
   document.getElementById('plus').onclick = ()=>{ qty++; qtyVal.textContent=qty; };
 
-  // cart
+  // cart (giống index)
   function renderCart(){
     const cart=getCart(); let total=0, count=0;
     cartItems.innerHTML = cart.length
@@ -297,23 +321,25 @@
 
   addBtn.onclick = ()=>{
     let cart=getCart();
-    const ex=cart.find(x=>x.id===p.id);
-    if(ex){ ex.qty+=qty; } else { cart.push({id:p.id, name:p.name, price:p.price, img:p.img, qty}); }
+    const ex=cart.find(x=>x.id===id);
+    if(ex){ ex.qty+=qty; } else { cart.push({id:id, name:P.name, price:P.price, img:P.img, qty}); }
     setCart(cart); renderCart(); openCart();
   };
   renderCart();
 
-  // related 3 items bất kỳ (khác id hiện tại)
+  // related 3 items (khác id hiện tại)
   const related = document.getElementById('related');
-  const picks = catalog.filter(x=>x.id!==p.id).slice(0,3);
-  related.innerHTML = picks.map(r=>`
-    <a href="product.html?id=${r.id}" style="display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden">
-      <img src="${r.img}" alt="${r.name}" style="aspect-ratio:4/3;object-fit:cover;width:100%">
-      <div style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center">
-        <span>${r.name}</span><b>$${r.price.toFixed(2)}</b>
-      </div>
-    </a>
-  `).join('');
+  const ids = Object.keys(catalog).filter(k=>k!==id).slice(0,3);
+  related.innerHTML = ids.map(rid=>{
+    const R = catalog[rid];
+    return `
+      <a href="product.html?id=${rid}" style="display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden">
+        <img src="${R.img}" alt="${R.name}" style="aspect-ratio:4/3;object-fit:cover;width:100%">
+        <div style="padding:10px 12px;display:flex;justify-content:space-between;align-items:center">
+          <span>${R.name}</span><b>$${R.price.toFixed(2)}</b>
+        </div>
+      </a>`;
+  }).join('');
 </script>
 </body>
 </html>
