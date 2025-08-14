@@ -231,44 +231,6 @@
 </style>
 </head>
 <body>
-<script>
-(function(){
-  const slider = document.getElementById('heroSlider');
-  if(!slider) return;
-
-  const slides   = [...slider.querySelectorAll('.slide')];
-  const dotsWrap = document.getElementById('heroDots');
-  const prevBtn  = slider.querySelector('.hero-nav.prev');
-  const nextBtn  = slider.querySelector('.hero-nav.next');
-
-  dotsWrap.innerHTML = slides.map((_,i)=>`<button class="hero-dot${i===0?' active':''}" data-i="${i}"></button>`).join('');
-  const dots = [...dotsWrap.querySelectorAll('.hero-dot')];
-
-  let i = 0, timer;
-  const DURATION = 5000;
-
-  function go(n){
-    slides[i].classList.remove('active');
-    dots[i].classList.remove('active');
-    i = (n + slides.length) % slides.length;
-    slides[i].classList.add('active');
-    dots[i].classList.add('active');
-  }
-  function next(){ go(i+1) }
-  function prev(){ go(i-1) }
-  function start(){ stop(); timer = setInterval(next, DURATION) }
-  function stop(){ if(timer) clearInterval(timer) }
-
-  nextBtn.addEventListener('click', ()=>{ next(); start(); });
-  prevBtn.addEventListener('click', ()=>{ prev(); start(); });
-  dots.forEach(d=>d.addEventListener('click', e=>{ go(+e.currentTarget.dataset.i); start(); }));
-
-  slider.addEventListener('mouseenter', stop);
-  slider.addEventListener('mouseleave', start);
-
-  start();
-})();
-</script>
 
 <!-- ===== Header ===== -->
 <header class="header">
