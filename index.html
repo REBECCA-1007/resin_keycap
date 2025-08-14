@@ -313,35 +313,38 @@
   </div>
 </section>
 
-<!-- ===== What's Hot (slider) ===== -->
+<!-- ===== What's Hot (giống Collection slider) ===== -->
 <section class="section">
   <div class="container">
-    <div class="slider-head" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+    <div class="coll-header">
       <h2 style="margin:0">What’s Hot</h2>
-      <a href="#collections" class="muted" style="text-decoration:none">View All</a>
+      <a class="coll-viewall" href="#collections">View All</a>
     </div>
-    <div class="hcarousel" id="hotCarousel" style="position:relative">
-      <button class="hcarousel-nav prev" aria-label="Prev" style="left:-6px">‹</button>
-      <div class="hcarousel-track" id="hotTrack"></div>
-      <button class="hcarousel-nav next" aria-label="Next" style="right:-6px">›</button>
+
+    <div class="coll-slider">
+      <button class="coll-nav prev" id="hotPrev" aria-label="Prev">‹</button>
+      <div class="coll-track" id="hotTrack"></div>
+      <button class="coll-nav next" id="hotNext" aria-label="Next">›</button>
     </div>
   </div>
 </section>
 
-<!-- ===== New Arrivals (slider) ===== -->
+<!-- ===== New Arrivals (giống Collection slider) ===== -->
 <section class="section">
   <div class="container">
-    <div class="slider-head" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+    <div class="coll-header">
       <h2 style="margin:0">New Arrivals</h2>
-      <a href="#collections" class="muted" style="text-decoration:none">View All</a>
+      <a class="coll-viewall" href="#collections">View All</a>
     </div>
-    <div class="hcarousel" id="newCarousel" style="position:relative">
-      <button class="hcarousel-nav prev" aria-label="Prev" style="left:-6px">‹</button>
-      <div class="hcarousel-track" id="newTrack"></div>
-      <button class="hcarousel-nav next" aria-label="Next" style="right:-6px">›</button>
+
+    <div class="coll-slider">
+      <button class="coll-nav prev" id="newPrev" aria-label="Prev">‹</button>
+      <div class="coll-track" id="newTrack"></div>
+      <button class="coll-nav next" id="newNext" aria-label="Next">›</button>
     </div>
   </div>
 </section>
+
 
 <!-- ===== Custom Order (Netlify Forms) ===== -->
 <section id="custom" class="section" style="border-top:1px solid var(--line)">
@@ -529,6 +532,50 @@
   });
   renderCollection('top');
 
+  <script>
+/* ===== Nguồn dữ liệu cho 2 slider ===== */
+// What's Hot: ưu tiên còn hàng, giá cao hơn coi là hot
+const whatsHot = products
+  .filter(p => p.inStock)
+  .sort((a,b)=> b.price - a.price)
+  .slice(0, 12);
+
+// New Arrivals: giả sử id tăng dần là mới hơn
+const byIdAsc = [...products].sort((a,b)=>{
+  const na = parseInt(a.id.replace(/\D+/g,''),10);
+  const nb = parseInt(b.id.replace(/\D+/g,''),10);
+  return na - nb;
+});
+const newArrivals = byIdAsc.slice(-12);
+
+/* ===== Hàm mount kiểu collection slider ===== */
+function mountCollLike(trackId, prevBtnId, nextBtnId, items){
+  const track = document.getElementById(trackId);
+  const prev  = document.getElementById(prevBtnId);
+  const next  = document.getElementById(nextBtnId);
+  if(!track) return;
+
+  track.innerHTML = items.map(sliderCard).join('');
+
+  // cuộn theo chiều rộng gần 1 “page”
+  function pageStep(){
+    return track.clientWidth * 0.9;
+  }
+
+  prev?.addEventListener('click', ()=> {
+    track.scrollBy({left: -pageStep(), behavior:'smooth'});
+  });
+  next?.addEventListener('click', ()=> {
+    track.scrollBy({left:  pageStep(), behavior:'smooth'});
+  });
+}
+
+/* ===== Gắn 2 slider ===== */
+mountCollLike('hotTrack', 'hotPrev', 'hotNext', whatsHot);
+mountCollLike('newTrack', 'newPrev', 'newNext', newArrivals);
+</script>
+
+  
   /* ===== What’s Hot & New Arrivals sliders (dùng chung) ===== */
   function smallCard(p){
     return `
