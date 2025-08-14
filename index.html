@@ -7,7 +7,7 @@
 <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
 
 <style>
-  /* ====== Design Tokens ====== */
+  /* ====== Design Tokens (giữ như bản gốc) ====== */
   :root{
     --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
     --line:#1b273a; --surface:#0f1623; --surface-2:#0b1320;
@@ -22,13 +22,13 @@
   img{max-width:100%;display:block}
   .container{width:min(var(--container),92%);margin-inline:auto}
 
-  /* anchor offset cho header sticky */
+  /* Anchor offset cho header sticky (giữ nguyên) */
   :root{ --headerH: 72px; }
   html{ scroll-behavior:smooth; }
   section[id]{ scroll-margin-top: calc(var(--headerH) + 12px); }
   #contact{ scroll-margin-top: calc(var(--headerH) + 12px); }
 
-  /* ===== Header ===== */
+  /* ===== Header (giữ nguyên) ===== */
   .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
   .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding-inline:var(--gutter)}
   .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.2px}
@@ -40,7 +40,7 @@
   .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
   .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
 
-  /* ===== Hero (title 2 dòng bên trái + ảnh tràn mép phải) ===== */
+  /* ===== Hero (giữ bố cục gốc, chỉ bớt full-bleed) ===== */
   .hero{padding:42px 0 32px}
   .hero-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding-left:var(--gutter)}
   .hero__title{margin:0 0 12px;font-weight:900;line-height:1.04;font-size:clamp(42px,7.4vw,92px)}
@@ -54,7 +54,7 @@
   .hero__media{
     position:relative;border:1px solid var(--line);border-radius:var(--radius);
     overflow:hidden;background:#0f1623;box-shadow:var(--shadow);
-    margin-right:calc(-1 * var(--gutter)); /* sát mép phải */
+    margin-right:calc(-0.45 * var(--gutter)); /* 👈 bớt full-bleed so với trước */
   }
   .hero__media::before{
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -69,7 +69,7 @@
     .hero__media{order:2;margin-right:0}
   }
 
-  /* ===== Marquee ===== */
+  /* ===== Marquee (giữ nguyên) ===== */
   .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0b1320;padding:12px 0;overflow:hidden}
   .marquee .container{overflow:hidden}
   .mq-track{display:flex;gap:60px;white-space:nowrap;animation:mq 24s linear infinite}
@@ -77,12 +77,12 @@
   .dot{opacity:.35;margin:0 12px}
   @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* ===== Sections ====== */
+  /* ===== Sections (giữ nguyên) ===== */
   .section{padding:40px var(--gutter)}
   .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
   .muted{color:var(--muted)}
 
-  /* ===== Products grid ===== */
+  /* ===== Products grid 3 cột (giữ nguyên) ===== */
   .grid{display:grid;gap:18px}
   .grid.products{grid-template-columns:repeat(3,1fr)}
   @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
@@ -96,7 +96,7 @@
   .price{font-weight:900;font-size:20px}
   .product .btn{padding:10px 14px;border-radius:10px}
 
-  /* ===== Custom Order form ===== */
+  /* ===== Custom Order form (giữ bố cục gốc, không “style lạ”) ===== */
   .form{display:grid;gap:14px;max-width:780px}
   .field{display:grid;gap:6px}
   .field input,.field textarea,.field select{
@@ -107,7 +107,7 @@
   .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media (max-width:720px){ .row{grid-template-columns:1fr} }
 
-  /* ===== Cart Drawer ===== */
+  /* ===== Cart Drawer (giữ giống gốc) ===== */
   .drawer{
     position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
     transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column
@@ -123,7 +123,7 @@
   .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
   .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
 
-  /* Contact 2 cột */
+  /* Contact 2 cột (giữ bố cục gốc) */
   .contact2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media (max-width:720px){ .contact2{grid-template-columns:1fr} }
 </style>
@@ -206,7 +206,7 @@
     </div>
   </section>
 
-  <!-- Custom Order -->
+  <!-- Custom Order (giữ bố cục/gợi ý như bản gốc) -->
   <section id="custom" class="section" style="border-top:1px solid var(--line)">
     <div class="container">
       <h2>Custom Order</h2>
@@ -272,7 +272,7 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (giữ nguyên) -->
   <footer class="section" style="border-top:1px solid var(--line);padding-top:24px">
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <small>© <span id="y"></span> Resin Keycap Studio</small>
@@ -297,7 +297,7 @@
   // Year
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // ==== Product catalog (id khớp ảnh /images/c*.jpg) ====
+  // ==== Catalog (giữ dữ liệu c1..c10, chỉ thêm link động) ====
   const products = [
     {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
     {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
@@ -311,7 +311,7 @@
     {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
   ];
 
-  // Render list (link động sang product.html?id=cX)
+  // Render (bọc link product.html?id=...)
   const grid = document.getElementById('productGrid');
   grid.innerHTML = products.map(p => `
     <article class="product" data-id="${p.id}">
@@ -336,13 +336,10 @@
     e.preventDefault();
     const name = document.getElementById('coName').value.trim();
     const email = document.getElementById('coEmail').value.trim();
-    const profile = document.getElementById('coProfile').value;
-    const key = document.getElementById('coKey').value.trim();
-    const msg = document.getElementById('coMsg').value.trim();
     document.getElementById('coNote').textContent = "Thanks " + name + "! We’ll reply to " + email + " in 24h.";
   }
 
-  // ===== Cart (shared via localStorage) =====
+  // ===== Cart (giữ đúng như gốc) =====
   function getCart(){ return JSON.parse(localStorage.getItem('cart')||'[]'); }
   function setCart(c){ localStorage.setItem('cart', JSON.stringify(c)); }
   const cartBtn = document.getElementById('btnCart');
