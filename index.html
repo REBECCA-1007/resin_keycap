@@ -88,6 +88,54 @@
   .mq-item{font-weight:700;opacity:.95}
   .dot{opacity:.35;margin:0 12px}
   @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .mid-slider {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+.mid-slider .slide {
+  display: none;
+}
+.mid-slider .slide.active {
+  display: block;
+}
+.mid-slider img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.mid-slider .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  font-size: 32px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.mid-slider .nav.prev { left: 10px; }
+.mid-slider .nav.next { right: 10px; }
+.mid-slider .dots {
+  position: absolute;
+  bottom: 12px;
+  width: 100%;
+  text-align: center;
+}
+.mid-slider .dots button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 4px;
+  border: none;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+.mid-slider .dots button.active {
+  background: white;
+}
 
   /* ===== Sections + products (3 cột) ===== */
   .section{padding:40px var(--gutter)}
@@ -263,6 +311,27 @@
         <span class="mq-item">Made to Be Yours</span>
       </div>
     </div>
+  </div>
+</section>
+<!-- ===== Fullwidth Slider ===== -->
+<section id="mid-slider" style="padding:0;margin:0">
+  <div class="mid-slider" id="midSlider">
+    <div class="slide active">
+      <img src="/images/title-artisan-2.jpg" alt="Slide 1">
+    </div>
+    <div class="slide">
+      <img src="/images/title-artisan-3.jpg" alt="Slide 2">
+    </div>
+    <div class="slide">
+      <img src="/images/title-artisan-4.jpg" alt="Slide 3">
+    </div>
+
+    <!-- Điều hướng -->
+    <button class="nav prev">&#10094;</button>
+    <button class="nav next">&#10095;</button>
+
+    <!-- Chấm -->
+    <div class="dots" id="midDots"></div>
   </div>
 </section>
 
@@ -558,6 +627,44 @@
   const cf = document.getElementById('customForm');
   const cm = document.getElementById('customMsg');
   if (cf) { cf.addEventListener('submit', ()=>{ setTimeout(()=>{ if(cm) cm.style.display='inline'; }, 100); }); }
+</script>
+  <script>
+(function(){
+  const slider = document.getElementById('midSlider');
+  if(!slider) return;
+
+  const slides   = [...slider.querySelectorAll('.slide')];
+  const dotsWrap = document.getElementById('midDots');
+  const prevBtn  = slider.querySelector('.nav.prev');
+  const nextBtn  = slider.querySelector('.nav.next');
+
+  dotsWrap.innerHTML = slides.map((_,i)=>`<button class="${i===0?'active':''}" data-i="${i}"></button>`).join('');
+  const dots = [...dotsWrap.querySelectorAll('button')];
+
+  let i = 0, timer;
+  const DURATION = 4000;
+
+  function go(n){
+    slides[i].classList.remove('active');
+    dots[i].classList.remove('active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+  }
+  function next(){ go(i+1) }
+  function prev(){ go(i-1) }
+  function start(){ stop(); timer = setInterval(next, DURATION) }
+  function stop(){ if(timer) clearInterval(timer) }
+
+  nextBtn.addEventListener('click', ()=>{ next(); start(); });
+  prevBtn.addEventListener('click', ()=>{ prev(); start(); });
+  dots.forEach(d=>d.addEventListener('click', e=>{ go(+e.currentTarget.dataset.i); start(); }));
+
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  start();
+})();
 </script>
 </body>
 </html>
