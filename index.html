@@ -88,42 +88,40 @@
   .mq-item{font-weight:700;opacity:.95}
   .dot{opacity:.35;margin:0 12px}
   @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .mid-slider {
+  /* ===== Fullwidth Slider giữa Philosophy và Collections ===== */
+.mid-slider {
   position: relative;
   overflow: hidden;
   width: 100%;
 }
+
 .mid-slider .slide {
   display: none;
 }
+
 .mid-slider .slide.active {
   display: block;
 }
+
 .mid-slider img {
   width: 100%;
-  height: auto;
+  max-height: 320px; /* 👈 Chiều cao tối đa, bạn có thể chỉnh 250px, 300px tuỳ ý */
+  object-fit: cover; /* Giúp ảnh giữ tỉ lệ và cắt vừa khung */
   display: block;
 }
+
+/* Ẩn nút mũi tên */
 .mid-slider .nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0,0,0,0.4);
-  color: white;
-  border: none;
-  font-size: 32px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 4px;
+  display: none;
 }
-.mid-slider .nav.prev { left: 10px; }
-.mid-slider .nav.next { right: 10px; }
+
 .mid-slider .dots {
   position: absolute;
   bottom: 12px;
   width: 100%;
   text-align: center;
 }
+
 .mid-slider .dots button {
   width: 10px;
   height: 10px;
@@ -133,9 +131,11 @@
   background: rgba(255,255,255,0.5);
   cursor: pointer;
 }
+
 .mid-slider .dots button.active {
   background: white;
 }
+
 
   /* ===== Sections + products (3 cột) ===== */
   .section{padding:40px var(--gutter)}
@@ -326,11 +326,7 @@
       <img src="/images/title-artisan-4.jpg" alt="Slide 3">
     </div>
 
-    <!-- Điều hướng -->
-    <button class="nav prev">&#10094;</button>
-    <button class="nav next">&#10095;</button>
 
-    <!-- Chấm -->
     <div class="dots" id="midDots"></div>
   </div>
 </section>
@@ -628,43 +624,36 @@
   const cm = document.getElementById('customMsg');
   if (cf) { cf.addEventListener('submit', ()=>{ setTimeout(()=>{ if(cm) cm.style.display='inline'; }, 100); }); }
 </script>
-  <script>
-(function(){
-  const slider = document.getElementById('midSlider');
-  if(!slider) return;
+<script>
+const slides = document.querySelectorAll('.mid-slider .slide');
+const dotsContainer = document.querySelector('.mid-slider .dots');
+let currentSlide = 0;
 
-  const slides   = [...slider.querySelectorAll('.slide')];
-  const dotsWrap = document.getElementById('midDots');
-  const prevBtn  = slider.querySelector('.nav.prev');
-  const nextBtn  = slider.querySelector('.nav.next');
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  if (i === 0) dot.classList.add('active');
+  dot.addEventListener('click', () => showSlide(i));
+  dotsContainer.appendChild(dot);
+});
 
-  dotsWrap.innerHTML = slides.map((_,i)=>`<button class="${i===0?'active':''}" data-i="${i}"></button>`).join('');
-  const dots = [...dotsWrap.querySelectorAll('button')];
+const dots = document.querySelectorAll('.mid-slider .dots button');
 
-  let i = 0, timer;
-  const DURATION = 4000;
+function showSlide(index) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = index;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
 
-  function go(n){
-    slides[i].classList.remove('active');
-    dots[i].classList.remove('active');
-    i = (n + slides.length) % slides.length;
-    slides[i].classList.add('active');
-    dots[i].classList.add('active');
-  }
-  function next(){ go(i+1) }
-  function prev(){ go(i-1) }
-  function start(){ stop(); timer = setInterval(next, DURATION) }
-  function stop(){ if(timer) clearInterval(timer) }
+function nextSlide() {
+  let next = currentSlide + 1;
+  if (next >= slides.length) next = 0;
+  showSlide(next);
+}
 
-  nextBtn.addEventListener('click', ()=>{ next(); start(); });
-  prevBtn.addEventListener('click', ()=>{ prev(); start(); });
-  dots.forEach(d=>d.addEventListener('click', e=>{ go(+e.currentTarget.dataset.i); start(); }));
-
-  slider.addEventListener('mouseenter', stop);
-  slider.addEventListener('mouseleave', start);
-
-  start();
-})();
+setInterval(nextSlide, 3000); // 3 giây đổi ảnh
 </script>
+
 </body>
 </html>
