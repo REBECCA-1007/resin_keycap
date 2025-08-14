@@ -1,562 +1,75 @@
+<!-- ==== index.html ==== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Resin Keycap Studio — Art You Can Touch</title>
-<meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-
-<style>
-  /* ===== Design tokens ===== */
-  :root{
-    --bg:#0a0f18; --fg:#e6edf6; --muted:#8fa0b6;
-    --line:#1b273a; --surface:#101827; --surface-2:#0b1320;
-    --brand:#0ea5e9; --brand-600:#0284c7; --ok:#22c55e;
-    --radius:20px; --container:1200px;
-    --gutter: clamp(18px, 6vw, 120px);
-    --shadow: 0 22px 60px rgba(0,0,0,.45);
-  }
-  /* ===== Anchor offset cho header sticky ===== */
-  :root{ --headerH: 72px; } /* đúng với .nav{min-height:72px} của bạn */
-  html{ scroll-behavior:smooth; } /* cuộn mượt */
-  section[id]{ scroll-margin-top: calc(var(--headerH) + 12px); }
-  #contact{ scroll-margin-top: calc(var(--headerH) + 12px); }
-
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  a{color:inherit;text-decoration:none}
-  img{display:block;max-width:100%}
-
-  .container{width:min(var(--container),92%);margin-inline:auto}
-
-  /* ===== Header ===== */
-  .header{position:sticky;top:0;z-index:50;background:rgba(10,15,24,.7);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding-inline:var(--gutter)}
-  .brand{display:flex;align-items:center;gap:12px;font-weight:900}
-  .brand img{width:46px;height:46px;border-radius:12px;object-fit:contain;box-shadow:var(--shadow)}
-  .navlinks{display:flex;gap:28px}
-  .navlinks a{padding:8px 10px;border-radius:10px;opacity:.95}
-  .navlinks a:hover{background:#0f1726}
-  .right{display:flex;gap:10px;align-items:center}
-  .icon-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--line);background:transparent;cursor:pointer}
-  .cart-count{position:absolute;top:-6px;right:-6px;background:#16a34a;color:#02110f;font-weight:800;border-radius:999px;padding:2px 6px;font-size:12px;line-height:1}
-
-  .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:transparent;color:inherit;font-weight:600;cursor:pointer}
-  .btn--brand{background:var(--brand);color:#06121b;border:none}
-  .btn--brand:hover{background:var(--brand-600);color:#fff}
-  .btn--ghost{background:transparent;border:1px solid var(--line)}
-
-  /* ===== Hero (title 2 dòng bên trái + ảnh chừa 40px bên phải) ===== */
-  .hero{padding:42px 0 32px}
-  .hero-wrap{
-    display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;
-    padding-left:var(--gutter)
-  }
-  .hero__title{margin:0 0 12px;font-weight:900;line-height:1.1;font-size:clamp(32px,5vw,60px)}
-  .hero__title .line{display:block}
-  .hero__subtitle{margin:0 0 20px;color:var(--muted);font-size:clamp(16px,2.2vw,22px)}
-  .hero__actions{display:flex;flex-wrap:wrap;gap:12px}
-
-  .hero__media{
-    position:relative;border:1px solid var(--line);border-radius:var(--radius);
-    overflow:hidden;background:#0f1623;box-shadow:var(--shadow);
-    margin-right:40px; /* chừa khoảng cách bên phải */
-  }
-  .hero__media::before{
-    content:"";position:absolute;inset:0;pointer-events:none;
-    background:
-      radial-gradient(900px 360px at 10% -10%, #0ea5e91c, transparent 60%),
-      radial-gradient(800px 300px at 120% 120%, #22c55e17, transparent 55%);
-  }
-  .hero__img{aspect-ratio:16/10;object-fit:cover;width:100%}
-  .hero__cap{
-    position:absolute;left:18px;bottom:14px;font-size:14px;color:#fdf6e3;
-    font-family:'Dancing Script',cursive;font-weight:normal;letter-spacing:1px;
-    text-shadow:2px 2px 4px rgba(0,0,0,.5);
-  }
-  @media (max-width:980px){
-    .hero-wrap{grid-template-columns:1fr;padding-inline:var(--gutter)}
-    .hero__media{order:2;margin-right:0}
-  }
-
-  /* ===== Marquee ===== */
-  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);padding:12px 0;overflow:hidden}
-  .marquee .container{overflow:hidden}
-  .mq-track{display:flex;gap:60px;white-space:nowrap;animation:mq 24s linear infinite}
-  .mq-item{font-weight:700;opacity:.95}
-  .dot{opacity:.35;margin:0 12px}
-  @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-  /* ===== Sections + products (3 cột) ===== */
-  .section{padding:40px var(--gutter)}
-  .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
-  .muted{color:var(--muted)}
-
-  .grid{display:grid;gap:18px}
-  .grid.products{grid-template-columns:repeat(3,1fr)}
-  @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:640px){ .grid.products{grid-template-columns:1fr} }
-
-  .product{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
-  .product__img{aspect-ratio:4/3;object-fit:cover;width:100%}
-  .product__body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-  .product h3{margin:0 0 2px;font-size:20px}
-  .product p{margin:0;color:var(--muted)}
-  .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-  .price{font-weight:900;font-size:20px}
-  .product .btn{padding:10px 14px;border-radius:10px}
-
-  /* ===== Collections Filters ===== */
-  .filters{
-    display:grid;
-    grid-template-columns:1.2fr 1fr 1fr 1fr 1fr 1fr auto; /* Search + 5 selects/inputs + Clear */
-    gap:12px;margin-top:16px
-  }
-  @media (max-width:1024px){ .filters{grid-template-columns:1fr 1fr 1fr} }
-  @media (max-width:640px){ .filters{grid-template-columns:1fr 1fr} }
-  .filter-input,.filter-select{
-    padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1320;color:var(--fg)
-  }
-  .filter-check{
-    display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px
-  }
-  .filter-actions{display:flex;gap:10px;align-items:center;margin-top:10px}
-  .filters .btn{padding:10px 14px;border-radius:10px}
-
-  /* ===== Cart Drawer ===== */
-  .drawer{position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
-          transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column}
-  .drawer.open{transform:none}
-  .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-  .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
-  .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
-  .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-  .cart-item b{display:block}
-  .cart-item small{color:var(--muted)}
-  .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
-  .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
-  .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
-  /* ==== Filters (pills + swatches + range) ==== */
-.filters {
-  margin: 14px 0 18px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr auto;
-}
-@media (max-width: 1080px){ .filters{ grid-template-columns: 1fr 1fr 1fr } }
-@media (max-width: 640px){ .filters{ grid-template-columns: 1fr } }
-
-.input, .select, .chip {
-  height: 48px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--fg);
-  border-radius: 14px;
-  padding: 0 14px;
-  display: inline-flex; align-items: center; gap: 10px;
-}
-.input input, .select select {
-  width: 100%; height: 100%;
-  border: 0; outline: 0; background: transparent; color: inherit;
-  font: inherit;
-}
-.select { position: relative; padding-right: 36px; }
-.select::after {
-  content: "▾"; position: absolute; right: 12px; top: 50%; translate: 0 -50%;
-  opacity: .75; pointer-events: none;
-}
-
-/* color pill swatches */
-.swatches { display:flex; align-items:center; gap:10px; padding:8px 10px }
-.swatch {
-  width:22px;height:22px;border-radius:50%;
-  border:1px solid var(--line); cursor:pointer; position:relative;
-}
-.swatch.active { outline:2px solid var(--brand); outline-offset:2px }
-
-/* chips for quick picks */
-.chips { display:flex; gap:8px; flex-wrap:wrap }
-.chip {
-  padding: 0 14px; cursor:pointer; user-select:none;
-  transition: .15s;
-}
-.chip.active, .chip:hover { border-color: var(--brand); box-shadow: 0 0 0 2px #0ea5e933 inset }
-
-/* price inputs look consistent */
-.price { text-align:center }
-
-/* tiny toggle */
-.toggle { display:flex; align-items:center; gap:10px; padding:0 14px }
-
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ===== Header ===== -->
 <header class="header">
   <div class="nav">
-    <a class="brand" href="#">
+    <a class="brand" href="index.html">
       <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
       <span>Resin Keycap Studio</span>
     </a>
-
     <nav class="navlinks">
       <a href="#home">Home</a>
       <a href="#collections">Collections</a>
-      <a href="#custom">Custom Order</a>
+      <a href="#shipping">Shipping & Return</a>
       <a href="#contact">Contact</a>
     </nav>
-
     <div class="right">
-      <button class="icon-btn" title="Account">👤</button>
+      <button class="icon-btn" id="btnAccount">👤</button>
       <div style="position:relative">
-        <button class="icon-btn" id="btnCart" title="Cart">🛒</button>
+        <button class="icon-btn" id="btnCart">🛒</button>
         <span class="cart-count" id="cartCount">0</span>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ===== Hero ===== -->
-<section id="home" class="hero">
-  <div class="hero-wrap">
-    <div>
-      <h1 class="hero__title">
-        <span class="line">Every Key Tells</span>
-        <span class="line">a Story</span>
-      </h1>
-      <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
-      <div class="hero__actions">
-        <a class="btn btn--brand" href="#collections">Browse Collections</a>
-        <a class="btn btn--ghost" href="#custom">Custom Order</a>
-      </div>
-    </div>
-
-    <div class="hero__media">
-      <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero"/>
-      <div class="hero__cap">Art You Can Touch</div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Marquee / Philosophy ===== -->
-<section id="philosophy" class="marquee" aria-label="Philosophy">
-  <div class="container">
-    <div class="mq-track">
-      <div>
-        <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
-        <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
-        <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
-        <span class="mq-item">Design Speaks</span><span class="dot">•</span>
-        <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
-        <span class="mq-item">Made to Be Yours</span>
-      </div>
-      <div aria-hidden="true">
-        <span class="mq-item">Handcrafted is Quality</span><span class="dot">•</span>
-        <span class="mq-item">Every Keycap is One of a Kind</span><span class="dot">•</span>
-        <span class="mq-item">Slow Made, Long Lasting</span><span class="dot">•</span>
-        <span class="mq-item">Design Speaks</span><span class="dot">•</span>
-        <span class="mq-item">Details Make the Difference</span><span class="dot">•</span>
-        <span class="mq-item">Made to Be Yours</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Collections (3 per row + Filters) ===== -->
 <section id="collections" class="section">
   <div class="container">
     <h2>Collections</h2>
-    <p class="muted">Signature artisan keycaps — minimal, message‑forward.</p>
-
-    <!-- FILTER BAR -->
-    <div class="filters">
-      <input id="f_q" class="filter-input" type="search" placeholder="Search name or description…">
-      <select id="f_profile" class="filter-select">
-        <option value="">Profile (All)</option>
-        <option value="Cherry">Cherry</option>
-        <option value="OEM">OEM</option>
-        <option value="SA">SA</option>
-      </select>
-      <select id="f_color" class="filter-select">
-        <option value="">Color (All)</option>
-        <option value="Black">Black</option>
-        <option value="White">White</option>
-        <option value="Blue">Blue</option>
-        <option value="Green">Green</option>
-        <option value="Red">Red</option>
-        <option value="Pink">Pink</option>
-        <option value="Amber">Amber</option>
-        <option value="Teal">Teal</option>
-        <option value="Purple">Purple</option>
-        <option value="Orange">Orange</option>
-      </select>
-      <select id="f_collection" class="filter-select">
-        <option value="">Collection (All)</option>
-        <option value="Galaxy Series">Galaxy Series</option>
-        <option value="Nature Series">Nature Series</option>
-        <option value="Minimal Series">Minimal Series</option>
-        <option value="Gradient Series">Gradient Series</option>
-      </select>
-      <input id="f_min" class="filter-input" type="number" step="1" min="0" placeholder="Min $" />
-      <input id="f_max" class="filter-input" type="number" step="1" min="0" placeholder="Max $" />
-      <label class="filter-check"><input id="f_stock" type="checkbox"> In stock</label>
-    </div>
-    <div class="filter-actions">
-      <button id="f_clear" class="btn btn--ghost">Clear</button>
-      <span id="f_count" class="muted">Showing all</span>
-    </div>
-    <!-- GRID -->
     <div class="grid products" id="productGrid"></div>
   </div>
 </section>
 
-<!-- ===== Custom Order (Netlify Forms) ===== -->
-<section id="custom" class="section" style="border-top:1px solid var(--line)">
+<footer id="contact" class="section">
   <div class="container">
-    <h2>Custom Order</h2>
-    <p class="muted">Tell us your idea (profile, colors, legends, special effects). We’ll craft it for you.</p>
-
-    <form name="custom-order" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="customForm"
-          style="margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;max-width:760px">
-      <input type="hidden" name="form-name" value="custom-order" />
-      <p style="display:none"><label>Don’t fill this out: <input name="bot-field" /></label></p>
-
-      <div style="display:grid;gap:12px;grid-template-columns:1fr 1fr">
-        <label style="display:grid;gap:6px">Full name
-          <input name="name" required placeholder="Nguyen Van A"
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">Email
-          <input name="email" type="email" required placeholder="you@email.com"
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">Phone
-          <input name="phone" placeholder="+84 ..."
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">Key profile
-          <select name="profile" style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-            <option>Cherry</option><option>OEM</option><option>SA</option><option>Others</option>
-          </select>
-        </label>
-      </div>
-
-      <div style="display:grid;gap:12px;margin-top:12px">
-        <label style="display:grid;gap:6px">Colors / Theme
-          <input name="colors" placeholder="e.g. Galaxy purple, koi orange, monochrome..."
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">Legends / Text (optional)
-          <input name="legend" placeholder="Short text / symbol"
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">Special effects (optional)
-          <input name="effects" placeholder="e.g. glitter, swirl, koi, flowers..."
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-        <label style="display:grid;gap:6px">More details
-          <textarea name="details" rows="4" placeholder="Describe your idea..."
-                    style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)"></textarea>
-        </label>
-        <label style="display:grid;gap:6px">Reference images (URLs)
-          <input name="refs" placeholder="https://... , https://..."
-                 style="padding:12px;border-radius:10px;border:1px solid var(--line);background:#0b1320;color:var(--fg)">
-        </label>
-      </div>
-
-      <div style="display:flex;gap:10px;margin-top:14px;align-items:center">
-        <button type="submit" class="btn btn--brand">Submit Request</button>
-        <span class="muted" id="customMsg" style="display:none">Sent! We’ll get back within 24–48h.</span>
-      </div>
-    </form>
-  </div>
-</section>
-
-<!-- ===== Contact (footer) ===== -->
-<footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
-  <div class="container" style="display:flex;flex-direction:column;gap:16px">
-
-    <div>
-      <h2 style="margin:0 0 8px">Contact — We reply within 24 hours.</h2>
-      <p style="margin:0">
-        <b>Email:</b> <a href="mailto:order@yourshop.vn">order@yourshop.vn</a><br>
-        <b>Phone / Zalo:</b> +84 90 123 4567
-      </p>
-    </div>
-
-    <div>
-      <b>Social:</b>
-      <a href="https://instagram.com" target="_blank">Instagram</a> — Our artisan gallery &nbsp;|&nbsp;
-      <a href="https://facebook.com" target="_blank">Facebook</a> — Updates & community
-    </div>
-
-    <div>
-      <b>Studio:</b> Saigon — visit by appointment<br>
-      <b>Business Hours:</b> Mon–Sat, 9:00–18:00 (GMT+7)
-    </div>
-
-    <p style="font-style:italic;margin:0">We’ll get back with a quote & lead time.</p>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:16px">
-      <small>© <span id="y"></span> Resin Keycap Studio</small>
-      <div class="muted">Terms · Privacy</div>
-    </div>
-
+    <small>© <span id="y"></span> Resin Keycap Studio</small>
   </div>
 </footer>
 
-<!-- ===== Cart Drawer ===== -->
-<aside class="drawer" id="cartDrawer" aria-label="Cart">
-  <div class="drawer__head">
-    <b>Your Cart</b>
-    <button class="btn btn--ghost" id="closeCart">Close</button>
-  </div>
-  <div class="drawer__body" id="cartItems"></div>
-  <div class="drawer__foot">
-    <div class="total-row"><span>Total</span><span id="cartTotal">$0.00</span></div>
-    <button class="btn btn--brand" style="width:100%">Checkout</button>
-  </div>
-</aside>
-
 <script>
-  // Year
-  document.getElementById('y').textContent = new Date().getFullYear();
+document.getElementById('y').textContent = new Date().getFullYear();
 
-  // ===== Catalog (thêm thuộc tính cho filter) =====
-  const products = [
-    {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, profile:'Cherry', color:'Purple', collection:'Galaxy Series',   inStock:true,  desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
-    {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, profile:'OEM',    color:'Green',  collection:'Nature Series',   inStock:true,  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
-    {id:'c3',  name:'Monochrome Peak', img:'/images/c3.jpg',  price:47, profile:'SA',     color:'Black',  collection:'Minimal Series',  inStock:true,  desc:'Black–white–silver minimalism — clean and classy.'},
-    {id:'c4',  name:'Ocean Drift',     img:'/images/c4.jpg',  price:46, profile:'Cherry', color:'Blue',   collection:'Gradient Series', inStock:true,  desc:'Sea blues fading to dusk — smooth gradient flow.'},
-    {id:'c5',  name:'Aurora Bloom',    img:'/images/c5.jpg',  price:48, profile:'OEM',    color:'Pink',   collection:'Gradient Series', inStock:true,  desc:'Soft pink–teal aurora, gentle bloom on crystal base.'},
-    {id:'c6',  name:'Koi Garden',      img:'/images/c6.jpg',  price:52, profile:'SA',     color:'Orange', collection:'Nature Series',   inStock:false, desc:'Transparent pond tones with koi‑like swirls and gold.'},
-    {id:'c7',  name:'Stellar Dust',    img:'/images/c7.jpg',  price:44, profile:'Cherry', color:'Black',  collection:'Galaxy Series',   inStock:true,  desc:'Deep night resin with micro‑glitter — stardust finish.'},
-    {id:'c8',  name:'Canyon Amber',    img:'/images/c8.jpg',  price:45, profile:'OEM',    color:'Amber',  collection:'Nature Series',   inStock:true,  desc:'Warm amber & sand hues — canyon breeze captured.'},
-    {id:'c9',  name:'Glacier Fade',    img:'/images/c9.jpg',  price:50, profile:'SA',     color:'White',  collection:'Gradient Series', inStock:true,  desc:'Icy clear to slate gradient — crisp, modern chill.'},
-    {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, profile:'Cherry', color:'Teal',   collection:'Minimal Series',  inStock:true,  desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
-  ];
+const products = [
+  {id:'c1', name:'Nebula Echo', img:'/images/c1.jpg', price:49, desc:'Galaxy swirl, subtle sparkles.'},
+  {id:'c2', name:'Forest Mist', img:'/images/c2.jpg', price:45, desc:'Crystal-clear resin with green accents.'},
+  {id:'c3', name:'Monochrome Peak', img:'/images/c3.jpg', price:47, desc:'Black–white–silver minimalism.'}
+];
 
-  // ===== Render card =====
-  const grid = document.getElementById('productGrid');
-  function card(p){
-  return `
- <article class="product" data-id="${p.id}">
-  <a href="product${i+1}.html" style="display:block">
-    <img class="product__img" src="${p.img}" alt="${p.name}">
-  </a>
-  <div class="product__body">
-    <h3>
-      <a href="product${i+1}.html" style="text-decoration:none;color:inherit">${p.name}</a>
-    </h3>
-    <p>${p.desc}</p>
-    <div class="price-row">
-      <span class="price">$${p.price.toFixed(2)}</span>
-      <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
+const grid = document.getElementById('productGrid');
+grid.innerHTML = products.map(p => `
+  <article class="product" data-id="${p.id}">
+    <a href="product.html?id=${p.id}">
+      <img class="product__img" src="${p.img}" alt="${p.name}">
+    </a>
+    <div class="product__body">
+      <h3><a href="product.html?id=${p.id}">${p.name}</a></h3>
+      <p>${p.desc}</p>
+      <div class="price-row">
+        <span class="price">$${p.price.toFixed(2)}</span>
+        <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
+      </div>
     </div>
-    ${p.inStock ? '' : '<div class="muted" style="margin-top:8px">Out of stock</div>'}
-  </div>
-</article>
-  `;
-}
-
-
-  // ===== Filters =====
-  const elQ = document.getElementById('f_q');
-  const elProfile = document.getElementById('f_profile');
-  const elColor = document.getElementById('f_color');
-  const elCollection = document.getElementById('f_collection');
-  const elMin = document.getElementById('f_min');
-  const elMax = document.getElementById('f_max');
-  const elStock = document.getElementById('f_stock');
-  const elClear = document.getElementById('f_clear');
-  const elCount = document.getElementById('f_count');
-
-  const state = { q:'', profile:'', color:'', collection:'', min:null, max:null, stock:false };
-
-  function applyFilters(){
-    const q = state.q.trim().toLowerCase();
-    let items = products.filter(p=>{
-      if (state.profile && p.profile !== state.profile) return false;
-      if (state.color && (p.color||'').toLowerCase() !== state.color.toLowerCase()) return false;
-      if (state.collection && p.collection !== state.collection) return false;
-      if (state.stock && !p.inStock) return false;
-      if (state.min != null && p.price < state.min) return false;
-      if (state.max != null && p.price > state.max) return false;
-      if (q){
-        const hay = (p.name + ' ' + p.desc).toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      return true;
-    });
-
-    grid.innerHTML = items.map(card).join('') || `<p class="muted">No items found. Try clearing filters.</p>`;
-    elCount.textContent = `Showing ${items.length} / ${products.length}`;
-  }
-
-  elQ?.addEventListener('input', e=>{ state.q = e.target.value; applyFilters(); });
-  elProfile?.addEventListener('change', e=>{ state.profile = e.target.value; applyFilters(); });
-  elColor?.addEventListener('change', e=>{ state.color = e.target.value; applyFilters(); });
-  elCollection?.addEventListener('change', e=>{ state.collection = e.target.value; applyFilters(); });
-  elMin?.addEventListener('input', e=>{ const v=e.target.value; state.min = v===''?null:parseFloat(v); applyFilters(); });
-  elMax?.addEventListener('input', e=>{ const v=e.target.value; state.max = v===''?null:parseFloat(v); applyFilters(); });
-  elStock?.addEventListener('change', e=>{ state.stock = e.target.checked; applyFilters(); });
-  elClear?.addEventListener('click', ()=>{
-    state.q=''; state.profile=''; state.color=''; state.collection=''; state.min=null; state.max=null; state.stock=false;
-    elQ.value=''; elProfile.value=''; elColor.value=''; elCollection.value=''; elMin.value=''; elMax.value=''; elStock.checked=false;
-    applyFilters();
-  });
-
-  // Initial render
-  applyFilters();
-
-  // ===== Simple Cart =====
-  const cart = [];
-  const cartBtn   = document.getElementById('btnCart');
-  const drawer    = document.getElementById('cartDrawer');
-  const closeCart = document.getElementById('closeCart');
-  const cartItems = document.getElementById('cartItems');
-  const cartTotal = document.getElementById('cartTotal');
-  const cartCount = document.getElementById('cartCount');
-
-  function addToCart(id){
-    const p  = products.find(x=>x.id===id);
-    const ex = cart.find(x=>x.id===id);
-    if(ex){ ex.qty+=1; } else { cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1}); }
-    renderCart(); openCart();
-  }
-  function removeFromCart(id){
-    const i = cart.findIndex(x=>x.id===id);
-    if(i>-1){ cart.splice(i,1); renderCart(); }
-  }
-  function renderCart(){
-    let total=0, count=0;
-    cartItems.innerHTML = cart.length
-      ? cart.map(it=>{
-          const sub = it.price*it.qty; total+=sub; count+=it.qty;
-          return `
-            <div class="cart-item">
-              <img src="${it.img}" alt="${it.name}">
-              <div><b>${it.name}</b><small>$${it.price.toFixed(2)} × ${it.qty}</small></div>
-              <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
-            </div>`;
-        }).join('')
-      : '<div class="muted">Your cart is empty.</div>';
-    cartTotal.textContent = `$${total.toFixed(2)}`;
-    cartCount.textContent = count;
-  }
-  function openCart(){ drawer.classList.add('open'); }
-  function closeCartFn(){ drawer.classList.remove('open'); }
-  cartBtn.addEventListener('click', openCart);
-  closeCart.addEventListener('click', closeCartFn);
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
-
-  // Netlify Forms mini message
-  const cf = document.getElementById('customForm');
-  const cm = document.getElementById('customMsg');
-  if (cf) { cf.addEventListener('submit', ()=>{ setTimeout(()=>{ if(cm) cm.style.display='inline'; }, 100); }); }
+  </article>
+`).join('');
 </script>
+
 </body>
 </html>
