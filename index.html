@@ -80,6 +80,44 @@
     .hero-wrap{grid-template-columns:1fr;padding-inline:var(--gutter)}
     .hero__media{order:2;margin-right:0}
   }
+  /* Slider */
+.slider{ position:relative }
+.slide{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; aspect-ratio:16/10;
+  opacity:0; transition:opacity .6s ease;
+}
+.slide.active{ opacity:1; }
+
+/* Nút mũi tên */
+.hero-nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  width:42px; height:42px; border-radius:50%;
+  border:1px solid var(--line); background:rgba(9,14,22,.55);
+  color:#fff; font-size:24px;
+  display:grid; place-items:center; cursor:pointer;
+  backdrop-filter:blur(4px);
+}
+.hero-nav:hover{ background:rgba(9,14,22,.75) }
+.hero-nav.prev{ left:12px }
+.hero-nav.next{ right:12px }
+
+/* Dấu chấm */
+.hero-dots{
+  position:absolute; left:18px; bottom:16px;
+  display:flex; gap:8px; z-index:2;
+}
+.hero-dot{
+  width:10px; height:10px; border-radius:50%;
+  border:1px solid #9bb3d9;
+  background:transparent;
+  cursor:pointer;
+}
+.hero-dot.active{ background:#9bb3d9 }
+
+/* Giữ caption */
+#heroSlider .hero__cap{ position:absolute; left:18px; bottom:14px; z-index:2 }
 
   /* ===== Marquee ===== */
   .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface-2);padding:12px 0;overflow:hidden}
@@ -193,6 +231,44 @@
 </style>
 </head>
 <body>
+<script>
+(function(){
+  const slider = document.getElementById('heroSlider');
+  if(!slider) return;
+
+  const slides   = [...slider.querySelectorAll('.slide')];
+  const dotsWrap = document.getElementById('heroDots');
+  const prevBtn  = slider.querySelector('.hero-nav.prev');
+  const nextBtn  = slider.querySelector('.hero-nav.next');
+
+  dotsWrap.innerHTML = slides.map((_,i)=>`<button class="hero-dot${i===0?' active':''}" data-i="${i}"></button>`).join('');
+  const dots = [...dotsWrap.querySelectorAll('.hero-dot')];
+
+  let i = 0, timer;
+  const DURATION = 5000;
+
+  function go(n){
+    slides[i].classList.remove('active');
+    dots[i].classList.remove('active');
+    i = (n + slides.length) % slides.length;
+    slides[i].classList.add('active');
+    dots[i].classList.add('active');
+  }
+  function next(){ go(i+1) }
+  function prev(){ go(i-1) }
+  function start(){ stop(); timer = setInterval(next, DURATION) }
+  function stop(){ if(timer) clearInterval(timer) }
+
+  nextBtn.addEventListener('click', ()=>{ next(); start(); });
+  prevBtn.addEventListener('click', ()=>{ prev(); start(); });
+  dots.forEach(d=>d.addEventListener('click', e=>{ go(+e.currentTarget.dataset.i); start(); }));
+
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  start();
+})();
+</script>
 
 <!-- ===== Header ===== -->
 <header class="header">
@@ -234,10 +310,23 @@
       </div>
     </div>
 
-    <div class="hero__media">
-      <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero"/>
-      <div class="hero__cap">Art You Can Touch</div>
-    </div>
+   <div class="hero__media slider" id="heroSlider">
+  <!-- slides -->
+  <img class="hero__img slide active" src="/images/title-artisan.jpg"   alt="Artisan Hero 1">
+  <img class="hero__img slide"        src="/images/title-artisan-2.jpg" alt="Artisan Hero 2">
+  <img class="hero__img slide"        src="/images/title-artisan-3.jpg" alt="Artisan Hero 3">
+  <img class="hero__img slide"        src="/images/title-artisan-4.jpg" alt="Artisan Hero 4">
+
+  <!-- controls -->
+  <button class="hero-nav prev" aria-label="Previous">‹</button>
+  <button class="hero-nav next" aria-label="Next">›</button>
+
+  <!-- dots will be injected by JS -->
+  <div class="hero-dots" id="heroDots"></div>
+
+  <div class="hero__cap">Art You Can Touch</div>
+</div>
+
   </div>
 </section>
 
