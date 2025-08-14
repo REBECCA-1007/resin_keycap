@@ -18,8 +18,8 @@
     --shadow: 0 22px 60px rgba(0,0,0,.45);
   }
   /* ===== Anchor offset cho header sticky ===== */
-  :root{ --headerH: 72px; } /* đúng với .nav{min-height:72px} của bạn */
-  html{ scroll-behavior:smooth; } /* cuộn mượt */
+  :root{ --headerH: 72px; }
+  html{ scroll-behavior:smooth; }
   section[id]{ scroll-margin-top: calc(var(--headerH) + 12px); }
   #contact{ scroll-margin-top: calc(var(--headerH) + 12px); }
 
@@ -62,7 +62,7 @@
   .hero__media{
     position:relative;border:1px solid var(--line);border-radius:var(--radius);
     overflow:hidden;background:#0f1623;box-shadow:var(--shadow);
-    margin-right:40px; /* chừa khoảng cách bên phải */
+    margin-right:40px;
   }
   .hero__media::before{
     content:"";position:absolute;inset:0;pointer-events:none;
@@ -88,265 +88,88 @@
   .mq-item{font-weight:700;opacity:.95}
   .dot{opacity:.35;margin:0 12px}
   @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  /* ===== Fullwidth Slider giữa Philosophy và Collections ===== */
-.mid-slider {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-.mid-slider {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  margin-top: 24px; /* 👈 khoảng trống phía trên */
-}
 
-.mid-slider .slide {
-  display: none;
-}
-
-.mid-slider .slide.active {
-  display: block;
-}
-
-.mid-slider img {
-  width: 100%;
-  max-height: 320px; /* 👈 Chiều cao tối đa, bạn có thể chỉnh 250px, 300px tuỳ ý */
-  object-fit: cover; /* Giúp ảnh giữ tỉ lệ và cắt vừa khung */
-  display: block;
-}
-
-/* Ẩn nút mũi tên */
-.mid-slider .nav {
-  display: none;
-}
-
-.mid-slider .dots {
-  position: absolute;
-  bottom: 12px;
-  width: 100%;
-  text-align: center;
-}
-
-.mid-slider .dots button {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin: 0 4px;
-  border: none;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-}
-
-.mid-slider .dots button.active {
-  background: white;
-}
-
+  /* ===== Fullwidth mid-slider ===== */
+  .mid-slider{position:relative;overflow:hidden;width:100%;margin-top:24px}
+  .mid-slider .slide{display:none}
+  .mid-slider .slide.active{display:block}
+  .mid-slider img{width:100%;max-height:320px;object-fit:cover;display:block}
+  .mid-slider .nav{display:none}
+  .mid-slider .dots{position:absolute;bottom:12px;width:100%;text-align:center}
+  .mid-slider .dots button{width:10px;height:10px;border-radius:50%;margin:0 4px;border:none;background:rgba(255,255,255,.5);cursor:pointer}
+  .mid-slider .dots button.active{background:#fff}
 
   /* ===== Sections + products (3 cột) ===== */
   .section{padding:40px var(--gutter)}
   .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
   .muted{color:var(--muted)}
 
-  .grid{display:grid;gap:18px}
-  .grid.products{grid-template-columns:repeat(3,1fr)}
-  @media (max-width:1024px){ .grid.products{grid-template-columns:repeat(2,1fr)} }
-  @media (max-width:640px){ .grid.products{grid-template-columns:1fr} }
-
-  .product{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,.25)}
-  .product__img{aspect-ratio:4/3;object-fit:cover;width:100%}
-  .product__body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
-  .product h3{margin:0 0 2px;font-size:20px}
-  .product p{margin:0;color:var(--muted)}
-  .price-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-  .price{font-weight:900;font-size:20px}
-  .product .btn{padding:10px 14px;border-radius:10px}
-
-  /* ===== Collections Filters ===== */
-  .filters{
-    display:grid;
-    grid-template-columns:1.2fr 1fr 1fr 1fr 1fr 1fr auto; /* Search + 5 selects/inputs + Clear */
-    gap:12px;margin-top:16px
+  /* ===== Mini Collections (showcase 1 lớn + 2 nhỏ) ===== */
+  .mini-collections{ padding:24px var(--gutter) 10px }
+  .mini-collections h2{ margin:0 0 14px; font-size:clamp(20px,2.8vw,28px) }
+  .collections-showcase{ display:grid; gap:16px; grid-template-columns: 2fr 1.1fr; align-items:stretch }
+  @media (max-width:980px){ .collections-showcase{ grid-template-columns:1fr } }
+  .collection-card{ position:relative; overflow:hidden; background:var(--surface); border:1px solid var(--line); border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,.25) }
+  .collection-card img{ width:100%; height:100%; object-fit:cover; display:block }
+  .collection-card.card--tall{ min-height:560px }
+  .collection-card.card--sm{  min-height:270px }
+  .collection-card .overlay{
+    position:absolute; inset:auto 0 0 0; padding:14px 16px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.55)); color:#fff;
+    display:flex; justify-content:flex-end; align-items:flex-end; gap:10px;
   }
-  @media (max-width:1024px){ .filters{grid-template-columns:1fr 1fr 1fr} }
-  @media (max-width:640px){ .filters{grid-template-columns:1fr 1fr} }
-  .filter-input,.filter-select{
-    padding:12px;border:1px solid var(--line);border-radius:10px;background:#0b1320;color:var(--fg)
+  .collection-card .tag{ margin-right:auto; font-weight:700; letter-spacing:.3px; text-shadow:0 2px 6px rgba(0,0,0,.5) }
+  .collection-card .see-more{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; background:var(--brand); color:#06121b; border:none; font-weight:700 }
+  .collection-card .see-more:hover{ background:var(--brand-600); color:#fff }
+
+  /* ==== Collections slider (tabs + carousel) ==== */
+  .coll-header{ display:flex;align-items:center;justify-content:space-between; gap:12px;margin-bottom:14px }
+  .coll-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .coll-tab{ padding:10px 14px;border:1px solid var(--line);border-radius:999px; background:var(--surface);color:var(--fg);cursor:pointer;transition:.15s }
+  .coll-tab.active,.coll-tab:hover{border-color:var(--brand);box-shadow:0 0 0 2px #0ea5e933 inset}
+  .coll-viewall{opacity:.9}
+  .coll-viewall:hover{opacity:1;text-decoration:underline}
+  .coll-slider{position:relative}
+  .coll-nav{
+    position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;
+    border:1px solid var(--line);border-radius:10px;background:#0c1423aa;backdrop-filter:blur(4px);
+    display:grid;place-items:center;cursor:pointer
   }
-  .filter-check{
-    display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px
+  .coll-nav.prev{left:-6px}
+  .coll-nav.next{right:-6px}
+  .coll-track{
+    display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:6px;
+    scrollbar-width:none
   }
-  .filter-actions{display:flex;gap:10px;align-items:center;margin-top:10px}
-  .filters .btn{padding:10px 14px;border-radius:10px}
+  .coll-track::-webkit-scrollbar{display:none}
+  .coll-card{
+    min-width: clamp(240px, 28vw, 320px);
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;display:flex;flex-direction:column;scroll-snap-align:start
+  }
+  .coll-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .coll-card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
+  .coll-card h3{margin:0;font-size:16px}
+  .coll-card p{margin:0;color:var(--muted);font-size:14px}
+  .coll-card .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
+  .coll-card .price{font-weight:900}
+  .coll-card .btn{padding:8px 12px;border-radius:10px}
 
-  /* ===== Cart Drawer ===== */
-  .drawer{position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
-          transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column}
-  .drawer.open{transform:none}
-  .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-  .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
-  .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
-  .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
-  .cart-item b{display:block}
-  .cart-item small{color:var(--muted)}
-  .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
-  .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
-  .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
-  /* ==== Filters (pills + swatches + range) ==== */
-.filters {
-  margin: 14px 0 18px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr auto;
-}
-@media (max-width: 1080px){ .filters{ grid-template-columns: 1fr 1fr 1fr } }
-@media (max-width: 640px){ .filters{ grid-template-columns: 1fr } }
-
-.input, .select, .chip {
-  height: 48px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--fg);
-  border-radius: 14px;
-  padding: 0 14px;
-  display: inline-flex; align-items: center; gap: 10px;
-}
-.input input, .select select {
-  width: 100%; height: 100%;
-  border: 0; outline: 0; background: transparent; color: inherit;
-  font: inherit;
-}
-.select { position: relative; padding-right: 36px; }
-.select::after {
-  content: "▾"; position: absolute; right: 12px; top: 50%; translate: 0 -50%;
-  opacity: .75; pointer-events: none;
-}
-
-/* color pill swatches */
-.swatches { display:flex; align-items:center; gap:10px; padding:8px 10px }
-.swatch {
-  width:22px;height:22px;border-radius:50%;
-  border:1px solid var(--line); cursor:pointer; position:relative;
-}
-.swatch.active { outline:2px solid var(--brand); outline-offset:2px }
-
-/* chips for quick picks */
-.chips { display:flex; gap:8px; flex-wrap:wrap }
-.chip {
-  padding: 0 14px; cursor:pointer; user-select:none;
-  transition: .15s;
-}
-.chip.active, .chip:hover { border-color: var(--brand); box-shadow: 0 0 0 2px #0ea5e933 inset }
-
-/* price inputs look consistent */
-.price { text-align:center }
-
-/* tiny toggle */
-.toggle { display:flex; align-items:center; gap:10px; padding:0 14px }
-
-/* ===== Mini Collections (showcase 1 lớn + 2 nhỏ) ===== */
-.mini-collections{ padding:24px var(--gutter) 10px }
-.mini-collections h2{ margin:0 0 14px; font-size:clamp(20px,2.8vw,28px) }
-
-.collections-showcase{
-  display:grid; gap:16px;
-  grid-template-columns: 2fr 1.1fr;   /* trái to, phải nhỏ */
-  align-items:stretch;
-}
-@media (max-width:980px){
-  .collections-showcase{ grid-template-columns:1fr } /* mobile xếp dọc */
-}
-
-.collection-card{
-  position:relative; overflow:hidden;
-  background:var(--surface); border:1px solid var(--line); border-radius:16px;
-  box-shadow:0 8px 30px rgba(0,0,0,.25);
-}
-.collection-card img{
-  width:100%; height:100%; object-fit:cover; display:block;
-}
-.collection-card.card--tall{ min-height:560px }       /* trái cao */
-.collection-card.card--sm{  min-height:270px }        /* phải thấp */
-
-.collection-card .overlay{
-  position:absolute; inset:auto 0 0 0;
-  padding:14px 16px;
-  background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
-  color:#fff;
-  display:flex; justify-content:flex-end; align-items:flex-end;
-  gap:10px;
-}
-.collection-card .tag{
-  margin-right:auto; font-weight:700; letter-spacing:.3px;
-  text-shadow:0 2px 6px rgba(0,0,0,.5);
-}
-.collection-card .see-more{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 14px; border-radius:12px;
-  background:var(--brand); color:#06121b; border:none; font-weight:700;
-}
-.collection-card .see-more:hover{ background:var(--brand-600); color:#fff }
-
-/* ==== Collections slider (tabs + carousel) ==== */
-.coll-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-bottom:14px
-}
-.coll-tabs{display:flex;gap:8px;flex-wrap:wrap}
-.coll-tab{
-  padding:10px 14px;border:1px solid var(--line);border-radius:999px;
-  background:var(--surface);color:var(--fg);cursor:pointer;transition:.15s
-}
-.coll-tab.active,.coll-tab:hover{border-color:var(--brand);box-shadow:0 0 0 2px #0ea5e933 inset}
-.coll-viewall{opacity:.9}
-.coll-viewall:hover{opacity:1;text-decoration:underline}
-
-.coll-slider{position:relative}
-.coll-nav{
-  position:absolute;top:50%;translate:0 -50%;z-index:2;width:42px;height:42px;
-  border:1px solid var(--line);border-radius:10px;background:#0c1423aa;backdrop-filter:blur(4px);
-  display:grid;place-items:center;cursor:pointer
-}
-.coll-nav.prev{left:-6px}
-.coll-nav.next{right:-6px}
-
-.coll-track{
-  display:flex;gap:14px;overflow:auto;scroll-snap-type:x mandatory;padding-bottom:6px;
-  scrollbar-width:none
-}
-.coll-track::-webkit-scrollbar{display:none}
-
-.coll-card{
-  min-width: clamp(240px, 28vw, 320px);
-  background:var(--surface);border:1px solid var(--line);border-radius:16px;
-  overflow:hidden;display:flex;flex-direction:column;scroll-snap-align:start
-}
-.coll-card img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.coll-card .body{padding:12px;display:flex;flex-direction:column;gap:8px}
-.coll-card h3{margin:0;font-size:16px}
-.coll-card p{margin:0;color:var(--muted);font-size:14px}
-.coll-card .row{display:flex;align-items:center;justify-content:space-between;margin-top:auto}
-.coll-card .price{font-weight:900}
-.coll-card .btn{padding:8px 12px;border-radius:10px}
-
-  /* Slider khung ngang (dùng chung) */
-.hcarousel { overflow-x:auto; scroll-behavior:smooth; padding-bottom:8px }
-.hcarousel-track { display:flex; gap:18px }
-.hcarousel-card { min-width:280px; background:var(--surface); border:1px solid var(--line);
-  border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.25) }
-.hcarousel-card img { width:100%; aspect-ratio:4/3; object-fit:cover }
-.hcarousel-card .meta { padding:12px }
-.hcarousel-card .name { font-weight:700; margin-bottom:4px }
-.hcarousel-card .price { font-weight:900 }
-
-.hcarousel-nav { position:absolute; top:50%; transform:translateY(-50%);
-  border:1px solid var(--line); background:#0f1623; color:#e6edf6;
-  width:40px; height:40px; border-radius:10px; cursor:pointer; z-index:1; opacity:.9 }
-.hcarousel-nav:hover { background:#122033 }
-.hcarousel-nav.prev { left:0 }
-.hcarousel-nav.next { right:0 }
-
-  
+  /* Slider ngang dùng lại cho What’s Hot & New Arrivals */
+  .hcarousel { overflow-x:auto; scroll-behavior:smooth; padding-bottom:8px }
+  .hcarousel-track { display:flex; gap:18px }
+  .hcarousel-card { min-width:280px; background:var(--surface); border:1px solid var(--line);
+    border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.25) }
+  .hcarousel-card img { width:100%; aspect-ratio:4/3; object-fit:cover }
+  .hcarousel-card .meta { padding:12px }
+  .hcarousel-card .name { font-weight:700; margin-bottom:4px }
+  .hcarousel-card .price { font-weight:900 }
+  .hcarousel-nav { position:absolute; top:50%; transform:translateY(-50%);
+    border:1px solid var(--line); background:#0f1623; color:#e6edf6;
+    width:40px; height:40px; border-radius:10px; cursor:pointer; z-index:1; opacity:.9 }
+  .hcarousel-nav:hover { background:#122033 }
+  .hcarousel-nav.prev { left:0 }
+  .hcarousel-nav.next { right:0 }
 </style>
 </head>
 <body>
@@ -391,11 +214,10 @@
       </div>
     </div>
 
-   <div class="hero__media">
-  <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero"/>
-  <div class="hero__cap">Art You Can Touch</div>
-</div>
-
+    <div class="hero__media">
+      <img class="hero__img" src="/images/title-artisan.jpg" alt="Artisan Hero"/>
+      <div class="hero__cap">Art You Can Touch</div>
+    </div>
   </div>
 </section>
 
@@ -422,6 +244,7 @@
     </div>
   </div>
 </section>
+
 <!-- ===== Fullwidth Slider ===== -->
 <section id="mid-slider" style="padding:0;margin:0">
   <div class="mid-slider" id="midSlider">
@@ -436,14 +259,13 @@
     </div>
     <div class="dots" id="midDots"></div>
   </div>
+</section>
 
-  <!-- ===== Mini Collections (3 cards) ===== -->
+<!-- ===== Mini Collections (3 cards) ===== -->
 <section class="mini-collections">
   <div class="container">
     <h2>Collections</h2>
-
     <div class="collections-showcase">
-      <!-- Card trái (lớn) -->
       <article class="collection-card card--tall">
         <img src="/images/collection1.jpg" alt="Collection 1">
         <div class="overlay">
@@ -451,9 +273,7 @@
           <a class="see-more" href="/collections/collection1.html">View More</a>
         </div>
       </article>
-
       <div style="display:grid; gap:16px">
-        <!-- Card phải (trên) -->
         <article class="collection-card card--sm">
           <img src="/images/collection2.jpg" alt="Collection 2">
           <div class="overlay">
@@ -461,8 +281,6 @@
             <a class="see-more" href="/collections/collection2.html">View More</a>
           </div>
         </article>
-
-        <!-- Card phải (dưới) -->
         <article class="collection-card card--sm">
           <img src="/images/collection3.jpg" alt="Collection 3">
           <div class="overlay">
@@ -475,8 +293,7 @@
   </div>
 </section>
 
-  
-<!-- ===== Collections (3 per row + Filters) ===== -->
+<!-- ===== Collections (tabs + horizontal slider) ===== -->
 <section id="collections" class="section">
   <div class="container">
     <div class="coll-header">
@@ -488,7 +305,6 @@
       </div>
       <a class="coll-viewall" href="#collections">View All</a>
     </div>
-
     <div class="coll-slider">
       <button class="coll-nav prev" aria-label="Prev">‹</button>
       <div class="coll-track" id="collTrack" tabindex="0" aria-label="Products carousel"></div>
@@ -504,7 +320,6 @@
       <h2 style="margin:0">What’s Hot</h2>
       <a href="#collections" class="muted" style="text-decoration:none">View All</a>
     </div>
-
     <div class="hcarousel" id="hotCarousel" style="position:relative">
       <button class="hcarousel-nav prev" aria-label="Prev" style="left:-6px">‹</button>
       <div class="hcarousel-track" id="hotTrack"></div>
@@ -520,7 +335,6 @@
       <h2 style="margin:0">New Arrivals</h2>
       <a href="#collections" class="muted" style="text-decoration:none">View All</a>
     </div>
-
     <div class="hcarousel" id="newCarousel" style="position:relative">
       <button class="hcarousel-nav prev" aria-label="Prev" style="left:-6px">‹</button>
       <div class="hcarousel-track" id="newTrack"></div>
@@ -528,7 +342,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ===== Custom Order (Netlify Forms) ===== -->
 <section id="custom" class="section" style="border-top:1px solid var(--line)">
@@ -595,7 +408,6 @@
 <!-- ===== Contact (footer) ===== -->
 <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
   <div class="container" style="display:flex;flex-direction:column;gap:16px">
-
     <div>
       <h2 style="margin:0 0 8px">Contact — We reply within 24 hours.</h2>
       <p style="margin:0">
@@ -603,25 +415,20 @@
         <b>Phone / Zalo:</b> +84 90 123 4567
       </p>
     </div>
-
     <div>
       <b>Social:</b>
       <a href="https://instagram.com" target="_blank">Instagram</a> — Our artisan gallery &nbsp;|&nbsp;
       <a href="https://facebook.com" target="_blank">Facebook</a> — Updates & community
     </div>
-
     <div>
       <b>Studio:</b> Saigon — visit by appointment<br>
       <b>Business Hours:</b> Mon–Sat, 9:00–18:00 (GMT+7)
     </div>
-
     <p style="font-style:italic;margin:0">We’ll get back with a quote & lead time.</p>
-
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);padding-top:16px">
       <small>© <span id="y"></span> Resin Keycap Studio</small>
       <div class="muted">Terms · Privacy</div>
     </div>
-
   </div>
 </footer>
 
@@ -642,7 +449,7 @@
   // Year
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // ===== Catalog (thêm thuộc tính cho filter) =====
+  // ===== Catalog (dùng chung) =====
   const products = [
     {id:'c1',  name:'Nebula Echo',     img:'/images/c1.jpg',  price:49, profile:'Cherry', color:'Purple', collection:'Galaxy Series',   inStock:true,  desc:'Galaxy swirl, subtle sparkles — a calm cosmic whisper.'},
     {id:'c2',  name:'Forest Mist',     img:'/images/c2.jpg',  price:45, profile:'OEM',    color:'Green',  collection:'Nature Series',   inStock:true,  desc:'Crystal‑clear resin with deep green accents — tranquil woods.'},
@@ -656,80 +463,112 @@
     {id:'c10', name:'Retro Vapor',     img:'/images/c10.jpg', price:43, profile:'Cherry', color:'Teal',   collection:'Minimal Series',  inStock:true,  desc:'Vaporwave tint & soft sheen — playful, nostalgic pop.'},
   ];
 
-  // ===== Render card =====
-  const grid = document.getElementById('productGrid');
-  function card(p){
+  /* ===== Mid slider (auto) ===== */
+  const slides = document.querySelectorAll('.mid-slider .slide');
+  const dotsContainer = document.getElementById('midDots');
+  let currentSlide = 0;
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => showSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  const dots = document.querySelectorAll('.mid-slider .dots button');
+  function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    dots[currentSlide].classList.remove('active');
+    currentSlide = index;
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+  setInterval(()=>{ showSlide((currentSlide+1)%slides.length); }, 3000);
+
+  /* ===== Collections slider (tabs) ===== */
+  const CAT_MAP = {
+    top:    ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'],
+    best:   ['c3','c5','c1','c7','c9','c2','c8','c4','c10','c6'],
+    flowers:['c6','c5','c8','c2','c4','c1','c3','c7','c9','c10'],
+    decor:  ['c7','c3','c9','c1','c4','c8','c2','c5','c6','c10'],
+  };
+  function sliderCard(p){
     return `
-      <article class="product" data-id="${p.id}">
+      <article class="coll-card" data-id="${p.id}">
         <a href="product.html?id=${p.id}" style="display:block">
-          <img class="product__img" src="${p.img}" alt="${p.name}">
+          <img src="${p.img}" alt="${p.name}">
         </a>
-        <div class="product__body">
-          <h3>
-            <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">${p.name}</a>
-          </h3>
+        <div class="body">
+          <h3><a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">${p.name}</a></h3>
           <p>${p.desc}</p>
-          <div class="price-row">
+          <div class="row">
             <span class="price">$${p.price.toFixed(2)}</span>
             <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
           </div>
-          ${p.inStock ? '' : '<div class="muted" style="margin-top:8px">Out of stock</div>'}
         </div>
-      </article>
-    `;
+      </article>`;
   }
-
-
-  // ===== Filters =====
-  const elQ = document.getElementById('f_q');
-  const elProfile = document.getElementById('f_profile');
-  const elColor = document.getElementById('f_color');
-  const elCollection = document.getElementById('f_collection');
-  const elMin = document.getElementById('f_min');
-  const elMax = document.getElementById('f_max');
-  const elStock = document.getElementById('f_stock');
-  const elClear = document.getElementById('f_clear');
-  const elCount = document.getElementById('f_count');
-
-  const state = { q:'', profile:'', color:'', collection:'', min:null, max:null, stock:false };
-
-  function applyFilters(){
-    const q = state.q.trim().toLowerCase();
-    let items = products.filter(p=>{
-      if (state.profile && p.profile !== state.profile) return false;
-      if (state.color && (p.color||'').toLowerCase() !== state.color.toLowerCase()) return false;
-      if (state.collection && p.collection !== state.collection) return false;
-      if (state.stock && !p.inStock) return false;
-      if (state.min != null && p.price < state.min) return false;
-      if (state.max != null && p.price > state.max) return false;
-      if (q){
-        const hay = (p.name + ' ' + p.desc).toLowerCase();
-        if (!hay.includes(q)) return false;
-      }
-      return true;
-    });
-
-    grid.innerHTML = items.map(card).join('') || `<p class="muted">No items found. Try clearing filters.</p>`;
-    elCount.textContent = `Showing ${items.length} / ${products.length}`;
+  const collTrack = document.getElementById('collTrack');
+  const collTabs  = document.getElementById('collTabs');
+  function renderCollection(cat='top'){
+    const ids = CAT_MAP[cat] || [];
+    const items = ids.map(id => products.find(p=>p.id===id)).filter(Boolean).slice(0,10);
+    collTrack.innerHTML = items.map(sliderCard).join('');
+    collTrack.scrollTo({left:0, behavior:'instant'});
   }
-
-  elQ?.addEventListener('input', e=>{ state.q = e.target.value; applyFilters(); });
-  elProfile?.addEventListener('change', e=>{ state.profile = e.target.value; applyFilters(); });
-  elColor?.addEventListener('change', e=>{ state.color = e.target.value; applyFilters(); });
-  elCollection?.addEventListener('change', e=>{ state.collection = e.target.value; applyFilters(); });
-  elMin?.addEventListener('input', e=>{ const v=e.target.value; state.min = v===''?null:parseFloat(v); applyFilters(); });
-  elMax?.addEventListener('input', e=>{ const v=e.target.value; state.max = v===''?null:parseFloat(v); applyFilters(); });
-  elStock?.addEventListener('change', e=>{ state.stock = e.target.checked; applyFilters(); });
-  elClear?.addEventListener('click', ()=>{
-    state.q=''; state.profile=''; state.color=''; state.collection=''; state.min=null; state.max=null; state.stock=false;
-    elQ.value=''; elProfile.value=''; elColor.value=''; elCollection.value=''; elMin.value=''; elMax.value=''; elStock.checked=false;
-    applyFilters();
+  collTabs?.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.coll-tab');
+    if(!btn) return;
+    collTabs.querySelectorAll('.coll-tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderCollection(btn.dataset.cat);
   });
+  document.querySelector('.coll-nav.prev')?.addEventListener('click', ()=>{
+    collTrack.scrollBy({left: -collTrack.clientWidth*0.9, behavior:'smooth'});
+  });
+  document.querySelector('.coll-nav.next')?.addEventListener('click', ()=>{
+    collTrack.scrollBy({left: collTrack.clientWidth*0.9, behavior:'smooth'});
+  });
+  renderCollection('top');
 
-  // Initial render
-  applyFilters();
+  /* ===== What’s Hot & New Arrivals sliders (dùng chung) ===== */
+  function smallCard(p){
+    return `
+      <div class="hcarousel-card">
+        <a href="product.html?id=${p.id}" style="display:block">
+          <img src="${p.img}" alt="${p.name}">
+        </a>
+        <div class="meta">
+          <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">
+            <div class="name">${p.name}</div>
+          </a>
+          <div class="price">$${p.price.toFixed(2)}</div>
+        </div>
+      </div>`;
+  }
+  function mountSlider(rootId, trackId, items){
+    const root  = document.getElementById(rootId);
+    const track = document.getElementById(trackId);
+    if(!root || !track) return;
+    track.innerHTML = items.map(smallCard).join('');
+    const prev = root.querySelector('.prev');
+    const next = root.querySelector('.next');
+    function step(){
+      const one = track.querySelector('.hcarousel-card');
+      return (one ? one.getBoundingClientRect().width : 280) + 18;
+    }
+    prev?.addEventListener('click', () => { root.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next?.addEventListener('click', () => { root.scrollBy({ left:  step(), behavior: 'smooth' }); });
+  }
+  const whatsHot = products.filter(p => p.inStock).sort((a,b)=> b.price - a.price).slice(0, 12);
+  const byIdAsc = [...products].sort((a,b)=>{
+    const na = parseInt(a.id.replace(/\D+/g,''),10);
+    const nb = parseInt(b.id.replace(/\D+/g,''),10);
+    return na - nb;
+  });
+  const newArrivals = byIdAsc.slice(-12);
+  mountSlider('hotCarousel', 'hotTrack', whatsHot);
+  mountSlider('newCarousel', 'newTrack', newArrivals);
 
-  // ===== Simple Cart =====
+  /* ===== Cart đơn giản ===== */
   const cart = [];
   const cartBtn   = document.getElementById('btnCart');
   const drawer    = document.getElementById('cartDrawer');
@@ -737,7 +576,6 @@
   const cartItems = document.getElementById('cartItems');
   const cartTotal = document.getElementById('cartTotal');
   const cartCount = document.getElementById('cartCount');
-
   function addToCart(id){
     const p  = products.find(x=>x.id===id);
     const ex = cart.find(x=>x.id===id);
@@ -774,159 +612,6 @@
   const cf = document.getElementById('customForm');
   const cm = document.getElementById('customMsg');
   if (cf) { cf.addEventListener('submit', ()=>{ setTimeout(()=>{ if(cm) cm.style.display='inline'; }, 100); }); }
-</script>
-<script>
-const slides = document.querySelectorAll('.mid-slider .slide');
-const dotsContainer = document.querySelector('.mid-slider .dots');
-let currentSlide = 0;
-
-slides.forEach((_, i) => {
-  const dot = document.createElement('button');
-  if (i === 0) dot.classList.add('active');
-  dot.addEventListener('click', () => showSlide(i));
-  dotsContainer.appendChild(dot);
-});
-
-const dots = document.querySelectorAll('.mid-slider .dots button');
-
-function showSlide(index) {
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide = index;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
-
-function nextSlide() {
-  let next = currentSlide + 1;
-  if (next >= slides.length) next = 0;
-  showSlide(next);
-}
-
-setInterval(nextSlide, 3000); // 3 giây đổi ảnh
-
-/* ==== Dữ liệu danh mục cho slider (10 mục/tab) ==== */
-/* Chọn id theo ý bạn; dưới đây là ví dụ nhanh. */
-const CAT_MAP = {
-  top:    ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'],
-  best:   ['c3','c5','c1','c7','c9','c2','c8','c4','c10','c6'],
-  flowers:['c6','c5','c8','c2','c4','c1','c3','c7','c9','c10'],
-  decor:  ['c7','c3','c9','c1','c4','c8','c2','c5','c6','c10'],
-};
-
-/* Tạo thẻ card nhỏ dùng cho slider (tận dụng addToCart có sẵn) */
-function sliderCard(p){
-  return `
-    <article class="coll-card" data-id="${p.id}">
-      <img src="${p.img}" alt="${p.name}">
-      <div class="body">
-        <h3>${p.name}</h3>
-        <p>${p.desc}</p>
-        <div class="row">
-          <span class="price">$${p.price.toFixed(2)}</span>
-          <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
-        </div>
-      </div>
-    </article>
-  `;
-}
-
-/* Render theo tab */
-const collTrack = document.getElementById('collTrack');
-const collTabs  = document.getElementById('collTabs');
-
-function renderCollection(cat='top'){
-  const ids = CAT_MAP[cat] || [];
-  const items = ids
-    .map(id => products.find(p=>p.id===id))
-    .filter(Boolean)
-    .slice(0,10);                         // tối đa 10
-  collTrack.innerHTML = items.map(sliderCard).join('');
-  collTrack.scrollTo({left:0, behavior:'instant'});
-}
-
-/* Tab click */
-collTabs?.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.coll-tab');
-  if(!btn) return;
-  collTabs.querySelectorAll('.coll-tab').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCollection(btn.dataset.cat);
-});
-
-/* Nút điều hướng */
-document.querySelector('.coll-nav.prev')?.addEventListener('click', ()=>{
-  collTrack.scrollBy({left: -collTrack.clientWidth*0.9, behavior:'smooth'});
-});
-document.querySelector('.coll-nav.next')?.addEventListener('click', ()=>{
-  collTrack.scrollBy({left: collTrack.clientWidth*0.9, behavior:'smooth'});
-});
-
-/* Lần đầu hiển thị */
-renderCollection('top');
-
-<script>
-// --- Card nhỏ dùng cho slider ngang (tái dùng cho cả 3 slider) ---
-function smallCard(p){
-  return `
-    <div class="hcarousel-card">
-      <a href="product.html?id=${p.id}" style="display:block">
-        <img src="${p.img}" alt="${p.name}">
-      </a>
-      <div class="meta">
-        <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">
-          <div class="name">${p.name}</div>
-        </a>
-        <div class="price">$${p.price.toFixed(2)}</div>
-      </div>
-    </div>`;
-}
-
-// --- Hàm mount slider (gắn list + nút điều hướng) ---
-function mountSlider(rootId, trackId, items){
-  const root  = document.getElementById(rootId);
-  const track = document.getElementById(trackId);
-  if(!root || !track) return;
-
-  track.innerHTML = items.map(smallCard).join('');
-
-  const prev = root.querySelector('.prev');
-  const next = root.querySelector('.next');
-
-  // ước lượng số px cuộn mỗi lần = 1 card + gap
-  function step(){
-    const one = track.querySelector('.hcarousel-card');
-    return (one ? one.getBoundingClientRect().width : 280) + 18;
-  }
-
-  prev?.addEventListener('click', () => {
-    root.scrollBy({ left: -step(), behavior: 'smooth' });
-  });
-  next?.addEventListener('click', () => {
-    root.scrollBy({ left:  step(), behavior: 'smooth' });
-  });
-}
-
-// --- Nguồn dữ liệu cho 2 slider mới ---
-// What's Hot: ưu tiên hàng còn stock, giá cao trước (tạm coi là "hot")
-const whatsHot = products
-  .filter(p => p.inStock)
-  .sort((a,b)=> b.price - a.price)
-  .slice(0, 12);
-
-// New Arrivals: theo số thứ tự id tăng dần, lấy các item cuối
-const byIdAsc = [...products].sort((a,b)=>{
-  const na = parseInt(a.id.replace(/\D+/g,''),10);
-  const nb = parseInt(b.id.replace(/\D+/g,''),10);
-  return na - nb;
-});
-const newArrivals = byIdAsc.slice(-12);
-
-// --- Gắn 2 slider mới ---
-mountSlider('hotCarousel', 'hotTrack', whatsHot);
-mountSlider('newCarousel', 'newTrack', newArrivals);
-</script>
-  
 </script>
 </body>
 </html>
