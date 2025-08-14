@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Resin Keycap Studio — Art You Can Touch</title>
 <meta name="description" content="Artisan Resin Keycap — Crafting Keys, Capturing Souls. Every key tells a story." />
+
 <style>
   /* ====== Design Tokens ====== */
   :root{
@@ -95,6 +96,17 @@
   .price{font-weight:900;font-size:20px}
   .product .btn{padding:10px 14px;border-radius:10px}
 
+  /* ===== Custom Order form ===== */
+  .form{display:grid;gap:14px;max-width:780px}
+  .field{display:grid;gap:6px}
+  .field input,.field textarea,.field select{
+    width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+    background:#0e1728;color:var(--fg)
+  }
+  .field textarea{min-height:120px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:720px){ .row{grid-template-columns:1fr} }
+
   /* ===== Cart Drawer ===== */
   .drawer{
     position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
@@ -110,20 +122,24 @@
   .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
   .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
   .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
+
+  /* Contact 2 cột */
+  .contact2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:720px){ .contact2{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
   <!-- Header -->
   <header class="header">
     <div class="nav">
-      <a class="brand" href="#">
+      <a class="brand" href="#home">
         <img src="/images/logo-k-resin.png" alt="Resin Keycap Studio">
         <span>Resin Keycap Studio</span>
       </a>
       <nav class="navlinks">
         <a href="#home">Home</a>
-        <!-- bỏ Philosophy trong thanh nav như bạn muốn -->
         <a href="#collections">Collections</a>
+        <a href="#custom">Custom Order</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="right">
@@ -147,7 +163,7 @@
         <p class="hero__subtitle"><em>Crafting Keys, Capturing Souls</em></p>
         <div class="hero__actions">
           <a class="btn btn--brand" href="#collections">Browse Collections</a>
-          <a class="btn btn--ghost" href="#contact">Custom Order</a>
+          <a class="btn btn--ghost" href="#custom">Custom Order</a>
         </div>
       </div>
       <div class="hero__media">
@@ -190,8 +206,74 @@
     </div>
   </section>
 
-  <!-- Footer / Contact -->
-  <footer id="contact" class="section" style="border-top:1px solid var(--line);padding-top:24px">
+  <!-- Custom Order -->
+  <section id="custom" class="section" style="border-top:1px solid var(--line)">
+    <div class="container">
+      <h2>Custom Order</h2>
+      <p class="muted">Tell us your idea — we’ll reply within 24 hours with a quote & lead time.</p>
+
+      <form class="form" onsubmit="handleCustomOrder(event)">
+        <div class="row">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" id="coName" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" id="coEmail" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Profile</label>
+            <select id="coProfile">
+              <option>Cherry</option>
+              <option>OEM</option>
+              <option>SA</option>
+              <option>DSA</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Target key</label>
+            <input type="text" id="coKey" placeholder="ESC, Enter, Arrow…">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Idea / Color direction</label>
+          <textarea id="coMsg" placeholder="Describe your vibe, colors, effects, reference links…"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="btn btn--brand" type="submit">Send request</button>
+          <span class="muted" id="coNote"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section" style="border-top:1px solid var(--line)">
+    <div class="container">
+      <h2>Contact — We reply within 24 hours.</h2>
+      <div class="contact2">
+        <div>
+          <p>We’ll get back with a quote & lead time.</p>
+          <p><b>Email:</b> <a href="mailto:order@yourshop.vn">order@yourshop.vn</a></p>
+          <p><b>Instagram:</b> <a href="#" class="muted">@resin.keycap.studio</a></p>
+          <p>Saigon — visit by appointment · Mon–Sat, 9:00–18:00 (GMT+7)</p>
+        </div>
+        <div>
+          <p><b>Zalo/Phone:</b> +84 9xx xxx xxx</p>
+          <p><b>Facebook:</b> <a href="#" class="muted">Resin Keycap Studio</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="section" style="border-top:1px solid var(--line);padding-top:24px">
     <div class="container" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
       <small>© <span id="y"></span> Resin Keycap Studio</small>
       <div class="muted">Terms · Privacy · <a href="mailto:order@yourshop.vn" class="muted">Contact</a></div>
@@ -248,6 +330,17 @@
       </div>
     </article>
   `).join('');
+
+  /* ====== Custom Order (demo submit) ====== */
+  function handleCustomOrder(e){
+    e.preventDefault();
+    const name = document.getElementById('coName').value.trim();
+    const email = document.getElementById('coEmail').value.trim();
+    const profile = document.getElementById('coProfile').value;
+    const key = document.getElementById('coKey').value.trim();
+    const msg = document.getElementById('coMsg').value.trim();
+    document.getElementById('coNote').textContent = "Thanks " + name + "! We’ll reply to " + email + " in 24h.";
+  }
 
   // ===== Cart (shared via localStorage) =====
   function getCart(){ return JSON.parse(localStorage.getItem('cart')||'[]'); }
