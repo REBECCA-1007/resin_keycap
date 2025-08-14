@@ -99,7 +99,7 @@
   .mid-slider .dots button{width:10px;height:10px;border-radius:50%;margin:0 4px;border:none;background:rgba(255,255,255,.5);cursor:pointer}
   .mid-slider .dots button.active{background:#fff}
 
-  /* ===== Sections + products (3 cột) ===== */
+  /* ===== Sections ===== */
   .section{padding:40px var(--gutter)}
   .section h2{margin:0 0 8px;font-size:clamp(24px,3.2vw,38px)}
   .muted{color:var(--muted)}
@@ -155,21 +155,19 @@
   .coll-card .price{font-weight:900}
   .coll-card .btn{padding:8px 12px;border-radius:10px}
 
-  /* Slider ngang dùng lại cho What’s Hot & New Arrivals */
-  .hcarousel { overflow-x:auto; scroll-behavior:smooth; padding-bottom:8px }
-  .hcarousel-track { display:flex; gap:18px }
-  .hcarousel-card { min-width:280px; background:var(--surface); border:1px solid var(--line);
-    border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.25) }
-  .hcarousel-card img { width:100%; aspect-ratio:4/3; object-fit:cover }
-  .hcarousel-card .meta { padding:12px }
-  .hcarousel-card .name { font-weight:700; margin-bottom:4px }
-  .hcarousel-card .price { font-weight:900 }
-  .hcarousel-nav { position:absolute; top:50%; transform:translateY(-50%);
-    border:1px solid var(--line); background:#0f1623; color:#e6edf6;
-    width:40px; height:40px; border-radius:10px; cursor:pointer; z-index:1; opacity:.9 }
-  .hcarousel-nav:hover { background:#122033 }
-  .hcarousel-nav.prev { left:0 }
-  .hcarousel-nav.next { right:0 }
+  /* ===== Cart Drawer ===== */
+  .drawer{position:fixed;right:0;top:0;height:100dvh;width:min(440px,92%);background:#0c1423;border-left:1px solid var(--line);
+          transform:translateX(100%);transition:.3s;z-index:60;box-shadow:-30px 0 60px rgba(0,0,0,.4);display:flex;flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer__head{padding:18px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .drawer__body{padding:14px 16px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:12px}
+  .cart-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:#0e1728}
+  .cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+  .cart-item b{display:block}
+  .cart-item small{color:var(--muted)}
+  .cart-item .rm{border:none;background:transparent;color:#ffb4b4;cursor:pointer}
+  .drawer__foot{border-top:1px solid var(--line);padding:14px 16px}
+  .total-row{display:flex;justify-content:space-between;font-weight:900;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -345,8 +343,7 @@
   </div>
 </section>
 
-
-<!-- ===== Custom Order (Netlify Forms) ===== -->
+<!-- ===== Custom Order ===== -->
 <section id="custom" class="section" style="border-top:1px solid var(--line)">
   <div class="container">
     <h2>Custom Order</h2>
@@ -486,13 +483,7 @@
   }
   setInterval(()=>{ showSlide((currentSlide+1)%slides.length); }, 3000);
 
-  /* ===== Collections slider (tabs) ===== */
-  const CAT_MAP = {
-    top:    ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'],
-    best:   ['c3','c5','c1','c7','c9','c2','c8','c4','c10','c6'],
-    flowers:['c6','c5','c8','c2','c4','c1','c3','c7','c9','c10'],
-    decor:  ['c7','c3','c9','c1','c4','c8','c2','c5','c6','c10'],
-  };
+  /* ===== Tạo card dùng chung cho các slider ===== */
   function sliderCard(p){
     return `
       <article class="coll-card" data-id="${p.id}">
@@ -504,19 +495,29 @@
           <p>${p.desc}</p>
           <div class="row">
             <span class="price">$${p.price.toFixed(2)}</span>
-            <button class="btn btn--brand" onclick="addToCart('${p.id}')">Add to Cart</button>
+            <button class="btn btn--brand" data-add="${p.id}">Add to Cart</button>
           </div>
         </div>
       </article>`;
   }
+
+  /* ===== Collections slider (tabs) ===== */
+  const CAT_MAP = {
+    top:    ['c1','c2','c3','c4','c5','c6','c7','c8','c9','c10'],
+    best:   ['c3','c5','c1','c7','c9','c2','c8','c4','c10','c6'],
+    flowers:['c6','c5','c8','c2','c4','c1','c3','c7','c9','c10'],
+    decor:  ['c7','c3','c9','c1','c4','c8','c2','c5','c6','c10'],
+  };
   const collTrack = document.getElementById('collTrack');
   const collTabs  = document.getElementById('collTabs');
+
   function renderCollection(cat='top'){
     const ids = CAT_MAP[cat] || [];
     const items = ids.map(id => products.find(p=>p.id===id)).filter(Boolean).slice(0,10);
     collTrack.innerHTML = items.map(sliderCard).join('');
-    collTrack.scrollTo({left:0, behavior:'instant'});
   }
+  renderCollection('top');
+
   collTabs?.addEventListener('click', (e)=>{
     const btn = e.target.closest('.coll-tab');
     if(!btn) return;
@@ -524,109 +525,49 @@
     btn.classList.add('active');
     renderCollection(btn.dataset.cat);
   });
-  document.querySelector('.coll-nav.prev')?.addEventListener('click', ()=>{
+  document.querySelector('#collections .coll-nav.prev')?.addEventListener('click', ()=>{
     collTrack.scrollBy({left: -collTrack.clientWidth*0.9, behavior:'smooth'});
   });
-  document.querySelector('.coll-nav.next')?.addEventListener('click', ()=>{
+  document.querySelector('#collections .coll-nav.next')?.addEventListener('click', ()=>{
     collTrack.scrollBy({left: collTrack.clientWidth*0.9, behavior:'smooth'});
   });
-  renderCollection('top');
 
-  <script>
-/* ===== Nguồn dữ liệu cho 2 slider ===== */
-// What's Hot: ưu tiên còn hàng, giá cao hơn coi là hot
-const whatsHot = products
-  .filter(p => p.inStock)
-  .sort((a,b)=> b.price - a.price)
-  .slice(0, 12);
-
-// New Arrivals: giả sử id tăng dần là mới hơn
-const byIdAsc = [...products].sort((a,b)=>{
-  const na = parseInt(a.id.replace(/\D+/g,''),10);
-  const nb = parseInt(b.id.replace(/\D+/g,''),10);
-  return na - nb;
-});
-const newArrivals = byIdAsc.slice(-12);
-
-/* ===== Hàm mount kiểu collection slider ===== */
-function mountCollLike(trackId, prevBtnId, nextBtnId, items){
-  const track = document.getElementById(trackId);
-  const prev  = document.getElementById(prevBtnId);
-  const next  = document.getElementById(nextBtnId);
-  if(!track) return;
-
-  track.innerHTML = items.map(sliderCard).join('');
-
-  // cuộn theo chiều rộng gần 1 “page”
-  function pageStep(){
-    return track.clientWidth * 0.9;
-  }
-
-  prev?.addEventListener('click', ()=> {
-    track.scrollBy({left: -pageStep(), behavior:'smooth'});
-  });
-  next?.addEventListener('click', ()=> {
-    track.scrollBy({left:  pageStep(), behavior:'smooth'});
-  });
-}
-
-/* ===== Gắn 2 slider ===== */
-mountCollLike('hotTrack', 'hotPrev', 'hotNext', whatsHot);
-mountCollLike('newTrack', 'newPrev', 'newNext', newArrivals);
-</script>
-
-  
-  /* ===== What’s Hot & New Arrivals sliders (dùng chung) ===== */
-  function smallCard(p){
-    return `
-      <div class="hcarousel-card">
-        <a href="product.html?id=${p.id}" style="display:block">
-          <img src="${p.img}" alt="${p.name}">
-        </a>
-        <div class="meta">
-          <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">
-            <div class="name">${p.name}</div>
-          </a>
-          <div class="price">$${p.price.toFixed(2)}</div>
-        </div>
-      </div>`;
-  }
-  function mountSlider(rootId, trackId, items){
-    const root  = document.getElementById(rootId);
-    const track = document.getElementById(trackId);
-    if(!root || !track) return;
-    track.innerHTML = items.map(smallCard).join('');
-    const prev = root.querySelector('.prev');
-    const next = root.querySelector('.next');
-    function step(){
-      const one = track.querySelector('.hcarousel-card');
-      return (one ? one.getBoundingClientRect().width : 280) + 18;
-    }
-    prev?.addEventListener('click', () => { root.scrollBy({ left: -step(), behavior: 'smooth' }); });
-    next?.addEventListener('click', () => { root.scrollBy({ left:  step(), behavior: 'smooth' }); });
-  }
-  const whatsHot = products.filter(p => p.inStock).sort((a,b)=> b.price - a.price).slice(0, 12);
+  /* ===== What's Hot & New Arrivals (cùng kiểu slider) ===== */
+  const whatsHot = products.filter(p => p.inStock).sort((a,b)=> b.price - a.price).slice(0,12);
   const byIdAsc = [...products].sort((a,b)=>{
     const na = parseInt(a.id.replace(/\D+/g,''),10);
     const nb = parseInt(b.id.replace(/\D+/g,''),10);
     return na - nb;
   });
   const newArrivals = byIdAsc.slice(-12);
-  mountSlider('hotCarousel', 'hotTrack', whatsHot);
-  mountSlider('newCarousel', 'newTrack', newArrivals);
 
-  /* ===== Cart đơn giản ===== */
-  const cart = [];
+  function mountCollLike(trackId, prevBtnId, nextBtnId, items){
+    const track = document.getElementById(trackId);
+    const prev  = document.getElementById(prevBtnId);
+    const next  = document.getElementById(nextBtnId);
+    if(!track) return;
+    track.innerHTML = items.map(sliderCard).join('');
+    const step = () => track.clientWidth * 0.9;
+    prev?.addEventListener('click', () => track.scrollBy({left:-step(),behavior:'smooth'}));
+    next?.addEventListener('click', () => track.scrollBy({left: step(),behavior:'smooth'}));
+  }
+  mountCollLike('hotTrack', 'hotPrev', 'hotNext', whatsHot);
+  mountCollLike('newTrack', 'newPrev', 'newNext', newArrivals);
+
+  /* ===== CART ===== */
+  const cart = []; // {id,name,price,img,qty}
   const cartBtn   = document.getElementById('btnCart');
   const drawer    = document.getElementById('cartDrawer');
   const closeCart = document.getElementById('closeCart');
   const cartItems = document.getElementById('cartItems');
   const cartTotal = document.getElementById('cartTotal');
   const cartCount = document.getElementById('cartCount');
+
   function addToCart(id){
     const p  = products.find(x=>x.id===id);
+    if(!p) return;
     const ex = cart.find(x=>x.id===id);
-    if(ex){ ex.qty+=1; } else { cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1}); }
+    if(ex){ ex.qty += 1; } else { cart.push({id:p.id,name:p.name,price:p.price,img:p.img,qty:1}); }
     renderCart(); openCart();
   }
   function removeFromCart(id){
@@ -642,7 +583,7 @@ mountCollLike('newTrack', 'newPrev', 'newNext', newArrivals);
             <div class="cart-item">
               <img src="${it.img}" alt="${it.name}">
               <div><b>${it.name}</b><small>$${it.price.toFixed(2)} × ${it.qty}</small></div>
-              <button class="rm" onclick="removeFromCart('${it.id}')">✕</button>
+              <button class="rm" data-rm="${it.id}">✕</button>
             </div>`;
         }).join('')
       : '<div class="muted">Your cart is empty.</div>';
@@ -654,6 +595,14 @@ mountCollLike('newTrack', 'newPrev', 'newNext', newArrivals);
   cartBtn.addEventListener('click', openCart);
   closeCart.addEventListener('click', closeCartFn);
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCartFn(); });
+
+  // Ủy quyền click: Add to Cart & Remove
+  document.addEventListener('click', (e)=>{
+    const addBtn = e.target.closest('[data-add]');
+    if(addBtn){ addToCart(addBtn.getAttribute('data-add')); }
+    const rmBtn = e.target.closest('[data-rm]');
+    if(rmBtn){ removeFromCart(rmBtn.getAttribute('data-rm')); }
+  });
 
   // Netlify Forms mini message
   const cf = document.getElementById('customForm');
