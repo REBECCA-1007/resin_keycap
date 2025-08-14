@@ -444,9 +444,13 @@
   function card(p){
     return `
       <article class="product" data-id="${p.id}">
-        <img class="product__img" src="${p.img}" alt="${p.name}">
+        <a href="product.html?id=${p.id}" style="display:block">
+          <img class="product__img" src="${p.img}" alt="${p.name}">
+        </a>
         <div class="product__body">
-          <h3>${p.name}</h3>
+          <h3>
+            <a href="product.html?id=${p.id}" style="text-decoration:none;color:inherit">${p.name}</a>
+          </h3>
           <p>${p.desc}</p>
           <div class="price-row">
             <span class="price">$${p.price.toFixed(2)}</span>
@@ -457,6 +461,7 @@
       </article>
     `;
   }
+
 
   // ===== Filters =====
   const elQ = document.getElementById('f_q');
